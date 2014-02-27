@@ -1,0 +1,13 @@
+{
+  "name": "language-cfml",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A short description of your package",
+  "repository": "https://github.com/atom/language-cfml",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}

@@ -1,0 +1,1252 @@
+'.text.html.cfm':
+  'abs':
+    'prefix': 'abs'
+    'body': 'Abs(${1:number})$0'
+  'acos':
+    'prefix': 'acos'
+    'body': 'ACos(${1:number})$0'
+  'addsoaprequestheader':
+    'prefix': 'addsoaprequestheader'
+    'body': 'AddSOAPRequestHeader(${1:webservice}, ${2:namespace}, ${3:name}, ${4:value} ${5:[, mustunderstand]})$0'
+  'addsoapresponseheader':
+    'prefix': 'addsoapresponseheader'
+    'body': 'AddSOAPResponseHeader(${1:namespace}, ${2:name}, ${3:value} ${4:[, mustunderstand]})$0'
+  'arrayappend':
+    'prefix': 'arrayappend'
+    'body': 'ArrayAppend(${1:array}, ${2:value})$0'
+  'arrayavg':
+    'prefix': 'arrayavg'
+    'body': 'ArrayAvg(${1:array})$0'
+  'arraycear':
+    'prefix': 'arrayclear'
+    'body': 'ArrayClear(${1:array})$0'
+  'arraydeleteat':
+    'prefix': 'arraydeleteat'
+    'body': 'ArrayDeleteAt(${1:array}, ${2:position})$0'
+  'arrayinsertat':
+    'prefix': 'arrayinsertat'
+    'body': 'ArrayInsertAt(${1:array}, ${2:position}, ${3:value})$0'
+  'arrayisempty':
+    'prefix': 'arrayisempty'
+    'body': 'ArrayIsEmpty(${1:array})$0'
+  'arraylen':
+    'prefix': 'arraylen'
+    'body': 'ArrayLen(${1:array})$0'
+  'arraymax':
+    'prefix': 'arraymax'
+    'body': 'ArrayMax(${1:array})$0'
+  'arraymin':
+    'prefix': 'arraymin'
+    'body': 'ArrayMin(${1:array})$0'
+  'arraynew':
+    'prefix': 'arraynew'
+    'body': 'ArrayNew(${1:dimension})$0'
+  'arrayprepend':
+    'prefix': 'arrayprepend'
+    'body': 'ArrayPrepend(${1:array}, ${2:value})$0'
+  'arrayresize':
+    'prefix': 'arrayresize'
+    'body': 'ArrayResize(${1:array}, ${2:minimum_size})$0'
+  'arrayset':
+    'prefix': 'arrayset'
+    'body': 'ArraySet(${1:array}, ${2:start_pos}, ${3:end_pos}, ${4:value})$0'
+  'arraysort':
+    'prefix': 'arraysort'
+    'body': 'ArraySort(${1:array}, ${2:sort_type} ${3:[, sort_order ]})$0'
+  'arraysum':
+    'prefix': 'arraysum'
+    'body': 'ArraySum(${1:array})$0'
+  'arrayswap':
+    'prefix': 'arrayswap'
+    'body': 'ArraySwap(${1:array}, ${2:position1}, ${3:position2})$0'
+  'arraytolist':
+    'prefix': 'arraytolist'
+    'body': 'ArrayToList(${1:array} ${2:[, delimiter ]})$0'
+  'asc':
+    'prefix': 'asc'
+    'body': 'Asc(${1:string})$0'
+  'asin':
+    'prefix': 'asin'
+    'body': 'ASin(${1:number})$0'
+  'atn':
+    'prefix': 'atn'
+    'body': 'Atn(${1:number})$0'
+  'binarydecode':
+    'prefix': 'binarydecode'
+    'body': 'BinaryDecode(${1:string}, ${2:binaryencoding})$0'
+  'binaryencode':
+    'prefix': 'binaryencode'
+    'body': 'BinaryEncode(${1:binarydata}, ${2:encoding})$0'
+  'bitand':
+    'prefix': 'bitand'
+    'body': 'BitAnd(${1:number1}, ${2:number2})$0'
+  'bitmaskclear':
+    'prefix': 'bitmaskclear'
+    'body': 'BitMaskClear(${1:number}, ${2:start}, ${3:length})$0'
+  'bitmaskread':
+    'prefix': 'bitmaskread'
+    'body': 'BitMaskRead(${1:number}, ${2:start}, ${3:length})$0'
+  'bitmaskset':
+    'prefix': 'bitmaskset'
+    'body': 'BitMaskSet(${1:number}, ${2:mask}, ${3:start}, ${4:length})$0'
+  'bitnot':
+    'prefix': 'bitnot'
+    'body': 'BitNot(${1:number})$0'
+  'bitor':
+    'prefix': 'bitor'
+    'body': 'BitOr(${1:number1}, ${2:number2})$0'
+  'bitshln':
+    'prefix': 'bitshln'
+    'body': 'BitSHLN(${1:number}, ${2:count})$0'
+  'bitshrn':
+    'prefix': 'bitshrn'
+    'body': 'BitSHRN(${1:number}, ${2:count})$0'
+  'bitxor':
+    'prefix': 'bitxor'
+    'body': 'BitXor(${1:number1}, ${2:number2})$0'
+  'ceiling':
+    'prefix': 'ceiling'
+    'body': 'BitXor(${1:number1}, ${2:number2})$0'
+  'cfabort':
+    'prefix': 'cfabort'
+    'body': '<cfabort showerror="$1">$0'
+  'cfapplet':
+    'prefix': 'cfapplet'
+    'body': '<cfapplet appletSource = "$1" name = "$2"${3: height = "${4:[ ]}" width = "${5:[ ]}" vSpace = "${6:[ ]}" hSpace = "${7:[ ]}" align = "${8:[ ]}" notSupported = "${9:[ ]}" param_1 = "${10:[ ]}" param_2 = "${11:[ ]}" param_n = "${12:[ ]}"}>$0\t'
+  'cfapplication':
+    'prefix': 'cfapplication'
+    'body': '<cfapplication\n\tname = "$1"${2: \n\tloginStorage = "$3"\n\tclientManagement = "$4"\n\tclientStorage = "$5" \n\tsetClientCookies = "$6"\n\tsessionManagement = "$7"\n\tsessionTimeout = #CreateTimeSpan(${8:days}, ${9:hours}, ${10:minutes}, ${11:seconds})#\n\tapplicationTimeout =  #CreateTimeSpan(${12:days}, ${13:hours}, ${14:minutes}, ${15:seconds})#\n\tsetDomainCookies = "$16"}>$0'
+  'cfargument':
+    'prefix': 'cfargument'
+    'body': '<cfargument name="$1"${2: type="${3:[ ]}" required="${4:[ ]}" default="${5:[ ]}" displayname="${6:[ ]}" hint="${7:[ ]}"}>$0'
+  'cfassociate':
+    'prefix': 'cfassociate'
+    'body': '<cfassociate${1: baseTag = "${2:[ ]}" dataCollection = "${3:[ ]}"}>$0'
+  'cfbreak':
+    'prefix': 'cfbreak'
+    'body': '<cfbreak>'
+  'cfcache':
+    'prefix': 'cfcache'
+    'body': '<cfcache action = "${2:[ ]}" directory = "${2:[ ]}" timespan = "${2:[ ]}" expireURL = "${2:[ ]}" username = "${2:[ ]}" password = "${2:[ ]}" port = "" protocol = "${2:[ ]}">'
+  'cfcalendar':
+    'prefix': 'cfcalendar'
+    'body': '<cfcalendar name = "$1"${2: height = "${3:[ ]}" width = "${4:[ ]}" selectedDate = "${5:[ ]}" startRange = "${6:[ ]}" endRange = "${7:[ ]}" disabled = "${8:[ ]}" mask = "${9:[ ]}" dayNames = "${10:[ ]}" monthNames = "${11:[ ]}" style="${12:[ ]}" enabled = "${13:[ ]}" visible = "${14:[ ]}" tooltip = "${15:[ ]}" onChange = "${16:[ ]}" onBlur = "${17:[ ]}" onFocus = "${18:[ ]}"}>$0'
+  'cfcase':
+    'prefix': 'cfcase'
+    'body': '<cfcase value = "$1"${2: delimiters = "${3:[ ]}"}>$4</cfcase>$0'
+  'cfcatch':
+    'prefix': 'cfcatch'
+    'body': '<cfcatch type = "$1">\n\t$2\n</cfcatch>$0'
+  'cfchart':
+    'prefix': 'cfchart'
+    'body': '<cfchart\n\tname = "$1"${2:\n\tbackgroundColor = "${3:[ ]}"\n\tchartHeight = "${4:[ ]}"\n\tchartWidth = "${5:[ ]}"\n\tdataBackgroundColor = "${6:[ ]}"\n\tfont = "${7:[ ]}"\n\tfontBold = "${8:[ ]}"\n\tfontItalic = "${9:[ ]}"\n\tfontSize = "${10:[ ]}"\n\tforegroundColor = "${11:[ ]}"\n\tformat = "${12:[ ]}"\n\tgridlines = "${13:[ ]}"\n\tlabelFormat = "${14:[ ]}"\n\tmarkerSize = "${15:[ ]}"\n\tpieSliceStyle = "${16:[ ]}"\n\tscaleFrom = "${17:[ ]}"\n\tscaleTo = "${18:[ ]}"\n\tseriesPlacement = "${19:[ ]}"\n\tshow3D = "${20:[ ]}"\n\tshowBorder = "${21:[ ]}"\n\tshowLegend = "${22:[ ]}"\n\tshowMarkers = "${23:[ ]}"\n\tshowXGridlines = "${24:[ ]}"\n\tshowYGridlines = "${25:[ ]}"\n\tsortXAxis = "${26:[ ]}"\n\ttipBGColor = "${27:[ ]}"\n\ttipStyle = "${28:[ ]}"\n\ttitle = "${29:[ ]}"\n\turl = "${30:[ ]}"\n\txAxisTitle = "${31:[ ]}"\n\txAxisType = "${32:[ ]}"\n\txOffset = "${33:[ ]}"\n\tyAxisTitle = "${34:[ ]}"\n\tyAxisType = "${35:[ ]}"\n\tyOffset = "${36:[ ]}"}>\n</cfchart>$0'
+  'cfchartdata':
+    'prefix': 'cfchartdata'
+    'body': '<cfchartdata item = "$1" value = "$2">$0'
+  'cfchartseries':
+    'prefix': 'cfchartseries'
+    'body': '<cfchartseries type="$1"${2: colorlist = "${3:[ ]}" itemColumn="${4:[ ]}" markerStyle="${5:[ ]}" paintStyle="${6:[ ]}" query="${7:[ ]}" seriesColor="${8:[ ]}" seriesLabel="${9:[ ]}" valueColumn="${10:[ ]}" dataLabelStyle="${11:[ ]}"}>\n\t$12\n</cfchartseries>$0'
+  'cfcol':
+    'prefix': 'cfcol'
+    'body': '<cfcol header = "$1" text = "$2"${3: width = "${4:[ ]}" align = "${5:[ ]}"}>$0\r\r'
+  'cfcollection':
+    'prefix': 'cfcollection'
+    'body': '<cfcollection action = "$1"${2: collection = "${3:[ ]}" path = "${4:[ ]}" language = "${5:[ ]}" name = "${6:[ ]}" categories = "${7:[ ]}" or "${8:[ ]}"}>$0'
+  'cfcomponent':
+    'prefix': 'cfcomponent'
+    'body': '<cfcomponent${1: extends ="${2:[ ]}" output = "${3:[ ]}" style = "${4:[ ]}" namespace = "${5:[ ]}" serviceportname = "${6:[ ]}" porttypename = "${7:[ ]}" bindingname = "${8:[ ]}" wsdlfile = "${9:[ ]}" displayname = "${10:[ ]}" hint = "${11:[ ]}"}>\n\t$12\n</cfcomponent>$0'
+  'cfcontent':
+    'prefix': 'cfcontent'
+    'body': '<cfcontent type = "${1:[ ]}" deleteFile = "${2:[ ]}" file = "${3:[ ]}" variable = "${4:[ ]}" reset = "${5:[ ]}">$0'
+  'cfcookie':
+    'prefix': 'cfcookie'
+    'body': '<cfcookie name = "$1"${2: value = "${3:[ ]}" expires = "${4:[ ]}" secure = "${5:[ ]}" path = "${6:[ ]}" domain = "${7:[ ]}"}>$0'
+  'cfdirectory':
+    'prefix': 'cfdirectory'
+    'body': '<cfdirectory directory = "$1" action = "${2:[ ]}" name = "${3:[ ]}" filter = "${4:[ ]}" mode = "${5:[ ]}" sort = "${6:[ ]}" newDirectory = "${7:[ ]}" recurse = "${8:[ ]}">$0'
+  'cfdocument':
+    'prefix': 'cfdocument'
+    'body': '<cfdocument format = "$1"${2: backgroundvisible = "${3:[ ]}" encryption = "${4:[ ]}" filename = "${5:[ ]}" fontembed = "${6:[ ]}" marginbottom = "${7:[ ]}" marginleft = "${8:[ ]}" marginright = "${9:[ ]}" margintop = "${10:[ ]}" mimetype = "${11:[ ]}" name = "${12:[ ]}" orientation = "${13:[ ]}" overwrite = "${14:[ ]}" ownerpassword = "${15:[ ]}" pageheight = "${16:[ ]}" pagetype = "${17:[ ]}" pagewidth = "${18:[ ]}" permissions = "${19:[ ]}" scale = "${20:[ ]}" src = "${21:[ ]}" srcfile = "${22:[ ]}" unit = "${23:[ ]}" userpassword = "${24:[ ]}"}>\n\t$25\n</cfdocument>$0\r\r'
+  'cfdocumentitem':
+    'prefix': 'cfdocumentitem'
+    'body': '<cfdocumentitem type = "$1">\r\n\t$2\n</cfdocumentitem>$0'
+  'cfdocumentsection':
+    'prefix': 'cfdocumentsection'
+    'body': '<cfdocumentsection${1: margintop = "${2:[ ]}" marginbottom = "${3:[ ]}" marginleft = "${4:[ ]}" marginright = "${5:[ ]}" mimetype = "${6:[ ]}" src = "${7:[ ]}" srcfile = "${8:[ ]}"}>\n\t$9\n</cfdocumentsection>$0\r\r'
+  'cfdump':
+    'prefix': 'cfdump'
+    'body': '<cfdump${1: var = "${2:#variable#}" expand = "${3:[ ]}" label = "${4:[ ]}" top = "${5:[ ]}"}>$0'
+  'cferror':
+    'prefix': 'cferror'
+    'body': '<cferror type = "$1" template = "$2"${3: mailTo = "${4:[ ]}" exception = "${5:[ ]}"}>$0'
+  'cfexecute':
+    'prefix': 'cfexecute'
+    'body': '<cfexecute name = "$1"${2: arguments = "${3:[ ]}" outputFile = "${4:[ ]}" variable = "${5:[ ]}" timeout = "${6:[ ]}"}>\r\n\t$7\n</cfexecute>$0'
+  'cfexit':
+    'prefix': 'cfexit'
+    'body': '<cfexit${1: method = "${2:[ ]}"}>$0'
+  'cffile append':
+    'prefix': 'cffile'
+    'body': '<cffile action = "append" file = "$2"${3: output = "${4:[ ]}" addNewLine = "${5:[ ]}" attributes = "${6:[ ]}" mode = "${7:[ ]}" charset = "${8:[ ]}" fixnewline = "${9:[ ]}"}>$0'
+  'cffile copy':
+    'prefix': 'cffile'
+    'body': '<cffile action = "copy" source = "$1" destination = "$2"${3:  mode = "${4:[ ]}" attributes = "${5:[ ]}"}>$0'
+  'cffile delete':
+    'prefix': 'cffile'
+    'body': '<cffile action = "delete" file = "$1">$0'
+  'cffile move':
+    'prefix': 'cffile'
+    'body': '<cffile action = "move" source = "$1" destination = "$2"${3:  mode = "${4:[ ]}" attributes = "${5:[ ]}" charset = "${6:[ ]}"}>$0'
+  'cffile read':
+    'prefix': 'cffile'
+    'body': '<cffile action = "read" file = "$1" variable = "$2"${3: charset = "${4:[ ]}"}>$0'
+  'cffile readbinary':
+    'prefix': 'cffile'
+    'body': '<cffile action = "readbinary" file = "$1" variable = "$2">$0'
+  'cffile rename':
+    'prefix': 'cffile'
+    'body': '<cffile action = "rename" source = "$1" destination = "$2"${3:  mode = "${4:[ ]}" attributes = "${5:[ ]}"}>$0'
+  'cffile upload':
+    'prefix': 'cffile'
+    'body': '<cffile action = "upload" fileField = "$1" destination = "$2"${3: nameConflict = "${4:[ ]}" accept = "${5:[ ]}" mode = "${6:[ ]}" attributes = "${7:[ ]}" result = "${8:[ ]}"}>$0'
+  'cffile write':
+    'prefix': 'cffile'
+    'body': '<cffile action = "$1" file = "$2" output = "$3"${4: mode = "${5:[ ]}" addNewLine = "${6:[ ]}" attributes = "${7:[ ]}" charset = "${8:[ ]}"  fixnewline = "${9:[ ]}"}>$0'
+  'cfflush':
+    'prefix': 'cfflush'
+    'body': '<cfflush${1: interval = "${2:[ ]}"}>$0'
+  'cfform':
+    'prefix': 'cfform'
+    'body': '<cfform${1: name = "${2:[ ]}" action = "${3:[ ]}" method = "${4:post}" format = "${5:html}" skin = "${6:[ ]}" style = "${7:[ ]}" preserveData = "${8:[ ]}" onSubmit = "${9:[ ]}" scriptSrc = "${10:[ ]}" codeBase = "${11:[ ]}" archive = "${12:[ ]}" onLoad = "${13:[ ]}" width = "${14:[ ]}" height = "${15:[ ]}" onError = "${16:[ ]}" wMode = "${17:[ ]}" accessible = "${18:[ ]}" preloader = "${19:[ ]}" timeout = "${20:[ ]}" class = "${21:[ ]}" enctype = "${22:[ ]}" id = "${23:[ ]}" onReset = "${24:[ ]}" target = "${25:[ ]}"}>\n\t$26\n</cfform>$0'
+  'cfformgroup':
+    'prefix': 'cfformgroup'
+    'body': '<cfformgroup type = "$1" label = "${2:[ ]}" style = "${3:[ ]}" selectedIndex = "${4:[ ]}" width = "${5:[ ]}" height = "${6:[ ]}" enabled = "${7:[ ]}" visible = "${8:[ ]}" OnChange = "${9:[ ]}" toolTip = "${10:[ ]}" id = "${11:[ ]}">\n\t$12\n</cfformgroup>$0'
+  'cfformitem':
+    'prefix': 'cfformitem'
+    'body': '<cfformitem type = "$1"${2: style = "${3:[ ]}" width = "${4:[ ]}" height = "${5:[ ]}" visible = "${6:[ ]}" enabled = "${7:[ ]}" tooltip = "${8:[ ]}" bind = "${9:[ ]}"}>\n\t$10\n</cfformitem>$0'
+  'cfftp':
+    'prefix': 'cfftp'
+    'body': '<cfftp action = "$1" username = "$2" password = "$3" server = "$4"${5: timeout = "${6:[ ]}" port = "${7:[ ]}" connection = "${8:[ ]}" proxyServer = "${9:[ ]}" retryCount = "${10:[ ]}" stopOnError = "${11:[ ]}" passive = "yes"}>$0'
+  'cffunction':
+    'prefix': 'cffunction'
+    'body': '<cffunction name = "$1"${2: returnType = "${3:[ ]}" roles = "${4:[ ]}" access = "${5:[ ]}" description = "${6:[ ]}" = "${7:[ ]}" displayName = "${8:[ ]}" hint = "${9:[ ]}"}>\n\t$10\n</cffunction>$0'
+  'cfgrid':
+    'prefix': 'cfgrid'
+    'body': '<cfgrid name = "$1"${2: format = "${3:[ ]}" height = "${4:[ ]}" width = "${5:[ ]}" query = "${6:[ ]}" selectMode = "${7:[ ]}" insert = "${8:[ ]}" delete = "${9:[ ]}" font = "${10:[ ]}" fontSize = "${11:[ ]}" italic = "${12:[ ]}" bold = "${13:[ ]}" textColor = "${14:[ ]}" gridLines = "${15:[ ]}" rowHeight = "${16:[ ]}" colHeaders = "${17:[ ]}" colHeaderFont = "${18:[ ]}" colHeaderFontSize = "${19:[ ]}" colHeaderItalic = "${20:[ ]}" colHeaderBold = "${21:[ ]}" colHeaderTextColor = "${22:[ ]}" bgColor = "${23:[ ]}" maxRows = "${24:[ ]}" style= "${25:[ ]}" enabled = "${26:[ ]}" visible = "${27:[ ]}" toolTip = "${28:[ ]}" onChange = "${29:[ ]}" autoWidth = "${30:[ ]}" vSpace = "${31:[ ]}" hSpace = "${32:[ ]}" align = "${33:[ ]}" sort = "${34:[ ]}" href = "${35:[ ]}" hrefKey = "${36:[ ]}" target = "${37:[ ]}" appendKey = "${38:[ ]}" highlightHref = "${39:[ ]}" onValidate = "${40:[ ]}" onError = "${41:[ ]}" gridDataAlign = "${42:[ ]}" rowHeaders = "${43:[ ]}" rowHeaderAlign = "${44:[ ]}" rowHeaderFont = "${45:[ ]}" rowHeaderFontSize = "${46:[ ]}" rowHeaderItalic = "${47:[ ]}" rowHeaderBold = "${48:[ ]}" rowHeaderTextColor = "${49:[ ]}" colHeaderAlign = "${50:[ ]}" selectColor = "${51:[ ]}" notSupported = "${52:[ ]}" pictureBar = "${53:[ ]}" insertButton = "${54:[ ]}" deleteButton = "${55:[ ]}" sortAscendingButton = "${56:[ ]}" sortDescendingButton = "${57:[ ]}" onBlur = "${58:[ ]}" onFocus = "${59:[ ]}"}>\n\t$60\n</cfgrid>$0'
+  'cfgridcolumn':
+    'prefix': 'cfgridcolumn'
+    'body': '<cfgridcolumn name = "$1"${2: header = "${3:[ ]}" width = "${4:[ ]}" type = "${5:[ ]}" display = "${6:[ ]}" select = "${7:[ ]}" font = "${8:[ ]}" fontSize = "${9:[ ]}" italic = "${10:[ ]}" bold = "${11:[ ]}" textColor = "${12:[ ]}" bgColor = "${13:[ ]}" dataAlign = "${14:[ ]}" mask= "${15:[ ]}" href = "${16:[ ]}" hrefKey = "${17:[ ]}" target = "${18:[ ]}" headerFont = "${19:[ ]}" headerFontSize = "${20:[ ]}" headerItalic = "${21:[ ]}" headerBold = "${22:[ ]}" headerTextColor = "${23:[ ]}" headerAlign = "${24:[ ]}" numberFormat = "${25:[ ]}" values = "${26:[ ]}" valuesDisplay = "${27:[ ]}" valuesDelimiter = "${28:[ ]}"}>$0\r\r'
+  'cfgridrow':
+    'prefix': 'cfgridrow'
+    'body': '<cfgridrow data = "$1">$0'
+  'cfgridupdate':
+    'prefix': 'cfgridupdate'
+    'body': '<cfgridupdate grid = "$1" dataSource = "$2" tableName = "$3"${4: username = "${5:[ ]}" password = "${6:[ ]}" tableOwner = "${7:[ ]}" tableQualifier = "${8:[ ]}" keyOnly = "${9:[ ]}"}>$0'
+  'cfheader':
+    'prefix': 'cfheader'
+    'body': '<cfheader name = "$1"${2: value = "${3:[ ]}" charset="${4:[ ]}"}>$0'
+  'cfhtmlhead':
+    'prefix': 'cfhtmlhead'
+    'body': '<cfhtmlhead text = "$1">$0'
+  'cfhttp':
+    'prefix': 'cfhttp'
+    'body': '<cfhttp url = "$1"${2: port = "${3:[ ]}" method = "${4:[ ]}" proxyServer = "${5:[ ]}" proxyPort = "${6:[ ]}" proxyUser = "${7:[ ]}" proxyPassword = "${8:[ ]}" username = "${9:[ ]}" password = "${10:[ ]}" userAgent = "${11:[ ]}" charset = "${12:[ ]}" resolveURL = "${13:[ ]}" throwOnError = "${14:[ ]}" redirect = "${15:[ ]}" timeout = "${16:[ ]}" getAsBinary = "${17:[ ]}" multipart = "${18:[ ]}" path = "${19:[ ]}" file = "${20:[ ]}" name = "${21:[ ]}" columns = "${22:[ ]}" firstrowasheaders = "${23:[ ]}" delimiter = "${24:[ ]}" textQualifier = "${25:[ ]}" result = "${26:[ ]}"}>\n\t$27\n</cfhttp>$0'
+  'cfhttpparam':
+    'prefix': 'cfhttpparam'
+    'body': '<cfhttpparam type = "$1"${2: name = "${3:[ ]}" value = "${4:[ ]}" file = "${5:[ ]}" encoded = "${6:[ ]}" mimeType = "${7:[ ]}"}>$0'
+  'cfif else':
+    'prefix': 'cfif'
+    'body': '<cfif $1>\n\t$2\n<cfelse>\n\t$3\n</cfif>$0'
+  'cfif elseif else':
+    'prefix': 'cfif'
+    'body': '<cfif $1>\n\t$2\n<cfelseif $3>\n\t$4\n<cfelse>\n\t$5\n</cfif>$0'
+  'cfif':
+    'prefix': 'cfif'
+    'body': '<cfif $1>$2</cfif>$0\n'
+  'cfimport':
+    'prefix': 'cfimport'
+    'body': '<cfimport taglib = "$1" prefix = "$2">$0'
+  'cfinclude':
+    'prefix': 'cfinclude'
+    'body': '<cfinclude template = "$1">$0'
+  'cfindex':
+    'prefix': 'cfindex'
+    'body': '<cfindex collection = "$1" action = "$2"${3: type = "${4:[ ]}" title = "${5:[ ]}" key = "${6:[ ]}" body = "${7:[ ]}" custom1 = "${8:[ ]}" custom2 = "${9:[ ]}" custom3 = "${10:[ ]}" custom4 = "${11:[ ]}" category = "${12:[ ]}" categoryTree = "${13:[ ]}" URLpath = "${14:[ ]}" extensions = "${15:[ ]}" query = "${16:[ ]}" recurse = "${17:[ ]}" language = "${18:[ ]}" status = "${19:[ ]}" prefix = "${20:[ ]}"}>$0'
+  'cfinput':
+    'prefix': 'cfinput'
+    'body': '<cfinput name = "$1"${2: type = "${3:[ ]}" label = "${4:[ ]}" style = "${5:[ ]}" required = "${6:[ ]}" mask = "${7:[ ]}" validate = "${8:[ ]}" validateAt= "${9:[ ]}" message = "${10:[ ]}" range = "${11:[ ]}" maxlength = "${12:[ ]}" pattern = "${13:[ ]}" onValidate = "${14:[ ]}" onError = "${15:[ ]}" size = "${16:[ ]}" value = "${17:[ ]}" bind = "${18:[ ]}" checked = "${19:[ ]}" disabled = "${20:[ ]}" src = "${21:[ ]}" onKeyUp = "${22:[ ]}" onKeyDown = "${23:[ ]}" onMouseUp = "${24:[ ]}" onMouseDown = "${25:[ ]}" onChange = "${26:[ ]}" onClick = "${27:[ ]}" firstDayOfWeek = "${28:[ ]}" dayNames = "${29:[ ]}" monthNames = "${30:[ ]}" enabled = "${31:[ ]}" visible = "${32:[ ]}" toolTip = "${33:[ ]}" height = "${34:[ ]}" width = "${35:[ ]}"}>$0'
+  'cfinsert':
+    'prefix': 'cfinsert'
+    'body': '<cfinsert dataSource = "$1" tableName = "$2"${3: tableOwner = "${4:[ ]}" tableQualifier = "${5:[ ]}" username = "${6:[ ]}" password = "${7:[ ]}" formFields = "${8:[ ]}"}>$0'
+  'cfinvoke':
+    'prefix': 'cfinvoke'
+    'body': '<cfinvoke component = "$1" method = "$2"${3: returnVariable = "${4:[ ]}" argumentCollection = "${5:[ ]}"}>$0'
+  'cfinvokeargument':
+    'prefix': 'cfinvokeargument'
+    'body': '<cfinvokeargument name="$1" value="$2"${3: omit = "${4:[ ]}"}>$0'
+  'cfldap':
+    'prefix': 'cfldap'
+    'body': '<cfldap \n\tserver = "$1"${2: \n\tport = "${3:[ ]}"\n\tusername = "${4:[ ]}"\n\tpassword = "${5:[ ]}"\n\taction = "${6:[ ]}"\n\tname = "${7:[ ]}"\n\ttimeout = "${8:[ ]}"\n\tmaxRows = "${9:[ ]}"\n\tstart = "${10:[ ]}"\n\tscope = "${11:[ ]}"\n\tattributes = "${12:[ ]}"\n\treturnAsBinary = "${13:[ ]}"\n\tfilter = "${14:[ ]}"\n\tsort = "${15:[ ]}"\n\tsortControl = "${16:[ ]}"\n\tdn = "${17:[ ]}"\n\tstartRow = "${18:[ ]}"\n\tmodifyType = "${19:[ ]}"\n\trebind = "${20:[ ]}"\n\treferral = "${21:[ ]}"\n\tsecure = "${22:[ ]}"\n\tseparator = "${23:[ ]}"\n\tdelimiter = "${24:[ ]}"}>$0\r\r'
+  'cflocation':
+    'prefix': 'cflocation'
+    'body': '<cflocation url = "$1">$0'
+  'cflock':
+    'prefix': 'cflock'
+    'body': '<cflock${1: timeout = "${2:30}" scope = "${3:session}" name = "${4:[ ]}"  throwOnTimeout = "${5:no}" type = "${6:exclusive}"}>\r\n\t$7\n</cflock>$0'
+  'cflog':
+    'prefix': 'cflog'
+    'body': '<cflog text = "$1"${2: log = "${3:[ ]}" file = "${4:[ ]}" type = "${5:[ ]}" application = "${6:[ ]}"}>$0'
+  'cflogin':
+    'prefix': 'cflogin'
+    'body': '<cflogin${1: idletimeout = "${2:1800}" applicationToken = "${3:[ ]}" cookieDomain = "${4:[ ]}"}>\n\t<cfloginuser name = "$5" password = "$6" roles = "${7:[ ]}">$8\n</cflogin>$0'
+  'cfloop (COM collection or structure)':
+    'prefix': 'cfloop'
+    'body': '<cfloop collection = "$1" item = "$2">\n\t$3\n</cfloop>$0'
+  'cfloop (conditional loop)':
+    'prefix': 'cfloop'
+    'body': '<cfloop condition = "$1">\n\t$2\n</cfloop>$0'
+  'cfloop (date or time loop)':
+    'prefix': 'cfloop'
+    'body': '<cfloop from = "${1:#createdate($2)#}" to = "${3:#createdate($4)#}" index = "${5:i}"${6: step = "${7:[ ]}"}>\n\t$8\n</cfloop>$0\r\r'
+  'cfloop (index loop)':
+    'prefix': 'cfloop'
+    'body': '<cfloop index = "${1:i}" from = "$2" to = "$3"${4: step = "${5:[ ]}"}>\n\t$6\n</cfloop>$0'
+  'cfloop (list or file loop)':
+    'prefix': 'cfloop'
+    'body': '<cfloop index = "${1:i}" list = "$2"${3: delimiters = "${4:[ ]}"}>\n\t$5\n</cfloop>$0'
+  'cfloop (query loop)':
+    'prefix': 'cfloop'
+    'body': '<cfloop query = "$1"${2: startRow = "${3:[ ]}" endRow = "${4:[ ]}"}>\n\t$5\n</cfloop>$0'
+  'cfmail (all attributes)':
+    'prefix': 'cfmail'
+    'body': '<cfmail \n\tto = "$1"\n\tfrom = "$2"\n\tsubject = "$3"${4:\n\tcc = "${5:[ ]}"\n\tbcc = "${6:[ ]}"\n\treplyto = "${7:[ ]}"\n\tfailto = "${8:[ ]}"\n\tusername = "${9:[ ]}"\n\tpassword = "${10:[ ]}"\n\twraptext = "${11:[ ]}"\n\tcharset = "${12:[ ]}"\n\ttype = "${13:[ ]}"\n\tmimeattach = "${14:[ ]}"\n\tquery = "${15:[ ]}"\n\tgroup = "${16:[ ]}"\n\tgroupcasesensitive = "${17:[ ]}"\n\tstartrow = "${18:[ ]}"\n\tmaxrows = "${19:[ ]}"\n\tserver = "${20:[ ]}"\n\tport = "${21:[ ]}"\n\tmailerid = "${22:[ ]}"\n\ttimeout = "${23:[ ]}"\n\tspoolenable = "${24:[ ]}"\n\tdebug = "${25:[ ]}"}>\n\t$26\n</cfmail>$0'
+  'cfmail':
+    'prefix': 'cfmail'
+    'body': '<cfmail to="$1" from="$2" subject="$3" server="$4" type="${5:html}">\n\t$6\n</cfmail>$0'
+  'cfmailparam':
+    'prefix': 'cfmailparam'
+    'body': '<cfmailparam file = "${1:[ ]}" type ="${2:[ ]}" contentID = "${3:[ ]}" disposition = "${4:[ ]}">$5'
+  'cfmailpart':
+    'prefix': 'cfmailpart'
+    'body': '<cfmailpart type="$1"${2: charset="${3:[ ]}" wraptext="${4:[ ]}"}>\n\t$5\n</cfmailpart>$0'
+  'cfmodule':
+    'prefix': 'cfmodule'
+    'body': '<cfmodule${1: template = "${2:required unless name attribute is used}" name = "${3:required unless template attribute is used}" attributeCollection = "${4:[ ]}" attribute_name1 = "${5:[ ]}" attribute_name2 = "${6:[ ]}"}>$0'
+  'cfntauthenticate':
+    'prefix': 'cfntauthenticate'
+    'body': '<cfntauthenticate username="$1" password="$2" domain="$3"${4: result="${5:[ ]}" listGroups = "${6:[ ]}" throwOnError = "${7:[ ]}"}>$0'
+  'cfobject (COM)':
+    'prefix': 'cfobject'
+    'body': '<cfobject type = "com" action = "$1" class = "$2" name = "$3"${4: context = "${5:[ ]}" server = "${6:[ ]}"}>$0'
+  'cfobject (CORBA)':
+    'prefix': 'cfobject'
+    'body': '<cfobject type = "corba" context = "$1" class = "$2" name = "$3"${4: locale = "${5:[ ]}"}>$0\r\r'
+  'cfobject (component)':
+    'prefix': 'cfobject'
+    'body': '<cfobject name = "$1" component = "$2">$0'
+  'cfobject (java)':
+    'prefix': 'cfobject'
+    'body': '<cfobject type = "Java" action = "$1" class = "$2" name = "$3">$0'
+  'cfobject (web service)':
+    'prefix': 'cfobject'
+    'body': '<cfobject webservice= "$1" name = "$2">$0'
+  'cfobjectcache':
+    'prefix': 'cfobjectcache'
+    'body': '<cfobjectcache action = "clear">$0'
+  'cfoutput (long)':
+    'prefix': 'cfoutput'
+    'body': '<cfoutput${1: query = "${2:[ ]}" group = "${3:[ ]}" groupCaseSensitive = "${4:[ ]}" startRow = "${5:[ ]}" maxRows = "${6:[ ]}"}>\n\t$7\n</cfoutput>$0'
+  'cfoutput (short)':
+    'prefix': 'cfoutput'
+    'body': '<cfoutput>\n\t$1\n</cfoutput>$0'
+  'cfparam':
+    'prefix': 'cfparam'
+    'body': '<cfparam name="$1"${2: type="${3:[string]}" default="${4:[ ]}"}>$0'
+  'cfpop':
+    'prefix': 'cfpop'
+    'body': '<cfpop \n\tserver = "$1"${2:\n\tport = "${3:[ ]}"\n\tusername = "${4:[ ]}"\n\tpassword = "${5:[ ]}"\n\taction = "${6:[ ]}"\n\tname = "${7:required if action is getall or getheaderonly}"\n\tmessageNumber = "${8:[ ]}"\n\tuid = "${9:[ ]}" \n\tattachmentPath = "${10:[ ]}"\n\ttimeout = "${11:[ ]}"\n\tmaxRows = "${12:[ ]}"\n\tstartRow = "${13:[ ]}"\n\tgenerateUniqueFilenames = "${14:[ ]}"\n\tdebug = "${15:[ ]}"}>$0'
+  'cfprocessingdirective':
+    'prefix': 'cfprocessingdirective'
+    'body': '<cfprocessingdirective suppressWhiteSpace = "${1:yes or no}"${2: pageEncoding = "${3:[ ]}"}>\n\t$4\n</cfprocessingdirective>$0'
+  'cfprocparam':
+    'prefix': 'cfprocparam'
+    'body': '<cfprocparam${1: type = "${2:[ ]}" variable = "${3:required if type is out or inout}" value = "${4:required if type is in}" CFSQLType = "$5" maxLength = "${6:[ ]}" scale = "${7:[ ]}" null = "${8:[ ]}"}>$0'
+  'cfprocresult':
+    'prefix': 'cfprocresult'
+    'body': '<cfprocresult name = "$1"${2: resultSet = "${3:[ ]}" maxRows = "${4:[ ]}"}>$0'
+  'cfproperty':
+    'prefix': 'cfproperty'
+    'body': '<cfproperty name="$1"${2: type="${3:[ ]}" required="${4:[ ]}" default="${5:[ ]}" displayname="${6:[ ]}" hint="${7:[ ]}"}>$0'
+  'cfquery (delete sql)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name = "$1" datasource = "$2"${3: username = "${4:[ ]}" password = "${5:[ ]}"}>\n\tdelete from $6\n     where $7\n</cfquery>$0'
+  'cfquery (insert sql)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name = "$1" datasource = "$2"${3: username = "${4:[ ]}" password = "${5:[ ]}"}>\n\tinsert into $6($7)\n\tvalues($8)\n</cfquery>$0\n'
+  'cfquery (long, all attributes)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name = "$1"${2: dataSource = "${3:[ ]}" dbtype = "${4:[ ]}" username = "${5:[ ]}" password = "${6:[ ]}" maxRows = "${7:[ ]}" blockFactor = "${8:[ ]}" timeout = "${9:[ ]}" cachedAfter = "${10:[ ]}" cachedWithin = "${11:[ ]}" result = "${12:[ ]}"}>\n\t$13\n</cfquery>$0'
+  'cfquery (select sql)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name = "$1" datasource = "$2"${3: username = "${4:[ ]}" password = "${5:[ ]}"}>\n    select $6\n      from $7\n     where $8\n</cfquery>$0'
+  'cfquery (short)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name="$1" datasource="$2">\n\t$3\n</cfquery>$0'
+  'cfquery (update sql)':
+    'prefix': 'cfquery'
+    'body': '<cfquery name = "$1" datasource = "$2"${3: username = "${4:[ ]}" password = "${5:[ ]}"}>\n    update $6\n       set $7\n     where $8\n</cfquery>$0'
+  'cfqueryparam':
+    'prefix': 'cfqueryparam'
+    'body': '<cfqueryparam value = "$1"${2: CFSQLType = "${3:[ ]}" maxLength = "${4:[ ]}" scale = "${5:[ ]}" null = "${6:[ ]}" list = "${7:[ ]}" separator = "${8:[ ]}"}>$0'
+  'cfregistry (delete)':
+    'prefix': 'cfregistry'
+    'body': '<cfregistry action = "$1" branch = "$2" entry = "$3">$0'
+  'cfregistry (get all)':
+    'prefix': 'cfregistry'
+    'body': '<cfregistry action = "getAll" branch = "$1"${2: type = "${3:[ ]}" name = "${4:[ ]}"  sort = "${5:[ ]}"}>$0\r\r'
+  'cfregistry (get)':
+    'prefix': 'cfregistry'
+    'body': '<cfregistry action = "get" branch = "$1" entry = "$2" variable = "$3"${4: type = "${5:[ ]}"}>$0'
+  'cfregistry (set)':
+    'prefix': 'cfregistry'
+    'body': '<cfregistry action = "$1" branch = "$2" entry = "$3"${4: type = "${5:[ ]}" value = "${6:[ ]}"}>$0'
+  'cfreport':
+    'prefix': 'cfreport'
+    'body': '<cfreport template = "$1" format = "$2"${3: name = "${4:[ ]}" filename = "${5:[ ]}" query = "${6:[ ]}" overwrite = "${7:[ ]}" encryption = "${8:[ ]}" ownerpassword = "${9:[ ]}" userpassword = "${10:[ ]}" permissions = "${11:[ ]}"}>\n\t$12\n</cfreport>$0'
+  'cfreportparam':
+    'prefix': 'cfreportparam'
+    'body': '<cfreportparam name = "$1" value = "$2">$0\r\r'
+  'cfrethrow':
+    'prefix': 'cfrethrow'
+    'body': '<cfrethrow>'
+  'cfreturn':
+    'prefix': 'cfreturn'
+    'body': '<cfreturn $1>$0'
+  'cfsavecontent':
+    'prefix': 'cfsavecontent'
+    'body': '<cfsavecontent variable = "$1">\n\t$2\n</cfsavecontent>$0'
+  'cfschedule':
+    'prefix': 'cfschedule'
+    'body': '<cfschedule\n\taction = "$1"\n\ttask = "$2"${3:\n\toperation = "${4:[required if action equals update]}"\n\tfile = "${5:[required if publish equals yes]}"\n\tpath = "${6:[required if publish equals yes]}"\n\tstartDate = "${7:[required if action equals update]}"\n\tstartTime = "${8:[required if action equals update]}"\n\turl = "${9:[required if action equals update]}"\n\tport = "${10:[ ]}"\n\tpublish = "${11:[ ]}"\n\tendDate = "${12:[ ]}"\n\tendTime = "${13:[ ]}"\n\tinterval = "${14:[required if action equals update]}"\n\trequestTimeOut = "${15:[ ]}"\n\tusername = "${16:[ ]}"\n\tpassword = "${17:[ ]}"\n\tproxyServer = "${18:[ ]}"\n\tproxyPort = "${19:[ ]}"\n\tproxyUser = "${20:[ ]}"\n\tproxyPassword = "${21:[ ]}"\n\tresolveURL = "${22:[ ]}"}>$0'
+  'cfscript':
+    'prefix': 'cfscript'
+    'body': '<cfscript>\n\t$1\n</cfscript>$0'
+  'cfsearch':
+    'prefix': 'cfsearch'
+    'body': '<cfsearch \n\tname = "$1"\n\tcollection = "$2"${3:\n\tcategory = "${4:[ ]}"\n\tcategoryTree = "${5:[ ]}"\n\tstatus = "${6:[ ]}"\n\ttype = "${7:[ ]}"\n\tcriteria = "${8:[ ]}"\n\tmaxRows = "${9:[ ]}"\n\tstartRow = "${10:[ ]}"\n\tsuggestions = "${11:[ ]}"\n\tcontextPassages = "${12:[ ]}"\n\tcontextBytes = "${13:[ ]}"\n\tcontextHighlightBegin = "${14:[ ]}"\n\tcontextHighlightEnd = "${15:[ ]}"\n\tpreviousCriteria = "${16:[ ]}"\n\tlanguage = "${17:[ ]}"}>$0\r\r'
+  'cfselect':
+    'prefix': 'cfselect'
+    'body': '<cfselect name = "$1"${2: label = "${3:[ ]}" style = "${4:[ ]}" size = "${5:[ ]}" required = "${6:[ ]}" message = "${7:[ ]}" onError = "${8:[ ]}" multiple = "${9:[ ]}" query = "${10:[ ]}" value = "${11:[ ]}" display = "${12:[ ]}" group = "${13:[ ]}" queryPosition = "${14:[ ]}" selected = "${15:[ ]}" onKeyUp = "${16:[ ]}" onKeyDown = "${17:[ ]}" onMouseUp = "${18:[ ]}" onMouseDown = "${19:[ ]}" onChange = "${20:[ ]}" onClick = "${21:[ ]}" enabled = "${22:[ ]}" visible = "${23:[ ]}" tooltip = "${24:[ ]}" height = "${25:[ ]}" width = "${26:[ ]}" editable="${27:[ ]}"}>\n\t$28\n</cfselect>$0\r'
+  'cfset':
+    'prefix': 'cfset'
+    'body': '<cfset $1 = $0${TM_XHTML}>'
+  'cfsetting':
+    'prefix': 'cfsetting'
+    'body': '<cfsetting${1: enableCFoutputOnly = "${2:[ ]}" showDebugOutput = "${3:no}" requestTimeOut = "${4:30}"}>$0'
+  'cfsilent':
+    'prefix': 'cfsilent'
+    'body': '<cfsilent>\n\t$1\n</cfsilent>$0'
+  'cfslider':
+    'prefix': 'cfslider'
+    'body': '<cfslider \n\tname = "$1"${2: \n\tlabel = "${3:[ ]}"\n\trange = "${4:[ ]}"\n\tscale = "${5:[ ]}"\n\tvalue = "${6:[ ]}"\n\tonValidate = "${7:[ ]}"\n\tmessage = "${8:[ ]}"\n\tonError = "${9:[ ]}"\n\theight = "${10:[ ]}"\n\twidth = "${11:[ ]}"\n\tvSpace = "${12:[ ]}"\n\thSpace = "${13:[ ]}"\n\talign = "${14:[ ]}"\n\tlookAndFeel = "${15:[ ]}"\n\tvertical = "${16:[ ]}"\n\tbgColor = "${17:[ ]}"\n\ttextColor = "${18:[ ]}"\n\tfont = "${19:[ ]}"\n\tfontSize = "${20:[ ]}"\n\titalic = "${21:[ ]}"\n\tbold = "${22:[ ]}"\n\tnotSupported = "${23:[ ]}"}>$0\r\r'
+  'cfstoredproc':
+    'prefix': 'cfstoredproc'
+    'body': '<cfstoredproc procedure = "$1" dataSource = "$2"${3: username = "${4:[ ]}" password = "${5:[ ]}" blockFactor = "${6:[ ]}" debug = "${7:[ ]}" returnCode = "${8:[ ]}" result = "${9:[ ]}"}>$0'
+  'cfswitch':
+    'prefix': 'cfswitch'
+    'body': '<cfswitch expression="$1">\n\t<cfcase value="$2">$3</cfcase>\n\t<cfdefaultcase>$4</cfdefaultcase>\n</cfswitch>$0'
+  'cftable':
+    'prefix': 'cftable'
+    'body': '<cftable query = "$1"${2: maxRows = "${3:[ ]}" colSpacing = "${4:[ ]}" headerLines = "${5:[ ]}" startRow = "${6:[ ]}"}>\n\t$7\n</cftable>$0'
+  'cftextarea':
+    'prefix': 'cftextarea'
+    'body': '<cftextarea name = "$1"${2: label = "${3:[ ]}" style = "${4:[ ]}" required = "${5:[ ]}" validate = "${6:[ ]}" validateAt= "${7:[ ]}" message = "${8:[ ]}" range = "${9:[ ]}" maxlength = "${10:[ ]}" pattern = "${11:[ ]}" onValidate = "${12:[ ]}" onError = "${13:[ ]}" disabled = "${14:[ ]}" value = "${15:[ ]}" bind = "${16:[ ]}" onKeyUp = "${17:[ ]}" onKeyDown = "${18:[ ]}" onMouseUp = "${19:[ ]}" onMouseDown = "${20:[ ]}" onChange = "${21:[ ]}" onClick = "${22:[ ]}" enabled = "${23:[ ]}" visible = "${24:[ ]}" tooltip = "${25:[ ]}" height = "${26:[ ]}" width = "${27:[ ]}" html = "${28:[ ]}"}>\n\t$29\n</cftextarea>$0'
+  'cfthrow':
+    'prefix': 'cfthrow'
+    'body': '<cfthrow${1: type = "${2:[ ]}" message = "${3:[ ]}" detail = "${4:[ ]} " errorCode = "${5:[ ]} " extendedInfo = "${6:[ ]}" object = "${7:[ ]}"}>$0'
+  'cftimer':
+    'prefix': 'cftimer'
+    'body': '<cftimer${1: label= "${2:[ ]}" type = "${3:[ ]}"}>\n\t$4\n</cftimer>$0'
+  'cftrace':
+    'prefix': 'cftrace'
+    'body': '<cftrace${1: abort = "${2:[ ]}" category = "${3:[ ]}" inline = "${4:[ ]}" text = "${5:[ ]}" type = "${6:[ ]}" var = "${7:[ ]}"}>\n\t$8\n</cftrace>$0'
+  'cftransaction':
+    'prefix': 'cftransaction'
+    'body': '<cftransaction${1: action = "${2:[ ]}" isolation = "${3:[ ]}"}>\n\t$4\n</cftransaction>$0'
+  'cftree':
+    'prefix': 'cftree'
+    'body': '<cftree \n\tname = "$1"${2:  \n\tformat="${3:[ ]}"\n\trequired = "${4:[ ]}"\n\tdelimiter = "${5:[ ]}"\n\tcompletePath = "${6:[ ]}"\n\tappendKey = "${7:[ ]}"\n\thighlightHref = "${8:[ ]}"\n\tonValidate = "${9:[ ]}"\n\tmessage = "${10:[ ]}"\n\tonError = "${11:[ ]}"\n\tlookAndFeel = "${12:[ ]}"\n\tfont = "${13:[ ]}"\n\tfontSize = "${14:[ ]}"\n\titalic = "${16:[ ]}"\n\tbold = "${17:[ ]}"\n\theight = "${18:[ ]}"\n\twidth = "${19:[ ]}"\n\tvSpace = "${20:[ ]}"\n\thSpace = "${21:[ ]}"\n\talign = "${22:[ ]}"\n\tborder = "${23:[ ]}"\n\thScroll = "${22:[ ]}"\n\tvScroll = "${24:[ ]}"\n\tstyle= "${25:[ ]}"\n\tenabled = "${26:[ ]}"\n\tvisible = "${27:[ ]}"\n\ttooltip = "${28:[ ]}"\n\tonChange = "${29:[ ]}"\n\tnotSupported = "${30:[ ]}"\n\tonBlur = "${31:[ ]}"\n\tonFocus = "${32:[ ]}"}>\n\t$33\n</cftree>$0'
+  'cftreeitem':
+    'prefix': 'cftreeitem'
+    'body': '<cftreeitem  value = "$1"${2: display = "${3:[ ]}" parent = "${4:[ ]}" img = "${5:[ ]}" imgopen = "${6:[ ]}" href = "${7:[ ]}" target = "${8:[ ]}" query = "${9:[ ]}" queryAsRoot = "${10:[ ]}" expand = "${11:[ ]}"}>$0'
+  'cftry':
+    'prefix': 'cftry'
+    'body': '<cftry>\n\t$1\n</cftry>$0'
+  'cfupdate':
+    'prefix': 'cfupdate'
+    'body': '<cfupdate dataSource = "$1" tableName = "$2"${3: tableOwner = "${4:[ ]}" tableQualifier = "${5:[ ]}" username = "${6:[ ]}" password = "${7:[ ]}" formFields = "${8:[ ]}"}>$0'
+  'cfwddx':
+    'prefix': 'cfwddx'
+    'body': '<cfwddx action = "$1"  input = "$2"${3: output = "${4:required if action equals wddx2cfml}"  topLevelVariable = "${5:required if action = wddx2js or cfml2js}" useTimeZoneInfo = "${6:[ ]}" validate = "${7:[ ]}"}>$0'
+  'cfxml':
+    'prefix': 'cfxml'
+    'body': '<cfxml variable="$1"${2: caseSensitive="${3:[ ]}"}>$0'
+  'charsetdecode':
+    'prefix': 'charsetdecode'
+    'body': 'CharsetDecode(${1:string}, ${2:encoding})$0'
+  'charsetencode':
+    'prefix': 'charsetencode'
+    'body': 'CharsetEncode(${1:binaryobject}, ${2:encoding})$0'
+  'chr':
+    'prefix': 'chr'
+    'body': 'Chr(${1:number})$0'
+  'cjustify':
+    'prefix': 'cjustify'
+    'body': 'Cjustify(${1:string}, ${2:length})$0'
+  'compare':
+    'prefix': 'compare'
+    'body': 'Compare(${1:string1}, ${2:string2})$0'
+  'comparenocase':
+    'prefix': 'comparenocase'
+    'body': 'CompareNoCase(${1:string1}, ${2:string2})$0'
+  'cos':
+    'prefix': 'cos'
+    'body': 'Cos(${1:number})$0'
+  'createdate':
+    'prefix': 'createdate'
+    'body': 'CreateDate(${1:year}, ${2:month}, ${3:day})$0'
+  'createdatetime':
+    'prefix': 'createdatetime'
+    'body': 'CreateDateTime(${1:year}, ${2:month}, ${3:day}, ${4:hour}, ${5:minute}, ${6:second})$0'
+  'createodbcdate':
+    'prefix': 'createodbcdate'
+    'body': 'CreateODBCDate(${1:date})$0'
+  'createodbcdatetime':
+    'prefix': 'createodbcdatetime'
+    'body': 'CreateODBCDateTime(${1:date})$0'
+  'createodbctime':
+    'prefix': 'createodbctime'
+    'body': 'CreateODBCTime(${1:date})$0'
+  'createtime':
+    'prefix': 'createtime'
+    'body': 'CreateTime(${1:hour}, ${2:minute}, ${3:second})$0'
+  'createtimespan':
+    'prefix': 'createtimespan'
+    'body': 'CreateTimeSpan(${1:days}, ${2:hours}, ${3:minutes}, ${4:seconds})$0'
+  'createuuid':
+    'prefix': 'createuuid'
+    'body': 'CreateUUID($1)$0'
+  'dateadd':
+    'prefix': 'dateadd'
+    'body': 'DateAdd(${1:"datepart"}, ${2:number}, ${3:"date"})$0'
+  'datecompare':
+    'prefix': 'datecompare'
+    'body': 'DateCompare(${1:"date1"}, ${2:"date2"} ${3:[, "datePart"]})$0'
+  'dateconvert':
+    'prefix': 'dateconvert'
+    'body': 'DateConvert(${1:"conversion-type"}, ${2:"date"})$0'
+  'datediff':
+    'prefix': 'datediff'
+    'body': 'DateDiff(${1:"datepart"}, ${2:"date1"}, ${3:"date2"})$0'
+  'dateformat':
+    'prefix': 'dateformat'
+    'body': 'DateFormat(${1:"date"} ${2:[, "mask"]})$0'
+  'datepart':
+    'prefix': 'datepart'
+    'body': 'DatePart(${1:"datepart"}, ${2:"date"})$0'
+  'day':
+    'prefix': 'day'
+    'body': 'Day(${1:"date"})$0'
+  'dayofweek':
+    'prefix': 'dayofweek'
+    'body': 'DayOfWeek(${1:"date"})$0'
+  'dayofweekasstring':
+    'prefix': 'dayofweekasstring'
+    'body': 'DayOfWeekAsString(${1:day_of_week})$0'
+  'dayofyear':
+    'prefix': 'dayofyear'
+    'body': 'DayOfYear(${1:"date"})$0'
+  'daysinmonth':
+    'prefix': 'daysinmonth'
+    'body': 'DaysInMonth(${1:"date"})$0'
+  'daysinyear':
+    'prefix': 'daysinyear'
+    'body': 'DaysInYear(${1:"date"})$0'
+  'de':
+    'prefix': 'de'
+    'body': 'DE(${1:string})$0'
+  'decimalformat':
+    'prefix': 'decimalformat'
+    'body': 'DecimalFormat(${1:number})$0'
+  'decrementvalue':
+    'prefix': 'decrementvalue'
+    'body': 'DecrementValue(${1:number})$0'
+  'decrypt':
+    'prefix': 'decrypt'
+    'body': 'Decrypt(${1:encrypted_string}, ${2:key}${3: [, algorithm]}${4: [, encoding]}${5: [, IVorSalt]}${6: [, iterations]})$0'
+  'decryptbinary':
+    'prefix': 'decryptbinary'
+    'body': 'DecryptBinary(${1:bytes}, ${2:key}, ${3:[, algorithm]} ${4:[, IVorSalt]} ${5:[, iterations]})$0'
+  'deleteclientvariable':
+    'prefix': 'deleteclientvariable'
+    'body': 'DeleteClientVariable(${1:"name"})$0'
+  'directoryexists':
+    'prefix': 'directoryexists'
+    'body': 'DirectoryExists(${1:absolute_path})$0'
+  'dollarformat':
+    'prefix': 'dollarformat'
+    'body': 'DollarFormat(${1:number})$0'
+  'duplicate':
+    'prefix': 'duplicate'
+    'body': 'Duplicate(${1:variable_name})$0'
+  'encrypt':
+    'prefix': 'encrypt'
+    'body': 'Encrypt(${1:string}, ${2:key}${3: [, algorithm]}${4: [, encoding]}${5: [, IVorSalt]}${6: [, iterations]})$0'
+  'encryptbinary':
+    'prefix': 'encryptbinary'
+    'body': 'EncryptBinary(${1:bytes}, ${2:key}${3: [, algorithm]}${4: [, IVorSalt]}${5: [, iterations]})$0'
+  'evaluate':
+    'prefix': 'evaluate'
+    'body': 'Evaluate(${1:string_expression1}${2: [, string_expression2]}${3: [, ]})$0'
+  'exp':
+    'prefix': 'exp'
+    'body': 'Exp(${1:number})$0'
+  'expandpath':
+    'prefix': 'expandpath'
+    'body': 'Expandpath(${1:relative_path})$0'
+  'fileexists':
+    'prefix': 'fileexists'
+    'body': 'FileExists(${1:absolute_path})$0'
+  'find':
+    'prefix': 'find'
+    'body': 'Find(${1:substring}, ${2:string} ${3:[, start ]})$0'
+  'findnocase':
+    'prefix': 'findnocase'
+    'body': 'FindNoCase(${1:substring}, ${2:string} ${3:[, start ]})$0'
+  'findoneof':
+    'prefix': 'findoneof'
+    'body': 'FindOneOf(${1:set}, ${2:string} ${3:[, start ]})$0'
+  'firstdayofmonth':
+    'prefix': 'firstdayofmonth'
+    'body': 'FirstDayOfMonth(${1:date})$0'
+  'fix':
+    'prefix': 'fix'
+    'body': 'Fix(${1:number})$0'
+  'formatbasen':
+    'prefix': 'formatbasen'
+    'body': 'FormatBaseN(${1:number}, ${2:radix})$0'
+  'generatesecretkey':
+    'prefix': 'generatesecretkey'
+    'body': 'GenerateSecretKey(${1:algorithm})$0'
+  'getauthuser':
+    'prefix': 'getauthuser'
+    'body': 'GetAuthUser(${1:})$0'
+  'getbasetagdata':
+    'prefix': 'getbasetagdata'
+    'body': 'GetBaseTagData(${1:tagname} ${2:[, instancenumber ]})$0'
+  'getbasetaglist':
+    'prefix': 'getbasetaglist'
+    'body': 'GetBaseTagList(${1:})$0'
+  'getbasetemplatepath':
+    'prefix': 'getbasetemplatepath'
+    'body': 'GetBaseTemplatePath(${1:})$0'
+  'getclientvariableslist':
+    'prefix': 'getclientvariableslist'
+    'body': 'GetClientVariablesList(${1:})$0'
+  'getcontextroot':
+    'prefix': 'getcontextroot'
+    'body': 'GetContextRoot(${1:})$0'
+  'getcurrenttemplatepath':
+    'prefix': 'getcurrenttemplatepath'
+    'body': 'GetCurrentTemplatePath(${1:})$0'
+  'getdirectoryfrompath':
+    'prefix': 'getdirectoryfrompath'
+    'body': 'GetDirectoryFromPath(${1:path})$0'
+  'getencoding':
+    'prefix': 'getencoding'
+    'body': 'GetEncoding(${1:scope_name})$0'
+  'getexception':
+    'prefix': 'getexception'
+    'body': 'GetException(${1:object})$0'
+  'getfilefrompath':
+    'prefix': 'getfilefrompath'
+    'body': 'GetFileFromPath(${1:path})$0'
+  'getfunctionlist':
+    'prefix': 'getfunctionlist'
+    'body': 'GetFunctionList(${1:})$0'
+  'getgatewayhelper':
+    'prefix': 'getgatewayhelper'
+    'body': 'GetGatewayHelper(${1:gatewayID})$0'
+  'gethttprequestdata':
+    'prefix': 'gethttprequestdata'
+    'body': 'GetHttpRequestData(${1:})$0'
+  'gethttptimestring':
+    'prefix': 'gethttptimestring'
+    'body': 'GetHttpTimeString(${1:date_time_object})$0'
+  'getk2serverdoccount':
+    'prefix': 'getk2serverdoccount'
+    'body': 'GetK2ServerDocCount(${1:})$0'
+  'getk2serverdoccountlimit':
+    'prefix': 'getk2serverdoccountlimit'
+    'body': 'GetK2ServerDocCountLimit(${1:})$0'
+  'getlocale':
+    'prefix': 'getlocale'
+    'body': 'GetLocale(${1:})$0'
+  'getlocaledisplayname':
+    'prefix': 'getlocaledisplayname'
+    'body': 'GetLocaleDisplayName(${1:[locale]}${2: [, inLocale]})$0'
+  'getlocalhostip':
+    'prefix': 'getlocalhostip'
+    'body': 'GetLocalHostIP(${1:})$0'
+  'getmetadata':
+    'prefix': 'getmetadata'
+    'body': 'GetMetaData(${1:object})$0'
+  'getmetricdata':
+    'prefix': 'getmetricdata'
+    'body': 'GetMetricData(${1:mode})$0'
+  'getpagecontext':
+    'prefix': 'getpagecontext'
+    'body': 'GetPageContext(${1:})$0'
+  'getprofilesections':
+    'prefix': 'getprofilesections'
+    'body': 'GetProfileSections(${1:iniFile})$0'
+  'getprofilestring':
+    'prefix': 'getprofilestring'
+    'body': 'GetProfileString(${1:iniPath}, ${2:section}, ${3:entry})$0'
+  'getsoaprequest':
+    'prefix': 'getsoaprequest'
+    'body': 'GetSOAPRequest(${1:})$0'
+  'getsoaprequestheader':
+    'prefix': 'getsoaprequestheader'
+    'body': 'GetSOAPRequestHeader(${1:namespace}, ${2:name} ${3:[, asXML]})$0'
+  'getsoapresponse':
+    'prefix': 'getsoapresponse'
+    'body': 'GetSOAPResponse(${1:webservice})$0'
+  'getsoapresponseheader':
+    'prefix': 'getsoapresponseheader'
+    'body': 'GetSOAPResponseHeader(${1:webservice}, ${2:namespace}, ${3:name} ${4:[, asXML]})$0'
+  'gettempdirectory':
+    'prefix': 'gettempdirectory'
+    'body': 'GetTempDirectory(${1:})$0'
+  'gettempfile':
+    'prefix': 'gettempfile'
+    'body': 'GetTempFile(${1:dir}, ${2:prefix})$0'
+  'gettickcount':
+    'prefix': 'gettickcount'
+    'body': 'GetTickCount(${1:})$0'
+  'gettimezoneinfo':
+    'prefix': 'gettimezoneinfo'
+    'body': 'GetTimeZoneInfo(${1:})$0'
+  'gettoken':
+    'prefix': 'gettoken'
+    'body': 'GetToken(${1:string}, ${2:index} ${3:[, delimiters ]})$0'
+  'hash':
+    'prefix': 'hash'
+    'body': 'Hash(${1:string$}${2: [, algorithm]}${3: [, encoding]})$0'
+  'hour':
+    'prefix': 'hour'
+    'body': 'hour(${1:date})$0'
+  'htmlcodeformat':
+    'prefix': 'htmlcodeformat'
+    'body': 'HTMLCodeFormat(${1:string} ${2:[, version ]})$0'
+  'htmleditformat':
+    'prefix': 'htmleditformat'
+    'body': 'HTMLEditFormat(${1:string} ${2:[, version ]})$0'
+  'iif':
+    'prefix': 'iif'
+    'body': 'IIf(${1:condition}, ${2:string_expression1}, ${3:string_expression2})$0'
+  'incrementvalue':
+    'prefix': 'incrementvalue'
+    'body': 'IncrementValue(${1:number})$0'
+  'inputbasen':
+    'prefix': 'inputbasen'
+    'body': 'InputBaseN(${1:string}, ${2:radix})$0'
+  'insert':
+    'prefix': 'insert'
+    'body': 'Insert(${1:substring}, ${2:string}, ${3:position})$0'
+  'int':
+    'prefix': 'int'
+    'body': 'Int(${1:number})$0'
+  'isarray':
+    'prefix': 'isarray'
+    'body': 'IsArray(${1:value} ${2:[, number ]})$0'
+  'isbinary':
+    'prefix': 'isbinary'
+    'body': 'IsBinary(${1:value})$0'
+  'isboolean':
+    'prefix': 'isboolean'
+    'body': 'IsBoolean(${1:value})$0'
+  'iscustomfunction':
+    'prefix': 'iscustomfunction'
+    'body': 'IsCustomFunction(${1:name})$0'
+  'isdate':
+    'prefix': 'isdate'
+    'body': 'IsDate(${1:string})$0'
+  'isdebugmode':
+    'prefix': 'isdebugmode'
+    'body': 'IsDebugMode($1)$0'
+  'isdefined':
+    'prefix': 'isdefined'
+    'body': 'IsDefined(${1:"variable_name"})$0'
+  'isk2serverabroker':
+    'prefix': 'isk2serverabroker'
+    'body': 'IsK2ServerABroker(${1:})$0\t\t\t'
+  'isk2serverdoccountexceeded':
+    'prefix': 'isk2serverdoccountexceeded'
+    'body': 'IsK2ServerDocCountExceeded(${1:})$0\t\t\t\t'
+  'isk2serveronline':
+    'prefix': 'isk2serveronline'
+    'body': 'IsK2ServerOnline(${1:})$0'
+  'isleapyear':
+    'prefix': 'isleapyear'
+    'body': 'IsLeapYear(${1:year})$0'
+  'islocalhost':
+    'prefix': 'islocalhost'
+    'body': 'IsLocalHost(${1:ipaddress})$0'
+  'isnumeric':
+    'prefix': 'isnumeric'
+    'body': 'IsNumeric(${1:string})$0'
+  'isnumericdate':
+    'prefix': 'isnumericdate'
+    'body': 'IsNumericDate(${1:number})$0'
+  'isobject':
+    'prefix': 'isobject'
+    'body': 'IsObject(${1:value})$0'
+  'isquery':
+    'prefix': 'isquery'
+    'body': 'IsQuery(${1:value})$0'
+  'issimplevalue':
+    'prefix': 'issimplevalue'
+    'body': 'IsSimpleValue(${1:value})$0'
+  'issoaprequest':
+    'prefix': 'issoaprequest'
+    'body': 'IsSOAPRequest(${1:})$0'
+  'isstruct':
+    'prefix': 'isstruct'
+    'body': 'IsStruct(${1:variable})$0'
+  'isuserinrole':
+    'prefix': 'isuserinrole'
+    'body': 'IsUserInRole(${1:"role_name"})$0'
+  'isvalid':
+    'prefix': 'isvalid'
+    'body': 'IsValid(${1:type}, ${2:value})$0'
+  'iswddx':
+    'prefix': 'iswddx'
+    'body': 'IsWDDX(${1:value})$0'
+  'isxml':
+    'prefix': 'isxml'
+    'body': 'IsXML(${1:value})$0'
+  'isxmlattribute':
+    'prefix': 'isxmlattribute'
+    'body': 'IsXmlAttribute(${1:value})$0'
+  'isxmldoc':
+    'prefix': 'isxmldoc'
+    'body': 'IsXmlDoc(${1:value})$0'
+  'isxmlelem':
+    'prefix': 'isxmlelem'
+    'body': 'IsXmlElem(${1:value})$0'
+  'isxmlnode':
+    'prefix': 'isxmlnode'
+    'body': 'IsXmlNode(${1:value})$0'
+  'isxmlroot':
+    'prefix': 'isxmlroot'
+    'body': 'IsXmlRoot(${1:value})$0'
+  'javacast':
+    'prefix': 'javacast'
+    'body': 'JavaCast(${1:type}, ${2:variable})$0'
+  'jsstringformat':
+    'prefix': 'jsstringformat'
+    'body': 'JSStringFormat(${1:string})$0'
+  'lcase':
+    'prefix': 'lcase'
+    'body': 'LCase(${1:string})$0'
+  'left':
+    'prefix': 'left'
+    'body': 'Left(${1:string}, ${2:count})$0'
+  'len':
+    'prefix': 'len'
+    'body': 'Len(${1:string or binary object})$0'
+  'listappend':
+    'prefix': 'listappend'
+    'body': 'ListAppend(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'listchangedelims':
+    'prefix': 'listchangedelims'
+    'body': 'ListChangeDelims(${1:list}, ${2:new_delimiter}${3: [, delimiters ]})$0'
+  'listcontains':
+    'prefix': 'listcontains'
+    'body': 'ListContains(${1:list}, ${2:substring}${3: [, delimiters ]})$0'
+  'listcontainsnocase':
+    'prefix': 'listcontainsnocase'
+    'body': 'ListContainsNoCase(${1:list}, ${2:substring} ${3:[, delimiters ]})$0'
+  'listdeleteat':
+    'prefix': 'listdeleteat'
+    'body': 'ListDeleteAt(${1:list}, ${2:position}${3: [, delimiters ]})$0'
+  'listfind':
+    'prefix': 'listfind'
+    'body': 'ListFind(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'listfindnocase':
+    'prefix': 'listfindnocase'
+    'body': 'ListFindNoCase(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'listfirst':
+    'prefix': 'listfirst'
+    'body': 'ListFirst(${1:list}${2: [, delimiters]})$0'
+  'listgetat':
+    'prefix': 'listgetat'
+    'body': 'ListGetAt(${1:list}, ${2:position}${3: [, delimiters]})$0'
+  'listinsertat':
+    'prefix': 'listinsertat'
+    'body': 'ListInsertAt(${1:list}, ${2:position}, ${3:value}${4: [, delimiters]})$0'
+  'listlast':
+    'prefix': 'listlast'
+    'body': 'ListLast(${1:list}${2: [, delimiters]})$0'
+  'listlen':
+    'prefix': 'listlen'
+    'body': 'ListLen(${1:list}${2: [, delimiters ]})$0'
+  'listprepend':
+    'prefix': 'listprepend'
+    'body': 'ListPrepend(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'listqualify':
+    'prefix': 'listqualify'
+    'body': 'ListQualify(${1:list}, ${2:qualifier}${3: [, delimiters ]}${4: [, elements ]})$0'
+  'listrest':
+    'prefix': 'listrest'
+    'body': 'ListRest(${1:list}${2: [, delimiters ]})$0'
+  'listsetat':
+    'prefix': 'listsetat'
+    'body': 'ListSetAt(${1:list}, ${2:position}, ${3:value}${4: [, delimiters]})$0'
+  'listsort':
+    'prefix': 'listsort'
+    'body': 'ListSort(${1:list}, ${2:sort_type}${3: [, sort_order]}${4:[, delimiters]})$0'
+  'listtoarray':
+    'prefix': 'listtoarray'
+    'body': 'ListToArray(${1:list}${2: [, delimiters ]})$0'
+  'listvaluecount':
+    'prefix': 'listvaluecount'
+    'body': 'ListValueCount(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'listvaluecountnocase':
+    'prefix': 'listvaluecountnocase'
+    'body': 'ListValueCountNoCase(${1:list}, ${2:value}${3: [, delimiters ]})$0'
+  'ljustify':
+    'prefix': 'ljustify'
+    'body': 'LJustify(${1:string}, ${2:length})$0'
+  'log':
+    'prefix': 'log'
+    'body': 'Log(${1:number})$0'
+  'log10':
+    'prefix': 'log10'
+    'body': 'Log10(${1:number})$0'
+  'lscurrencyformat':
+    'prefix': 'lscurrencyformat'
+    'body': 'LSCurrencyFormat(${1:number}${2: [, type]})$0'
+  'lsdateformat':
+    'prefix': 'lsdateformat'
+    'body': 'LSDateFormat(${1:date}${2: [, mask]})$0'
+  'lseurocurrencyformat':
+    'prefix': 'lseurocurrencyformat'
+    'body': 'LSEuroCurrencyFormat(${1:currency-number}${2: [, type]})$0'
+  'lsiscurrency':
+    'prefix': 'lsiscurrency'
+    'body': 'LSIsCurrency(${1:string})$0'
+  'lsisdate':
+    'prefix': 'lsisdate'
+    'body': 'LSIsDate(${1:string})$0'
+  'lsisnumeric':
+    'prefix': 'lsisnumeric'
+    'body': 'LSIsNumeric(${1:string})$0'
+  'lsnumberformat':
+    'prefix': 'lsnumberformat'
+    'body': 'LSNumberFormat(${1:number}${2: [, mask ]})$0'
+  'lsparsecurrency':
+    'prefix': 'lsparsecurrency'
+    'body': 'LSParseCurrency(${1:string})$0'
+  'lsparsedatetime':
+    'prefix': 'lsparsedatetime'
+    'body': 'LSParseDateTime(${1:date/time-string})$0'
+  'lsparseeurocurrency':
+    'prefix': 'lsparseeurocurrency'
+    'body': 'LSParseEuroCurrency(${1:currency-string})$0'
+  'lsparsenumber':
+    'prefix': 'lsparsenumber'
+    'body': 'LSParseNumber(${1:string})$0'
+  'lstimeformat':
+    'prefix': 'lstimeformat'
+    'body': 'LSTimeFormat(${1:time}${2: [, mask ]})$0'
+  'ltrim':
+    'prefix': 'ltrim'
+    'body': 'LTrim(${1:string})$0'
+  'max':
+    'prefix': 'max'
+    'body': 'Max(${1:number1}, ${2:number2})$0'
+  'mid':
+    'prefix': 'mid'
+    'body': 'Mid(${1:string}, ${2:start}, ${3:count})$0'
+  'min':
+    'prefix': 'min'
+    'body': 'Min(${1:number1}, ${2:number2})$0'
+  'minute':
+    'prefix': 'minute'
+    'body': 'Minute(${1:date})$0'
+  'month':
+    'prefix': 'month'
+    'body': 'Month(${1:date})$0'
+  'monthasstring':
+    'prefix': 'monthasstring'
+    'body': 'MonthAsString(${1:month_number})$0'
+  'now':
+    'prefix': 'now'
+    'body': 'Now(${1:})$0'
+  'numberformat':
+    'prefix': 'numberformat'
+    'body': 'NumberFormat(${1:number}${2: [, mask ]})$0'
+  'paragraphformat':
+    'prefix': 'paragraphformat'
+    'body': 'ParagraphFormat(${1:string})$0'
+  'parsedatetime':
+    'prefix': 'parsedatetime'
+    'body': 'ParseDateTime(${1:date/time-string}${2: [, pop-conversion ]})$0'
+  'pi':
+    'prefix': 'pi'
+    'body': 'Pi($1)$0'
+  'preservesinglequotes':
+    'prefix': 'preservesinglequotes'
+    'body': 'PreserveSingleQuotes(${1:variable})$0'
+  'quarter':
+    'prefix': 'quarter'
+    'body': 'Quarter(${1:date})$0'
+  'queryaddcolumn':
+    'prefix': 'queryaddcolumn'
+    'body': 'QueryAddColumn(${1:query}, ${2:column-name}${3: [, datatype]}${4: [, array-name]})$0'
+  'queryaddrow':
+    'prefix': 'queryaddrow'
+    'body': 'QueryAddRow(${1:query}${2: [,number]})$0'
+  'querynew':
+    'prefix': 'querynew'
+    'body': 'QueryNew(${1:columnlist}${2: [, columntypelist]})$0'
+  'querysetcell':
+    'prefix': 'querysetcell'
+    'body': 'QuerySetCell(${1:query}, ${2:column_name}, ${3:value}${4: [, row_number ]})$0'
+  'quotedvaluelist':
+    'prefix': 'quotedvaluelist'
+    'body': 'QuotedValueList(${1:query.column}${2: [, delimiter]})$0'
+  'rand':
+    'prefix': 'rand'
+    'body': 'Rand(${1:[algorithm]})$0'
+  'randomize':
+    'prefix': 'randomize'
+    'body': 'Randomize(${1:number}${2: [, algorithm]})$0'
+  'randrange':
+    'prefix': 'randrange'
+    'body': 'RandRange(${1:number1}, ${2:number2}${3: [, algorithm]})$0'
+  'refind':
+    'prefix': 'refind'
+    'body': 'REFind(${1:reg_expression}, ${2:string}${3: [, start]}${4: [, returnsubexpressions]})$0'
+  'refindnocase':
+    'prefix': 'refindnocase'
+    'body': 'REFindNoCase(${1:reg_expression}, ${2:string}${3: [, start]}${4: [, returnsubexpressions]})$0'
+  'releasecomobject':
+    'prefix': 'releasecomobject'
+    'body': 'ReleaseComObject(${1:objectName})$0'
+  'removechars':
+    'prefix': 'removechars'
+    'body': 'RemoveChars(${1:string}, ${2:start}, ${3:count})$0'
+  'repeatstring':
+    'prefix': 'repeatstring'
+    'body': 'RepeatString(${1:string}, ${2:count})$0'
+  'replace':
+    'prefix': 'replace'
+    'body': 'Replace(${1:string}, ${2:substring1}, ${3:substring2}${4: [, scope]})$0'
+  'replacelist':
+    'prefix': 'replacelist'
+    'body': 'ReplaceList(${1:string}, ${2:list1}, ${3:list2})$0'
+  'replacenocase':
+    'prefix': 'replacenocase'
+    'body': 'ReplaceNoCase(${1:string}, ${2:substring1}, ${3:substring2}${4: [, scope]})$0'
+  'rereplace':
+    'prefix': 'rereplace'
+    'body': 'REReplace(${1:string}, ${2:reg_expression}, ${3:substring}${4: [, scope]})$0'
+  'rereplacenocase':
+    'prefix': 'rereplacenocase'
+    'body': 'REReplaceNoCase(${1:string}, ${2:reg_expression}, ${3:substring}${4: [, scope]})$0'
+  'reverse':
+    'prefix': 'reverse'
+    'body': 'Reverse(${1:string})$0'
+  'right':
+    'prefix': 'right'
+    'body': 'Right(${1:string}, ${2:count})$0'
+  'rjustify':
+    'prefix': 'rjustify'
+    'body': 'RJustify(${1:string}, ${2:length})$0'
+  'round':
+    'prefix': 'round'
+    'body': 'Round(${1:number})$0'
+  'rtrim':
+    'prefix': 'rtrim'
+    'body': 'RTrim(${1:string})$0'
+  'second':
+    'prefix': 'second'
+    'body': 'Second(${1:date})$0'
+  'sendgatewaymessage':
+    'prefix': 'sendgatewaymessage'
+    'body': 'SendGatewayMessage(${1:gatewayID}, ${2:data})$0'
+  'setencoding':
+    'prefix': 'setencoding'
+    'body': 'SetEncoding(${1:scope_name,charset})$0'
+  'setlocale':
+    'prefix': 'setlocale'
+    'body': 'SetLocale(${1:new_locale})$0'
+  'setprofilestring':
+    'prefix': 'setprofilestring'
+    'body': 'SetProfileString(${1:iniPath}, ${2:section}, ${3:entry}, ${4:value})$0'
+  'setvariable':
+    'prefix': 'setvariable'
+    'body': 'SetVariable(${1:name}, ${2:value})$0'
+  'sgn':
+    'prefix': 'sgn'
+    'body': 'Sgn(${1:number})$0'
+  'sin':
+    'prefix': 'sin'
+    'body': 'Sin(${1:number})$0'
+  'spanexcluding':
+    'prefix': 'spanexcluding'
+    'body': 'SpanExcluding(${1:string}, ${2:set})$0'
+  'spanincluding':
+    'prefix': 'spanincluding'
+    'body': 'SpanIncluding(${1:string}, ${2:set})$0'
+  'sqr':
+    'prefix': 'sqr'
+    'body': 'Sqr(${1:number})$0'
+  'stripcr':
+    'prefix': 'stripcr'
+    'body': 'StripCR(${1:string})$0'
+  'structappend':
+    'prefix': 'structappend'
+    'body': 'StructAppend(${1:struct1}, ${2:struct2}, ${3:overwriteFlag})$0'
+  'structclear':
+    'prefix': 'structclear'
+    'body': 'StructClear(${1:structure})$0'
+  'structcopy':
+    'prefix': 'structcopy'
+    'body': 'StructCopy(${1:structure})$0'
+  'structcount':
+    'prefix': 'structcount'
+    'body': 'StructCount(${1:structure})$0'
+  'structdelete':
+    'prefix': 'structdelete'
+    'body': 'StructDelete(${1:structure}, ${2:key}${3: [, indicatenotexisting]})$0'
+  'structfind':
+    'prefix': 'structfind'
+    'body': 'StructFind(${1:structure}, ${2:key})$0'
+  'structfindkey':
+    'prefix': 'structfindkey'
+    'body': 'StructFindKey(${1:top}, ${2:value}, ${3:scope})$0'
+  'structfindvalue':
+    'prefix': 'structfindvalue'
+    'body': 'StructFindValue(${1: top}, ${2:value}${3: [, scope]})$0'
+  'structget':
+    'prefix': 'structget'
+    'body': 'StructGet(${1:pathDesired})$0'
+  'structinsert':
+    'prefix': 'structinsert'
+    'body': 'StructInsert(${1:structure}, ${2:key}, ${3:value}${4: [, allowoverwrite]})$0'
+  'structisempty':
+    'prefix': 'structisempty'
+    'body': 'StructIsEmpty(${1:structure})$0'
+  'structkeyarray':
+    'prefix': 'structkeyarray'
+    'body': 'StructKeyArray(${1:structure})$0'
+  'structkeyexists':
+    'prefix': 'structkeyexists'
+    'body': 'StructKeyExists(${1:structure}, ${2:"key"})$0'
+  'structkeylist':
+    'prefix': 'structkeylist'
+    'body': 'StructKeyList(${1:structure}${2: [, delimiter]})$0'
+  'structnew':
+    'prefix': 'structnew'
+    'body': 'StructNew($1)$0'
+  'structsort':
+    'prefix': 'structsort'
+    'body': 'StructSort(${1:base}, ${2:sortType}, ${3:sortOrder}, ${4:pathToSubElement})$0'
+  'structupdate':
+    'prefix': 'structupdate'
+    'body': 'StructUpdate(${1:structure}, ${2:key}, ${3:value})$0'
+  'tan':
+    'prefix': 'tan'
+    'body': 'Tan(${1:number})$0'
+  'timeformat':
+    'prefix': 'timeformat'
+    'body': 'TimeFormat(${1:time}${2: [, mask]})$0'
+  'tobase64':
+    'prefix': 'tobase64'
+    'body': 'ToBase64(${1:string or binary_object}${2: [, encoding]})$0'
+  'tobinary':
+    'prefix': 'tobinary'
+    'body': 'ToBinary(${1:string_in_Base64 or binary_value})$0'
+  'toscript':
+    'prefix': 'toscript'
+    'body': 'ToScript(${1:cfvar}, ${2:javascriptvar}, ${3:outputformat}, ${4:ASFormat})$0'
+  'tostring':
+    'prefix': 'tostring'
+    'body': 'ToString(${1:value}${2: [, encoding]})$0'
+  'trim':
+    'prefix': 'trim'
+    'body': 'Trim(${1:string})$0'
+  'ucase':
+    'prefix': 'ucase'
+    'body': 'UCase(${1:string})$0'
+  'urldecode':
+    'prefix': 'urldecode'
+    'body': 'URLDecode(${1:urlEncodedString}${2: [, charset]})$0'
+  'urlencodedformat':
+    'prefix': 'urlencodedformat'
+    'body': 'URLEncodedFormat(${1:string}${2: [, charset]})$0'
+  'urlsessionformat':
+    'prefix': 'urlsessionformat'
+    'body': 'URLSessionFormat(${1:request_URL})$0'
+  'val':
+    'prefix': 'val'
+    'body': 'Val(${1:string})$0'
+  'valuelist':
+    'prefix': 'valuelist'
+    'body': 'ValueList(${1:query.column}${2: [, delimiter]})$0'
+  'week':
+    'prefix': 'week'
+    'body': 'Week(${1:date})$0'
+  'wrap':
+    'prefix': 'wrap'
+    'body': 'Wrap(${1:string}, ${2:limit}${3: [, strip]})$0'
+  'writeoutput':
+    'prefix': 'writeoutput'
+    'body': 'WriteOutput(${1:string})$0'
+  'xmlchildpos':
+    'prefix': 'xmlchildpos'
+    'body': 'XmlChildPos(${1:elem}, ${2:childName}, ${3:N})$0'
+  'xmlelemnew':
+    'prefix': 'xmlelemnew'
+    'body': 'XmlElemNew(${1:xmlObj}${2: [, namespace]}${3: [, childName]})$0'
+  'xmlformat':
+    'prefix': 'xmlformat'
+    'body': 'XmlFormat(${1:string})$0'
+  'xmlgetnodetype':
+    'prefix': 'xmlgetnodetype'
+    'body': 'XmlGetNodeType(${1:xmlNode})$0'
+  'xmlnew':
+    'prefix': 'xmlnew'
+    'body': 'XmlNew(${1:[caseSensitive]})$0'
+  'xmlparse':
+    'prefix': 'xmlparse'
+    'body': 'XmlParse(${1:xmlText}${2: [, caseSensitive ]}${3: [, validator]})$0'
+  'xmlsearch':
+    'prefix': 'xmlsearch'
+    'body': 'XmlSearch(${1:xmlDoc}, ${2:xPathString})$0'
+  'xmltransform':
+    'prefix': 'xmltransform'
+    'body': 'XmlTransform(${1:xml}, ${2:xsl}${3: [, parameters]})$0'
+  'xmlvalidate':
+    'prefix': 'xmlvalidate'
+    'body': 'XmlValidate(${1:xmlDoc}${2: [, validator]})$0'
+  'year':
+    'prefix': 'year'
+    'body': 'Year(${1:date})$0'
+  'yesnoformat':
+    'prefix': 'yesnoformat'
+    'body': 'YesNoFormat(${1:value})$0'

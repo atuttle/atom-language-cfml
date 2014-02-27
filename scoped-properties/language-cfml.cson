@@ -1,0 +1,4 @@
+'.text.html.cfm':
+  'editor':
+    'commentStart': '<!--- '
+    'commentEnd': ' --->'
