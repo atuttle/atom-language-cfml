@@ -2,7 +2,7 @@
   "name": "language-cfml",
   "version": "0.1.0",
   "private": false,
-  "description": "A short description of your package",
+  "description": "ColdFusion / CFML syntax highlighting",
   "repository": "https://github.com/atuttle/atom-language-cfml",
   "license": "MIT",
   "engines": {
