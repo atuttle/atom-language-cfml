@@ -157,26 +157,42 @@
     ]
   }
   {
-    'begin': '(?:^\\s+)?<((?i:cfscript))\\b(?![^>]*/>)'
-    'captures':
+    'begin': '(?:^\\s+)?(<)((?i:cfscript))\\b(?![^>]*/>)'
+    'beginCaptures':
       '1':
+        'name': 'punctuation.definition.tag.html'
+      '2':
         'name': 'entity.name.tag.script.html'
-    'end': '(?<=</(cfscript|CFSCRIPT))>(?:\\s*\\n)?'
+    'end': '(?<=</(cfscript|CFSCRIPT))(>)(?:\\s*\\n)?'
+    'endCaptures':
+      '2':
+        'name': 'punctuation.definition.tag.html'
     'name': 'source.js.embedded.html'
     'patterns': [
       {
         'include': '#tag-stuff'
       }
       {
-        'begin': '(?<!</(?:cfscript|CFSCRIPT))>'
-        'end': '</((?i:cfscript))'
+        'begin': '(?<!</(?:cfscript|CFSCRIPT))(>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.html'
+          '2':
+            'name': 'entity.name.tag.script.html'
+        'end': '(</)((?i:cfscript))'
         'patterns': [
           {
-            'match': '//.*?((?=</cfscript)|$\\n?)'
+            'captures':
+              '1':
+                'name': 'punctuation.definition.comment.js'
+            'match': '(//).*?((?=</cfscript)|$\\n?)'
             'name': 'comment.line.double-slash.js'
           }
           {
             'begin': '/\\*'
+            'captures':
+              '0':
+                'name': 'punctuation.definition.comment.js'
             'end': '\\*/|(?=</cfscript)'
             'name': 'comment.block.js'
           }
