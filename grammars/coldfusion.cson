@@ -269,7 +269,7 @@
   }
   # script cfcs
   {
-    'begin': '^((/\\*[.\s\r\n]+\\*/)|(component|interface)|(import))\\b'
+    'begin': '^((/\\*[.\s\r\n]+\\*/|//(?:.|\\s)+$)|(component|interface)|(import))\\b'
     'beginCaptures':
       '2':
         'name': 'comment.block.js'
