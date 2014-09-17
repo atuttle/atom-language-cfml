@@ -269,7 +269,7 @@
   }
   # script cfcs
   {
-    'begin': '^((/\\*[.\s\r\n]+\\*/|//(?:.|\\s)+$)|(component|interface)|(import))\\b'
+    'begin': '^((/[/*].*)|(component|interface)|(import))'
     'beginCaptures':
       '2':
         'name': 'comment.block.js'
@@ -281,6 +281,12 @@
       {
         'match': '^\\s*(component|interface)'
         'name': 'entity.name.tag.script.html'
+      }
+      # this feels really hacky, but it doesnt work right otherwise.
+      {
+        'begin': '\\*'
+        'end': '\\*/'
+        'name': 'comment.block.js'
       }
       { 'include': 'source.js' }
     ]
