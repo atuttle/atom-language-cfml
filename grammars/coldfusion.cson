@@ -156,6 +156,7 @@
       }
     ]
   }
+  # code between cfscript tags
   {
     'begin': '(?:^\\s+)?(<)((?i:cfscript))\\b(?![^>]*/>)'
     'beginCaptures':
@@ -265,6 +266,30 @@
   {
     'match': '<(?=\\W)|>'
     'name': 'invalid.illegal.bad-angle-bracket.html'
+  }
+  # script cfcs
+  {
+    'begin': '^((/[/*].*)|(component|interface)|(import))'
+    'beginCaptures':
+      '2':
+        'name': 'comment.block.js'
+      '3':
+        'name': 'entity.name.tag.script.html'
+      '4':
+        'name': 'keyword.control.js'
+    'patterns': [
+      {
+        'match': '^\\s*(component|interface)'
+        'name': 'entity.name.tag.script.html'
+      }
+      # this feels really hacky, but it doesnt work right otherwise.
+      {
+        'begin': '\\*'
+        'end': '\\*/'
+        'name': 'comment.block.js'
+      }
+      { 'include': 'source.js' }
+    ]
   }
 ]
 'repository':
