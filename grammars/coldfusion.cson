@@ -269,22 +269,25 @@
   }
   # script cfcs
   {
-    'begin': '^((/[/*].*)|(component|interface)|(import))'
+    'begin': '^((/[/*]+.*)|(component|interface|import))'
     'beginCaptures':
       '2':
         'name': 'comment.block.js'
       '3':
         'name': 'entity.name.tag.script.html'
-      '4':
-        'name': 'keyword.control.js'
+    'name': 'source.js.embedded.html'
     'patterns': [
       {
-        'match': '^\\s*(component|interface)'
+        'match': '^\\s*(?i:(component|interface|savecontent|property|param|transaction|query|document|setting|\\bloop|(cf[a-zA-Z]+)(?=\\s*\\()))'
         'name': 'entity.name.tag.script.html'
       }
-      # this feels really hacky, but it doesnt work right otherwise.
       {
-        'begin': '\\*'
+        'match': '^\\s*(?i:((write)?dump|writeoutput))'
+        'name': 'keyword.control.js'
+      }
+      # this is really hacky, but it doesn't work right otherwise for components that start with doc comments.
+      {
+        'begin': '^\\s*\\*'
         'end': '\\*/'
         'name': 'comment.block.js'
       }
