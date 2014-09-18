@@ -1,6 +1,6 @@
 {
   "name": "language-cfml",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "description": "ColdFusion / CFML syntax highlighting",
   "repository": "https://github.com/atuttle/atom-language-cfml",
