@@ -293,9 +293,10 @@
         'name': 'keyword.control.js'
     'name': 'source.js.embedded.html'
     'patterns': [
+      { 'include': 'source.js' }
       {
-        'match': '^\\s*(?i:\\b(component|interface|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
-        'name': 'entity.name.tag.script.html'
+        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
+        'name': 'keyword.control.js'
       }
       {
         'match': '^\\s*(?i:((write)?dump|writeoutput))'
@@ -307,7 +308,6 @@
         'end': '\\*/'
         'name': 'comment.block.js'
       }
-      { 'include': 'source.js' }
     ]
   }
 ]
