@@ -1216,7 +1216,16 @@
     'body': 'Wrap(${1:string}, ${2:limit}${3: [, strip]})$0'
   'writeoutput':
     'prefix': 'writeoutput'
-    'body': 'WriteOutput(${1:string})$0'
+    'body': 'WriteOutput(${1:string});$0'
+  'writeoutput (Short)':
+    'prefix': 'out'
+    'body': 'WriteOutput(${1:string});$0'
+  'writedump':
+    'prefix': 'writedump'
+    'body': 'WriteDump(${1:any});$0'
+  'writedump (Short)':
+    'prefix': 'dump'
+    'body': 'WriteDump(${1:any});$0'
   'xmlchildpos':
     'prefix': 'xmlchildpos'
     'body': 'XmlChildPos(${1:elem}, ${2:childName}, ${3:N})$0'
@@ -1250,3 +1259,27 @@
   'yesnoformat':
     'prefix': 'yesnoformat'
     'body': 'YesNoFormat(${1:value})$0'
+  'doccomment':
+    'prefix': '/**'
+    'body': '\n * $0\n */'
+  'component':
+    'prefix': 'component'
+    'body': '/**\n * ${1:ComponentName}.cfc\n * \n * @author ${2:anonymous}\n * @date ${3:date}\n **/\ncomponent accessors=${4:true} output=${5:false} persistent=${6:false} {\n\n\t$0\n\n}'
+  'interface':
+    'prefix': 'interface'
+    'body': '/**\n * ${1:InterfaceName}.cfc\n * \n * @author ${2:anonymous}\n * @date ${3:date}\n **/\ninterface {\n\n\t$0\n\n}'
+  'property':
+    'prefix': 'property'
+    'body': 'property ${1:Any} ${2:PropertyName}$0;'
+  'scriptfunction':
+    'prefix': 'function'
+    'body': '/**\n * ${1:Hint}\n * $2\n */\n${3:public} ${4:any} function ${5:functionName}($6) {\n\t$7\n}'
+  'savecontent':
+    'prefix': 'savecontent'
+    'body': 'savecontent variable="${1:varname}" {\n\t$0\n}'
+  'loop':
+    'prefix': 'loop'
+    'body': 'cfloop($1) {\n\t$0\n}'
+  'transaction':
+    'prefix': 'transaction'
+    'body': 'transaction {\n\ttry {\n\t\t$0\n\t\ttransaction action="commit";\n\t} catch(any e) {\n\t\ttransaction action="rollback";\n\t}\n}'
