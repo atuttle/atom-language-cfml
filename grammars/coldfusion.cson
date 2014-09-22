@@ -285,26 +285,29 @@
   }
   # script cfcs
   {
-    'begin': '^((/[/*].*)|(component|interface)|(import))'
+    'begin': '^((/[/*]+.*)|(component|interface|import))'
     'beginCaptures':
       '2':
         'name': 'comment.block.js'
       '3':
-        'name': 'entity.name.tag.script.html'
-      '4':
         'name': 'keyword.control.js'
+    'name': 'source.js.embedded.html'
     'patterns': [
+      { 'include': 'source.js' }
       {
-        'match': '^\\s*(component|interface)'
-        'name': 'entity.name.tag.script.html'
+        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
+        'name': 'keyword.control.js'
+      }
+      {
+        'match': '^\\s*(?i:((write)?dump|writeoutput))'
+        'name': 'keyword.control.js'
       }
       # this feels really hacky, but it doesnt work right otherwise.
       {
-        'begin': '\\*'
+        'begin': '^\\s*\\*'
         'end': '\\*/'
         'name': 'comment.block.js'
       }
-      { 'include': 'source.js' }
     ]
   }
 ]
