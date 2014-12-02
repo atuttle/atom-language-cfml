@@ -535,7 +535,6 @@
       {
         'begin':'\\s(extends)\\s*="?'
         'end':'\\s'
-        'name': 'test.jds'
         'beginCaptures':
           '1':
             'name':'storage.modifier'
