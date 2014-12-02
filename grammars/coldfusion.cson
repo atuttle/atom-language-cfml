@@ -279,36 +279,14 @@
     'match': '<>'
     'name': 'invalid.illegal.incomplete.html'
   }
+  # reports gt comparisons as invalid in cfscript files now
+  # {
+  #   'match': '<(?=\\W)|>'
+  #   'name': 'invalid.illegal.bad-angle-bracket.html'
+  # }
+  # when nothing tag-related matches, assume cfscript. this fixes alot of problems when dealing with files that either start with import, component or some form of comment.
   {
-    'match': '<(?=\\W)|>'
-    'name': 'invalid.illegal.bad-angle-bracket.html'
-  }
-  # script cfcs
-  {
-    'begin': '^((/[/*]+.*)|(component|interface|import))'
-    'beginCaptures':
-      '2':
-        'name': 'comment.block.js'
-      '3':
-        'name': 'keyword.control.js'
-    'name': 'source.js.embedded.html'
-    'patterns': [
-      { 'include': 'source.js' }
-      {
-        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
-        'name': 'keyword.control.js'
-      }
-      {
-        'match': '^\\s*(?i:((write)?dump|writeoutput))'
-        'name': 'keyword.control.js'
-      }
-      # this feels really hacky, but it doesnt work right otherwise.
-      {
-        'begin': '^\\s*\\*'
-        'end': '\\*/'
-        'name': 'comment.block.js'
-      }
-    ]
+    'include': '#cfscript-files'
   }
 ]
 'repository':
@@ -372,10 +350,11 @@
         'match': '&([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+);'
         'name': 'constant.character.entity.html'
       }
-      {
-        'match': '&'
-        'name': 'invalid.illegal.bad-ampersand.html'
-      }
+      # reports invalid double ampersand in cfscript files
+      # {
+      #   'match': '&'
+      #   'name': 'invalid.illegal.bad-ampersand.html'
+      # }
     ]
   'htmlcomment':
     'begin': '<!--'
@@ -512,14 +491,87 @@
         'include': '#embedded-code'
       }
       {
-        'match': '.var\\s'
-        'name': 'variable.other'
+        'match': '.?var\\s'
+        'name': 'storage.modifier.var'
       }
       {
         'begin': '.<cffunction\\sname=(\'|")1'
         'contentName': 'entity.name.function'
         'end': '\'|"1'
         'name': 'meta.tag.other'
+      }
+    ]
+  'cfscript-files':
+    'name': 'source.cfscript'
+    'patterns': [
+      {
+        'begin':'^\\s*(import)\\s'
+        'end':';'
+        'beginCaptures':
+          '1':
+            'name':'entity.tag.name.script'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+      }
+      {
+        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
+        'name': 'entity.tag.name.script'
+      }
+      {
+        'match': '^\\s*(?i:((write)?dump|writeoutput|throw))\\('
+        'captures':
+            '1':
+                'name': 'keyword.control.js entity.other.cfml.bif'
+      }
+      {
+        'match': '.?var\\s'
+        'name': 'storage.modifier.var'
+      }
+      {
+        'match': '\\b(variables|request|form|url)\\.'
+        'captures':
+          '1':
+            'name': 'entity.other.scope-name'
+      }
+      {
+        'begin':'\\s(extends)\\s*="?'
+        'end':'\\s'
+        'name': 'test.jds'
+        'beginCaptures':
+          '1':
+            'name':'storage.modifier'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+      }
+      {
+        'begin':'\\s(new)\\s'
+        'end':'\\('
+        'beginCaptures':
+          '1':
+            'name':'keyword.operator.new'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-ctor'}]
+      }
+      {
+        'include': 'source.js'
+      }
+    ]
+  'script-component-path':
+    'patterns': [
+      {
+        'match': '(\\w+\\.)+'
+        'name': 'entity.name.package'
+      }
+    ]
+  'script-component-ctor':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component.constructor'
+      }
+    ]
+  'script-component-name':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component'
       }
     ]
 'scopeName': 'text.html.cfm'
