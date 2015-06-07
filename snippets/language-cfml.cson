@@ -13,7 +13,7 @@
     'body': 'AddSOAPResponseHeader(${1:namespace}, ${2:name}, ${3:value} ${4:[, mustunderstand]})$0'
   'arrayappend':
     'prefix': 'arrayappend'
-    'body': 'ArrayAppend(${1:array}, ${2:value})$0'
+    'body': 'ArrayAppend(${1:array}, ${2:value}${3: [, merge ]})$0'
   'arrayavg':
     'prefix': 'arrayavg'
     'body': 'ArrayAvg(${1:array})$0'
