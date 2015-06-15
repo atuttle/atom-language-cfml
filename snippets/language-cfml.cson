@@ -1190,6 +1190,9 @@
   'trim':
     'prefix': 'trim'
     'body': 'Trim(${1:string})$0'
+  'try':
+    'prefix': 'try'
+    'body': 'try {\n\t$0\n} catch(any e) {\n\t\n}'
   'ucase':
     'prefix': 'ucase'
     'body': 'UCase(${1:string})$0'
