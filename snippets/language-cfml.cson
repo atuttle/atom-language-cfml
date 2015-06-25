@@ -106,7 +106,7 @@
     'body': 'BitXor(${1:number1}, ${2:number2})$0'
   'ceiling':
     'prefix': 'ceiling'
-    'body': 'BitXor(${1:number1}, ${2:number2})$0'
+    'body': 'ceiling(${1:number})$0'
   'cfabort':
     'prefix': 'cfabort'
     'body': '<cfabort showerror="$1">$0'
