@@ -1,0 +1,12 @@
+'scopeName': 'text.cf.cfscript'
+'name': 'CFScript'
+'fileTypes': [
+  'cfm'
+  'cfml'
+  'cfc'
+]
+'patterns': [
+  {
+    'include': 'source.js'
+  }
+]

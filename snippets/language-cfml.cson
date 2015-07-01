@@ -1,4 +1,5 @@
-'.text.html.cfm':
+'.text.cf, .text.html.cfml, .text.cf.cfscript':
+  #A
   'abs':
     'prefix': 'abs'
     'body': 'Abs(${1:number})$0'
@@ -71,6 +72,7 @@
   'atn':
     'prefix': 'atn'
     'body': 'Atn(${1:number})$0'
+  #b
   'binarydecode':
     'prefix': 'binarydecode'
     'body': 'BinaryDecode(${1:string}, ${2:binaryencoding})$0'

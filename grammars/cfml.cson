@@ -1,0 +1,307 @@
+'scopeName': 'text.cf.cfml'
+'name': 'CFML'
+'fileTypes': [
+  'cfm'
+  'cfml'
+  'cfc'
+]
+'patterns': [
+  {
+    'begin': '<\\?(xml)'
+    'captures':
+      '1':
+        'name': 'entity.name.tag.xml.html'
+    'end': '\\?>'
+    'name': 'meta.tag.preprocessor.xml.html'
+    'patterns': [
+      {
+        'include': '#tag-generic-attribute'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+    ]
+  }
+  {
+    'include': '#cfcomment'
+  }
+  {
+    'include': '#embedded-cf'
+  }
+  {
+    'include': '#cffunction'
+  }
+  #CFQuery -> defer to SQL Grammar.
+  {
+    'begin': '(?:^\\s+)?<((?i:cfquery))\\b(?![^>]*/>)'
+    'captures':
+      '1':
+        'name': 'entity.name.tag.script.html'
+    'end': '</((?i:cfquery))>(?:\\s*\\n)?'
+    'name': 'source.sql.embedded.html'
+    'patterns': [
+      {
+        'include': '#tag-stuff'
+      }
+      {
+        'begin': '>'
+        'end': '(?=</(?i:cfquery))'
+        'patterns': [
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+    ]
+  }
+  # code between cfscript tags, defer to cfscript dialect
+  {
+    'begin': '(?:^\\s+)?(<)((?i:cfscript))\\b(?![^>]*/>)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.html'
+      '2':
+        'name': 'entity.name.tag.script.html'
+    'end': '(?<=</(cfscript|CFSCRIPT))(>)(?:\\s*\\n)?'
+    'endCaptures':
+      '2':
+        'name': 'punctuation.definition.tag.html'
+    'name': 'source.cfscript.embedded'
+    'patterns': [
+      {
+        'begin': '(?<!</(?:cfscript|CFSCRIPT))(>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.html'
+          '2':
+            'name': 'entity.name.tag.script.html'
+        'end': '(</)((?i:cfscript))'
+        'patterns': [
+          {
+            'captures':
+              '1':
+                'name': 'punctuation.definition.comment.js'
+            'match': '(//).*?((?=</cfscript)|$\\n?)'
+            'name': 'comment.line.double-slash.js'
+          }
+          {
+            'begin': '/\\*'
+            'captures':
+              '0':
+                'name': 'punctuation.definition.comment.js'
+            'end': '\\*/|(?=</cfscript)'
+            'name': 'comment.block.js'
+          }
+          {
+            'include': 'text.cf.cfscript'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'include': '#tag-start'
+  }
+  {
+    'include': '#tag-end'
+  }
+  {
+    'match': '<>'
+    'name': 'invalid.illegal.incomplete.html'
+  }
+  # reports gt comparisons as invalid in cfscript files now
+  # {
+  #   'match': '<(?=\\W)|>'
+  #   'name': 'invalid.illegal.bad-angle-bracket.html'
+  # }
+  # when nothing tag-related matches, assume cfscript. this fixes alot of problems when dealing with files that either start with import, component or some form of comment.
+  {
+    'include': 'text.cf.cfscript'
+  }
+]
+'repository':
+  # Primary tag locator, highlights any matching tag syntax
+  'tag-start':
+    'begin': '(<[cC][fF])([a-zA-Z0-9:-]+)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.cfml'
+      '2':
+        'name': 'entity.name.tag.cfml'
+    'end': '(/?(?=>)>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.cfml'
+    'name': 'meta.tag.any.cfml'
+    'patterns': [
+      {
+        'include': '#tag-stuff'
+      }
+    ]
+  'tag-end':
+    'patterns': [
+      {
+      'name': 'meta.tag.any.html'
+      'match': '(<(?=/[a-zA-Z0-9:-]+))?(/)([cC][fF][a-zA-Z0-9:-]+)?(>)'
+      'captures':
+        '1':
+          'name': 'punctuation.definition.tag.cfml'
+        '2':
+          'name': 'punctuation.definition.tag.cfml'
+        '3':
+          'name': 'entity.name.tag.cfml'
+        '4':
+          'name': 'punctuation.definition.tag.cfml'
+      }
+    ]
+
+  'cfcomment':
+    'begin': '<!---'
+    'end': '---\\s*>'
+    'name': 'comment.line.cfml'
+    'patterns':[
+      {
+        'include': '#cfcomment' # Allow for nested comments.
+      }
+    ]
+  'cffunction':
+    'begin': '<(cffunction)'
+    'captures':
+      '1':
+        'name': 'entity.name.tag.other.html'
+    'end': '>'
+    'name': 'meta.tag.other.html'
+    'patterns': [
+      {
+        'captures':
+          '0':
+            'name': 'entity.other.attribute-name.html'
+          '3':
+            'name': 'punctuation.definition.string.begin'
+          '4':
+            'name': 'entity.name.function.cfml'
+          '5':
+            'name': 'punctuation.definition.string.end'
+        'match': '\\b([nN][aA][mM][Ee])\\b\\s*(=)\\s*(["\'])([A-Za-z$_0-9]+)(["\'])'
+      }
+      {
+        'include': 'source.cfml'
+      }
+      {
+        'include': '#tag-stuff'
+      }
+    ]
+  'embedded-cf':
+    'begin': '\\#'
+    'end': '\\#'
+    'name': 'source.embedded.cf'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#embedded-code'
+      }
+    ]
+  'embedded-code':
+    'patterns': [
+      {
+        'include': 'source.js' #until cfscript is better.
+      }
+    ]
+
+  'inline-function-stuff':
+    'begin': '[a-zA-Z0-9_\\.]+\\('
+    'contentName': 'support.function.parameters'
+    'end': '\\)'
+    'name': 'support.function'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+    ]
+
+  'string-double-quoted':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.html'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.html'
+    'name': 'string.quoted.double.html'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
+      }
+    ]
+  'string-single-quoted':
+    'begin': '\''
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.html'
+    'end': '\''
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.html'
+    'name': 'string.quoted.single.html'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
+      }
+    ]
+  'tag-generic-attribute':
+    'match': '(?<=[^=])\\b([a-zA-Z0-9:-]+)'
+    'name': 'entity.other.attribute-name.html'
+  'tag-stuff':
+    'patterns': [
+      {
+        'include': '#tag-generic-attribute'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+      {
+        'include': '#embedded-cf'
+      }
+    ]
+  'script-component-path':
+    'patterns': [
+      {
+        'match': '(\\w+\\.)+'
+        'name': 'entity.name.package'
+      }
+    ]
+  'script-component-ctor':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component.constructor'
+      }
+    ]
+  'script-component-name':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component'
+      }
+    ]
