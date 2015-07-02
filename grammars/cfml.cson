@@ -7,125 +7,101 @@
 ]
 'patterns': [
   {
-    'begin': '<\\?(xml)'
-    'captures':
-      '1':
-        'name': 'entity.name.tag.xml.html'
-    'end': '\\?>'
-    'name': 'meta.tag.preprocessor.xml.html'
-    'patterns': [
-      {
-        'include': '#tag-generic-attribute'
-      }
-      {
-        'include': '#string-double-quoted'
-      }
-      {
-        'include': '#string-single-quoted'
-      }
-    ]
-  }
-  {
-    'include': '#cfcomment'
-  }
-  {
-    'include': '#embedded-cf'
-  }
-  {
-    'include': '#cffunction'
-  }
-  #CFQuery -> defer to SQL Grammar.
-  {
-    'begin': '(?:^\\s+)?<((?i:cfquery))\\b(?![^>]*/>)'
-    'captures':
-      '1':
-        'name': 'entity.name.tag.script.html'
-    'end': '</((?i:cfquery))>(?:\\s*\\n)?'
-    'name': 'source.sql.embedded.html'
-    'patterns': [
-      {
-        'include': '#tag-stuff'
-      }
-      {
-        'begin': '>'
-        'end': '(?=</(?i:cfquery))'
-        'patterns': [
-          {
-            'include': 'source.sql'
-          }
-        ]
-      }
-    ]
-  }
-  # code between cfscript tags, defer to cfscript dialect
-  {
-    'begin': '(?:^\\s+)?(<)((?i:cfscript))\\b(?![^>]*/>)'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.html'
-      '2':
-        'name': 'entity.name.tag.script.html'
-    'end': '(?<=</(cfscript|CFSCRIPT))(>)(?:\\s*\\n)?'
-    'endCaptures':
-      '2':
-        'name': 'punctuation.definition.tag.html'
-    'name': 'source.cfscript.embedded'
-    'patterns': [
-      {
-        'begin': '(?<!</(?:cfscript|CFSCRIPT))(>)'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(</)((?i:cfscript))'
-        'patterns': [
-          {
-            'captures':
-              '1':
-                'name': 'punctuation.definition.comment.js'
-            'match': '(//).*?((?=</cfscript)|$\\n?)'
-            'name': 'comment.line.double-slash.js'
-          }
-          {
-            'begin': '/\\*'
-            'captures':
-              '0':
-                'name': 'punctuation.definition.comment.js'
-            'end': '\\*/|(?=</cfscript)'
-            'name': 'comment.block.js'
-          }
-          {
-            'include': 'text.cf.cfscript'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'include': '#tag-start'
-  }
-  {
-    'include': '#tag-end'
-  }
-  {
-    'match': '<>'
-    'name': 'invalid.illegal.incomplete.html'
-  }
-  # reports gt comparisons as invalid in cfscript files now
-  # {
-  #   'match': '<(?=\\W)|>'
-  #   'name': 'invalid.illegal.bad-angle-bracket.html'
-  # }
-  # when nothing tag-related matches, assume cfscript. this fixes alot of problems when dealing with files that either start with import, component or some form of comment.
-  {
-    'include': 'text.cf.cfscript'
+    'include': '#language-cfml'
   }
 ]
+
 'repository':
+  'language-cfml':
+    'patterns': [
+      {
+        'include': '#cfcomment'
+      }
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#cffunction'
+      }
+      # Tag cfquery has a special body
+      {
+        'begin': '(?:^\\s+)?(<)((?i:cfquery))\\b(?![^>]*/>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.cfml'
+        'end': '(</)((?i:cfquery))(>)(?:\\s*\\n)?'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'name': 'source.sql.embedded'
+        'patterns': [
+          {
+            'include': '#tag-stuff' #Parse attributes etc.
+          }
+          {
+            'begin': '(>)'  #On end of opening tag, defer to SQL Grammar
+            'beginCaptures':
+              '1':
+                'name': 'punctuation.definition.tag.cfml'
+            'end': '(?=</(?i:cfquery))'
+            'patterns': [
+              {
+                'include': '#language-cfml'
+              }
+              {
+                'include': 'source.sql'
+              }
+            ]
+          }
+        ]
+      }
+      # code between cfscript tags, defer to cfscript dialect
+      {
+        'begin': '(<)(?i:(cfscript))(>)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'end': '(<(?=/(?i:cfscript))/)(?i:(cfscript))(>)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'name': 'source.cfscript.embedded'
+        'patterns': [
+          {
+            'include': 'text.cf.cfscript' # Defer to cfscript Grammar.
+          }
+        ]
+      }
+      {
+        'include': '#tag-start'
+      }
+      {
+        'include': '#tag-end'
+      }
+      {
+        'match': '<>'
+        'name': 'invalid.illegal.incomplete.cfml'
+      }
+    ]
+
+
   # Primary tag locator, highlights any matching tag syntax
   'tag-start':
-    'begin': '(<[cC][fF])([a-zA-Z0-9:-]+)'
+    'begin': '(<)([cC][fF][a-zA-Z0-9:-]+)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.cfml'
@@ -195,8 +171,11 @@
       }
     ]
   'embedded-cf':
-    'begin': '\\#'
-    'end': '\\#'
+    'begin': '(\\#)'
+    'end': '(\\#)'
+    'captures':
+      '1':
+        'name': 'source.embedded.punctuation.section'
     'name': 'source.embedded.cf'
     'patterns': [
       {

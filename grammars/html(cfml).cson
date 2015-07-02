@@ -8,9 +8,9 @@
 'patterns': [
   # Include Standard HTML language
   {
-    'include': 'text.html.basic'
+    'include': 'text.cf.cfml'
   }
   {
-    'include': 'text.cf.cfml'
+    'include': 'text.html.basic'
   }
 ]

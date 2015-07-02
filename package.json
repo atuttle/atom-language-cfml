@@ -1,9 +1,9 @@
 {
-  "name": "Cfml",
-  "version": "0.7.1",
+  "name": "language-cfml",
+  "version": "0.7.2",
   "private": false,
   "description": "CFML syntax highlighting",
-  "repository": "https://github.com/atuttle/atom-language-cfml",
+  "repository": "https://github.com/dpolehonski/atom-language-cfml",
   "license": "MIT",
   "engines": {
     "atom": "*"
