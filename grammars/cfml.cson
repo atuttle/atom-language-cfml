@@ -1,5 +1,5 @@
 'scopeName': 'text.cf.cfml'
-'name': 'CFML'
+'name': 'cfml'
 'fileTypes': [
   'cfm'
   'cfml'
@@ -7,7 +7,7 @@
 ]
 'patterns': [
   {
-    'include': '#language-cfml'
+    'include': '#language-cfml' # Call the root pattern set for CFML.
   }
 ]
 
@@ -101,7 +101,7 @@
 
   # Primary tag locator, highlights any matching tag syntax
   'tag-start':
-    'begin': '(<)([cC][fF][a-zA-Z0-9:-]+)'
+    'begin': '(<)((?i:cf)[a-zA-Z0-9:-]+)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.cfml'
@@ -120,20 +120,18 @@
   'tag-end':
     'patterns': [
       {
-      'name': 'meta.tag.any.html'
-      'match': '(<(?=/[a-zA-Z0-9:-]+))?(/)([cC][fF][a-zA-Z0-9:-]+)?(>)'
+      'name': 'meta.tag.any.cfml'
+      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)[a-zA-Z0-9:-]+)?(>)'
       'captures':
         '1':
           'name': 'punctuation.definition.tag.cfml'
         '2':
-          'name': 'punctuation.definition.tag.cfml'
-        '3':
           'name': 'entity.name.tag.cfml'
-        '4':
+        '3':
           'name': 'punctuation.definition.tag.cfml'
       }
     ]
-
+  # CFComment Pattern, recursive reference to allow nested comments.
   'cfcomment':
     'begin': '<!---'
     'end': '---\\s*>'
@@ -147,14 +145,14 @@
     'begin': '<(cffunction)'
     'captures':
       '1':
-        'name': 'entity.name.tag.other.html'
+        'name': 'entity.name.tag.other.cfml'
     'end': '>'
-    'name': 'meta.tag.other.html'
+    'name': 'meta.tag.other.cfml'
     'patterns': [
       {
         'captures':
           '0':
-            'name': 'entity.other.attribute-name.html'
+            'name': 'entity.other.attribute-name.cfml'
           '3':
             'name': 'punctuation.definition.string.begin'
           '4':
@@ -162,9 +160,6 @@
           '5':
             'name': 'punctuation.definition.string.end'
         'match': '\\b([nN][aA][mM][Ee])\\b\\s*(=)\\s*(["\'])([A-Za-z$_0-9]+)(["\'])'
-      }
-      {
-        'include': 'source.cfml'
       }
       {
         'include': '#tag-stuff'
@@ -213,12 +208,12 @@
     'begin': '"'
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.html'
+        'name': 'punctuation.definition.string.begin.cfml'
     'end': '"'
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.html'
-    'name': 'string.quoted.double.html'
+        'name': 'punctuation.definition.string.end.cfml'
+    'name': 'string.quoted.double.cfml'
     'patterns': [
       {
         'include': '#embedded-cf'
@@ -231,12 +226,12 @@
     'begin': '\''
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.html'
+        'name': 'punctuation.definition.string.begin.cfml'
     'end': '\''
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.html'
-    'name': 'string.quoted.single.html'
+        'name': 'punctuation.definition.string.end.cml'
+    'name': 'string.quoted.single.cfml'
     'patterns': [
       {
         'include': '#embedded-cf'
@@ -247,7 +242,7 @@
     ]
   'tag-generic-attribute':
     'match': '(?<=[^=])\\b([a-zA-Z0-9:-]+)'
-    'name': 'entity.other.attribute-name.html'
+    'name': 'entity.other.attribute-name.cfml'
   'tag-stuff':
     'patterns': [
       {

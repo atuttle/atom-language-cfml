@@ -5,8 +5,9 @@
   'cfml'
   'cfc'
 ]
+
 'patterns': [
-  # Include Standard HTML language
+  # Start the CFML Grammar.
   {
     'include': 'text.cf.cfml'
   }
