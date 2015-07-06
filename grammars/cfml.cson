@@ -1,0 +1,281 @@
+'scopeName': 'text.cf.cfml'
+'name': 'cfml'
+'fileTypes': [
+  'cfm'
+  'cfml'
+  'cfc'
+]
+'patterns': [
+  {
+    'include': '#language-cfml' # Call the root pattern set for CFML.
+  }
+]
+
+'repository':
+  'language-cfml':
+    'patterns': [
+      {
+        'include': '#cfcomment'
+      }
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#cffunction'
+      }
+      # Tag cfquery has a special body
+      {
+        'begin': '(?:^\\s+)?(<)((?i:cfquery))\\b(?![^>]*/>)'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.cfml'
+        'end': '(</)((?i:cfquery))(>)(?:\\s*\\n)?'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'name': 'source.sql.embedded'
+        'patterns': [
+          {
+            'include': '#tag-stuff' #Parse attributes etc.
+          }
+          {
+            'begin': '(>)'  #On end of opening tag, defer to SQL Grammar
+            'beginCaptures':
+              '1':
+                'name': 'punctuation.definition.tag.cfml'
+            'end': '(?=</(?i:cfquery))'
+            'patterns': [
+              {
+                'include': '#language-cfml'
+              }
+              {
+                'include': 'source.sql'
+              }
+            ]
+          }
+        ]
+      }
+      # code between cfscript tags, defer to cfscript dialect
+      {
+        'begin': '(<)(?i:(cfscript))(>)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'end': '(<(?=/(?i:cfscript))/)(?i:(cfscript))(>)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.cfml'
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'punctuation.definition.tag.cfml'
+        'name': 'source.cfscript.embedded'
+        'patterns': [
+          {
+            'include': 'text.cf.cfscript' # Defer to cfscript Grammar.
+          }
+        ]
+      }
+      {
+        'include': '#tag-start'
+      }
+      {
+        'include': '#tag-end'
+      }
+      {
+        'match': '<>'
+        'name': 'invalid.illegal.incomplete.cfml'
+      }
+    ]
+
+
+  # Primary tag locator, highlights any matching tag syntax
+  'tag-start':
+    'begin': '(<)((?i:cf)[a-zA-Z0-9:-]+)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.cfml'
+      '2':
+        'name': 'entity.name.tag.cfml'
+    'end': '(/?(?=>)>)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.tag.cfml'
+    'name': 'meta.tag.any.cfml'
+    'patterns': [
+      {
+        'include': '#tag-stuff'
+      }
+    ]
+  'tag-end':
+    'patterns': [
+      {
+      'name': 'meta.tag.any.cfml'
+      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)[a-zA-Z0-9:-]+)?(>)'
+      'captures':
+        '1':
+          'name': 'punctuation.definition.tag.cfml'
+        '2':
+          'name': 'entity.name.tag.cfml'
+        '3':
+          'name': 'punctuation.definition.tag.cfml'
+      }
+    ]
+  # CFComment Pattern, recursive reference to allow nested comments.
+  'cfcomment':
+    'begin': '<!---'
+    'end': '---\\s*>'
+    'name': 'comment.line.cfml'
+    'patterns':[
+      {
+        'include': '#cfcomment' # Allow for nested comments.
+      }
+    ]
+  'cffunction':
+    'begin': '<(cffunction)'
+    'captures':
+      '1':
+        'name': 'entity.name.tag.other.cfml'
+    'end': '>'
+    'name': 'meta.tag.other.cfml'
+    'patterns': [
+      {
+        'captures':
+          '0':
+            'name': 'entity.other.attribute-name.cfml'
+          '3':
+            'name': 'punctuation.definition.string.begin'
+          '4':
+            'name': 'entity.name.function.cfml'
+          '5':
+            'name': 'punctuation.definition.string.end'
+        'match': '\\b([nN][aA][mM][Ee])\\b\\s*(=)\\s*(["\'])([A-Za-z$_0-9]+)(["\'])'
+      }
+      {
+        'include': '#tag-stuff'
+      }
+    ]
+  'embedded-cf':
+    'begin': '(\\#)'
+    'end': '(\\#)'
+    'captures':
+      '1':
+        'name': 'source.embedded.punctuation.section'
+    'name': 'source.embedded.cf'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#embedded-code'
+      }
+    ]
+  'embedded-code':
+    'patterns': [
+      {
+        'include': 'source.js' #until cfscript is better.
+      }
+    ]
+
+  'inline-function-stuff':
+    'begin': '[a-zA-Z0-9_\\.]+\\('
+    'contentName': 'support.function.parameters'
+    'end': '\\)'
+    'name': 'support.function'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+    ]
+
+  'string-double-quoted':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.cfml'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.cfml'
+    'name': 'string.quoted.double.cfml'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
+      }
+    ]
+  'string-single-quoted':
+    'begin': '\''
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.cfml'
+    'end': '\''
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.cml'
+    'name': 'string.quoted.single.cfml'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
+      }
+    ]
+  'tag-generic-attribute':
+    'match': '(?<=[^=])\\b([a-zA-Z0-9:-]+)'
+    'name': 'entity.other.attribute-name.cfml'
+  'tag-stuff':
+    'patterns': [
+      {
+        'include': '#tag-generic-attribute'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+      {
+        'include': '#embedded-cf'
+      }
+    ]
+  'script-component-path':
+    'patterns': [
+      {
+        'match': '(\\w+\\.)+'
+        'name': 'entity.name.package'
+      }
+    ]
+  'script-component-ctor':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component.constructor'
+      }
+    ]
+  'script-component-name':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component'
+      }
+    ]

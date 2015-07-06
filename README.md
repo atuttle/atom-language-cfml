@@ -1,6 +1,6 @@
 # CFML Grammar for Atom
 
-This project is based on an auto-generated [conversion][1] of [the official CFML TextMate Bundle][2].
+This project is based on an auto-generated [conversion][1] of [the official CFML TextMate Bundle][2], and is under active development.
 
 Pull requests welcome.
 

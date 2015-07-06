@@ -1,0 +1,32 @@
+'.cfml, .cfscript':
+  #Keywords
+  'doccomment':
+    'prefix': '/**'
+    'body': '\n * $0\n */'
+  'component':
+    'prefix': 'component'
+    'body': '/**\n * ${1:ComponentName}.cfc\n * \n * @author ${2:anonymous}\n * @date ${3:date}\n **/\ncomponent accessors=${4:true} output=${5:false} persistent=${6:false} {\n\n\t$0\n\n}'
+  'interface':
+    'prefix': 'interface'
+    'body': '/**\n * ${1:InterfaceName}.cfc\n * \n * @author ${2:anonymous}\n * @date ${3:date}\n **/\ninterface {\n\n\t$0\n\n}'
+  'property':
+    'prefix': 'property'
+    'body': 'property ${1:Any} ${2:PropertyName}$0;'
+  'scriptfunction':
+    'prefix': 'function'
+    'body': '/**\n * ${1:Hint}\n * $2\n */\n${3:public} ${4:any} function ${5:functionName}($6) {\n\t$7\n}'
+  'savecontent':
+    'prefix': 'savecontent'
+    'body': 'savecontent variable="${1:varname}" {\n\t$0\n}'
+  'loop':
+    'prefix': 'loop'
+    'body': 'cfloop($1) {\n\t$0\n}'
+  'transaction':
+    'prefix': 'transaction'
+    'body': 'transaction {\n\ttry {\n\t\t$0\n\t\ttransaction action="commit";\n\t} catch(any e) {\n\t\ttransaction action="rollback";\n\t}\n}'
+  'param':
+    'prefix': 'param'
+    'body': 'param name="${1:name}" type="${2:type}" default="${3:\"\"}";\n'
+  'new':
+    'prefix': 'new'
+    'body': 'new ${1:path.to.cfc}(${2});$0'

@@ -1,0 +1,17 @@
+'scopeName': 'text.html.cfml'
+'name': 'HTML (CFML)'
+'fileTypes': [
+  'cfm'
+  'cfml'
+  'cfc'
+]
+
+'patterns': [
+  # Start the CFML Grammar.
+  {
+    'include': 'text.cf.cfml'
+  }
+  {
+    'include': 'text.html.basic'
+  }
+]
