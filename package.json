@@ -4,33 +4,10 @@
   "version": "0.8.0",
   "private": false,
   "description": "CFML syntax highlighting for ColdFusion, Railo and Luccee Server.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/atuttle/atom-language-cfml"
-  },
+  "repository": "https://github.com/atuttle/atom-language-cfml",
   "license": "MIT",
   "engines": {
     "atom": "*"
   },
-  "dependencies": {},
-  "readme": "# CFML Grammar for Atom\n\nThis project is based on an auto-generated [conversion][1] of [the official CFML TextMate Bundle][2], and is under active development.\n\nPull requests welcome.\n\n[1]: http://atom.io/docs/latest/converting-a-text-mate-bundle\n[2]: https://github.com/textmate/coldfusion.tmbundle\n",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/atuttle/atom-language-cfml/issues"
-  },
-  "homepage": "https://github.com/atuttle/atom-language-cfml",
-  "_id": "language-cfml@0.8.0",
-  "_shasum": "1e0dcdfeb1bb9735913387e038d4209db19cb372",
-  "_resolved": "file:..\\d-11566-11728-xthztr\\package.tgz",
-  "_from": "..\\d-11566-11728-xthztr\\package.tgz",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [],
-    "extensions": {
-      ".json": [
-        "package.json"
-      ]
-    },
-    "folders": []
-  }
+  "dependencies": {}
 }
