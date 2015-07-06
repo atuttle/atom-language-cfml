@@ -1,7 +1,7 @@
 {
   "name": "language-cfml",
-  "main":"./lib/languageCFML",
-  "version": "0.8.0",
+  "main": "./lib/languageCFML",
+  "version": "0.8.1",
   "private": false,
   "description": "CFML syntax highlighting for ColdFusion, Railo and Luccee Server.",
   "repository": "https://github.com/atuttle/atom-language-cfml",
