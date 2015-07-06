@@ -7,6 +7,79 @@
 ]
 'patterns': [
   {
-    'include': 'source.js'
+    'include': '#cfscript-files'
   }
 ]
+'repository':
+  'cfscript-files':
+    'name': 'source.cfscript'
+    'patterns': [
+      {
+        'begin':'^\\s*(import)\\s'
+        'end':';'
+        'beginCaptures':
+          '1':
+            'name':'entity.tag.name.script'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+      }
+      {
+        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
+        'name': 'entity.tag.name.script'
+      }
+      {
+        'match': '^\\s*(?i:((write)?dump|writeoutput|throw))\\('
+        'captures':
+            '1':
+                'name': 'keyword.control.js entity.other.cfml.bif'
+      }
+      {
+        'match': '.?var\\s'
+        'name': 'storage.modifier.var'
+      }
+      {
+        'match': '\\b(variables|request|form|url)\\.'
+        'captures':
+          '1':
+            'name': 'entity.other.scope-name'
+      }
+      {
+        'begin':'\\s(extends)\\s*="?'
+        'end':'\\s'
+        'beginCaptures':
+          '1':
+            'name':'storage.modifier'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+      }
+      {
+        'begin':'\\s(new)\\s'
+        'end':'\\('
+        'beginCaptures':
+          '1':
+            'name':'keyword.operator.new'
+        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-ctor'}]
+      }
+      {
+        'include': 'source.js'
+      }
+    ]
+  'script-component-path':
+    'patterns': [
+      {
+        'match': '(\\w+\\.)+'
+        'name': 'entity.name.package'
+      }
+    ]
+  'script-component-ctor':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component.constructor'
+      }
+    ]
+  'script-component-name':
+    'patterns': [
+      {
+        'match': '\\w+'
+        'name': 'entity.name.type.component'
+      }
+    ]
