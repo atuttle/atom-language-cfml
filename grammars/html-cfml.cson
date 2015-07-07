@@ -5,7 +5,6 @@
   'cfml'
   'cfc'
 ]
-
 'patterns': [
   # Start the CFML Grammar.
   {
