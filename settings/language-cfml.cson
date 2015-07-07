@@ -1,4 +1,4 @@
-'.text.html.cfm, .text.cf.cfml':
+'.text.html.cfml, .source.cfml':
   'editor':
     'commentStart': '<!--- '
     'commentEnd': ' --->'
