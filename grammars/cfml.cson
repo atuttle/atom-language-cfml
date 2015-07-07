@@ -1,10 +1,5 @@
 'scopeName': 'source.cfml'
 'name': 'cfml'
-'fileTypes': [
-  'cfm'
-  'cfml'
-  'cfc'
-]
 'patterns': [
   {
     'include': '#language-cfml' # Call the root pattern set for CFML.
