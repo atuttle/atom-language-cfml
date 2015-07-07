@@ -8,7 +8,7 @@
 'patterns': [
   # Start the CFML Grammar.
   {
-    'include': 'text.cf.cfml'
+    'include': 'source.cfml'
   }
   {
     'include': 'text.html.basic'

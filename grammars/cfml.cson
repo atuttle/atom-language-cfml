@@ -87,6 +87,42 @@
         ]
       }
       {
+        'begin': '(<)((?i:(cfset)))'
+        'beginCaptures':
+            '1':
+              'name': 'punctuation.definition.tag.cfml'
+            '2':
+              'name': 'entity.name.tag.cfset.cfml'
+        'end': '(/?>)'
+        'endCaptures':
+            '1':
+                'name': 'punctuation.definition.tag.cfml'
+        'name': 'source.cfscript.embedded'
+        'patterns': [
+            {
+              'include': 'source.cfscript' # Defer to cfscript Grammar.
+            }
+        ]
+      }
+      {
+         'begin': '(<)((?i:cf(else)?if))\\s'
+         'beginCaptures':
+             '1':
+               'name': 'punctuation.definition.tag.cfml'
+             '2':
+               'name': 'entity.name.tag.cfif.cfml'
+         'end': '(>)'
+         'endCaptures':
+             '1':
+                 'name': 'punctuation.definition.tag.cfml'
+         'name': 'source.cfscript.embedded'
+         'patterns': [
+             {
+               'include': 'source.cfscript' # Defer to cfscript Grammar.
+             }
+         ]
+      }
+      {
         'include': '#tag-start'
       }
       {

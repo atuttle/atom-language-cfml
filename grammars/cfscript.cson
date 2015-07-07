@@ -37,7 +37,7 @@
         'name': 'storage.modifier.var'
       }
       {
-        'match': '\\b(variables|request|form|url)\\.'
+        'match': '\\b((?i:variables|request|form|url|session|application|this|cookie))\\.'
         'captures':
           '1':
             'name': 'entity.other.scope-name'
@@ -59,8 +59,18 @@
         'patterns': [{'include': '#script-component-path'},{'include': '#script-component-ctor'}]
       }
       {
+          'include': '#script-comparison-operators'
+      }
+      {
         'include': 'source.js'
       }
+    ]
+  'script-comparison-operators':
+    'patterns': [
+        {
+            'match': '\\b((?i:IS|NOT|EQ|GT|LT|GTE|LTE|CONTAINS))\\b'
+            'name': 'keyword.operator.cfml'
+        }
     ]
   'script-component-path':
     'patterns': [
