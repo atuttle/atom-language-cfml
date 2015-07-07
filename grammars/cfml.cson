@@ -9,6 +9,9 @@
   {
     'include': '#language-cfml' # Call the root pattern set for CFML.
   }
+  {
+    'include': 'text.html.basic'
+  }
 ]
 
 'repository':
