@@ -1,4 +1,4 @@
-'scopeName': 'text.cf.cfml'
+'scopeName': 'source.cfml'
 'name': 'cfml'
 'fileTypes': [
   'cfm'
@@ -82,7 +82,7 @@
         'name': 'source.cfscript.embedded'
         'patterns': [
           {
-            'include': 'text.cf.cfscript' # Defer to cfscript Grammar.
+            'include': 'source.cfscript' # Defer to cfscript Grammar.
           }
         ]
       }
@@ -183,7 +183,7 @@
   'embedded-code':
     'patterns': [
       {
-        'include': 'source.js' #until cfscript is better.
+        'include': 'source.cfscript' #until cfscript is better.
       }
     ]
 
@@ -256,26 +256,5 @@
       }
       {
         'include': '#embedded-cf'
-      }
-    ]
-  'script-component-path':
-    'patterns': [
-      {
-        'match': '(\\w+\\.)+'
-        'name': 'entity.name.package'
-      }
-    ]
-  'script-component-ctor':
-    'patterns': [
-      {
-        'match': '\\w+'
-        'name': 'entity.name.type.component.constructor'
-      }
-    ]
-  'script-component-name':
-    'patterns': [
-      {
-        'match': '\\w+'
-        'name': 'entity.name.type.component'
       }
     ]

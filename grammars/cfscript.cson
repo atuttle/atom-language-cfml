@@ -1,5 +1,5 @@
-'scopeName': 'text.cf.cfscript'
-'name': 'CFScript'
+'scopeName': 'source.cfscript'
+'name': 'cfscript'
 'fileTypes': [
   'cfm'
   'cfml'
