@@ -62,6 +62,12 @@
           'include': '#script-comparison-operators'
       }
       {
+          'include': '#string-double-quoted'
+      }
+      {
+          'include': '#string-single-quoted'
+      }
+      {
         'include': 'source.js'
       }
     ]
@@ -91,5 +97,78 @@
       {
         'match': '\\w+'
         'name': 'entity.name.type.component'
+      }
+    ]
+  'embedded-cf':
+    'begin': '(\\#)'
+    'end': '(\\#)'
+    'captures':
+      '1':
+        'name': 'source.embedded.punctuation.section'
+    'name': 'source.embedded.cf'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#embedded-code'
+      }
+    ]
+  'embedded-code':
+    'patterns': [
+      {
+        'include': 'source.cfscript' #until cfscript is better.
+      }
+    ]
+  'inline-function-stuff':
+    'begin': '[a-zA-Z0-9_\\.]+\\('
+    'contentName': 'support.function.parameters'
+    'end': '\\)'
+    'name': 'support.function'
+    'patterns': [
+      {
+        'include': '#inline-function-stuff'
+      }
+      {
+        'include': '#string-double-quoted'
+      }
+      {
+        'include': '#string-single-quoted'
+      }
+    ]
+  'string-double-quoted':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.cfml'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.cfml'
+    'name': 'string.quoted.double.cfml'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
+      }
+    ]
+  'string-single-quoted':
+    'begin': '\''
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.cfml'
+    'end': '\''
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.cml'
+    'name': 'string.quoted.single.cfml'
+    'patterns': [
+      {
+        'include': '#embedded-cf'
+      }
+      {
+        'include': '#entities'
       }
     ]
