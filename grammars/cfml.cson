@@ -82,7 +82,7 @@
         ]
       }
       {
-        'begin': '(<)((?i:(cfset)))'
+        'begin': '(<)((?i:(cfset\\b)))'
         'beginCaptures':
             '1':
               'name': 'punctuation.definition.tag.cfml'
