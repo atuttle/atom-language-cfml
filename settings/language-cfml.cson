@@ -2,3 +2,6 @@
   'editor':
     'commentStart': '<!--- '
     'commentEnd': ' --->'
+'.text.script.cfscript, .source.cfscript':
+  'editor':
+    'commentStart': '// '
