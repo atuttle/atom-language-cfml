@@ -270,4 +270,29 @@ describe('cfml grammar', function() {
       expect(tokens[0][11]).toEqual({ value: ';', scopes: ['source.cfscript'] });
     });
 
+    describe('tokenizing cfml in urls', function() {
+
+      beforeEach(function() {
+        waitsForPromise(function() {
+          // Include this package here since it is on by default in Atom and can change the behavior of the grammar
+          return atom.packages.activatePackage('language-hyperlink');
+        });
+      });
+
+      it('should tokenize cfml in urls correctly', function() {
+        var tokens = grammar.tokenizeLines('var reposUrl = "https://github.com/#username#";');
+
+        expect(tokens[0][0]).toEqual({ value: 'var ', scopes: ['source.cfscript', 'storage.modifier.var'] });
+        expect(tokens[0][1]).toEqual({ value: 'reposUrl = ', scopes: ['source.cfscript'] });
+        expect(tokens[0][2]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
+        expect(tokens[0][3]).toEqual({ value: 'https://github.com/', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'markup.underline.link.https.hyperlink'] });
+        expect(tokens[0][4]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][5]).toEqual({ value: 'username', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+        expect(tokens[0][6]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][7]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+        expect(tokens[0][8]).toEqual({ value: ';', scopes: ['source.cfscript'] });
+      });
+    });
+  });
+
 });
