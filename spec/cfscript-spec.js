@@ -251,6 +251,23 @@ describe('cfml grammar', function() {
     });
   });
 
+  describe('embedded-cf', function() {
 
+    it('should tokenize cfml in strings correctly', function() {
+      var tokens = grammar.tokenizeLines('var fullName = "#firstName# #lastName#";');
+
+      expect(tokens[0][0]).toEqual({ value: 'var ', scopes: ['source.cfscript', 'storage.modifier.var'] });
+      expect(tokens[0][1]).toEqual({ value: 'fullName = ', scopes: ['source.cfscript'] });
+      expect(tokens[0][2]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
+      expect(tokens[0][3]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+      expect(tokens[0][4]).toEqual({ value: 'firstName', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+      expect(tokens[0][5]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+      expect(tokens[0][6]).toEqual({ value: ' ', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+      expect(tokens[0][7]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+      expect(tokens[0][8]).toEqual({ value: 'lastName', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+      expect(tokens[0][9]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+      expect(tokens[0][10]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+      expect(tokens[0][11]).toEqual({ value: ';', scopes: ['source.cfscript'] });
+    });
 
 });
