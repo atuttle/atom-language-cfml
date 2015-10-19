@@ -82,6 +82,30 @@ describe('cfml grammar', function() {
       });
     });
 
+    describe('tokenizing `cgi` correctly', function() {
+      it('should tokenize correctly', function() {
+        var tokens = grammar.tokenizeLines('cgi.test = 1;');
+
+        expect(tokens[0][0]).toEqual({ value: 'cgi', scopes: ['source.cfscript', 'entity.other.scope-name'] });
+        expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript'] });
+        expect(tokens[0][2]).toEqual({ value: 'test = 1;', scopes: ['source.cfscript'] });
+      });
+
+      it('tokenizes ignoring case', function() {
+        var tokens = grammar.tokenizeLines('Cgi.test = 1;');
+
+        expect(tokens[0][0]).toEqual({ value: 'Cgi', scopes: ['source.cfscript', 'entity.other.scope-name'] });
+        expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript'] });
+        expect(tokens[0][2]).toEqual({ value: 'test = 1;', scopes: ['source.cfscript'] });
+
+        tokens = grammar.tokenizeLines('CGI.test = 1;');
+
+        expect(tokens[0][0]).toEqual({ value: 'CGI', scopes: ['source.cfscript', 'entity.other.scope-name']});
+        expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript']});
+        expect(tokens[0][2]).toEqual({ value: 'test = 1;', scopes: ['source.cfscript']});
+      });
+    });
+
     describe('tokenizing `form` correctly', function() {
       it('should tokenize correctly', function() {
         var tokens = grammar.tokenizeLines('form.test = 1;');
