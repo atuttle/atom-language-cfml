@@ -37,7 +37,7 @@
         'name': 'storage.modifier.var'
       }
       {
-        'match': '\\b((?i:variables|request|form|url|session|application|this|cookie))\\.'
+        'match': '\\b((?i:variables|request|cgi|form|url|session|application|this|cookie))\\.'
         'captures':
           '1':
             'name': 'entity.other.scope-name'
