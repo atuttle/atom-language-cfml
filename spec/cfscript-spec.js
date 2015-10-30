@@ -1,4 +1,4 @@
-describe('cfml grammar', function() {
+fdescribe('cfml grammar', function() {
   var grammar;
 
   beforeEach(function() {
@@ -279,7 +279,7 @@ describe('cfml grammar', function() {
         });
       });
 
-      it('should tokenize cfml in urls correctly', function() {
+      it('should tokenize cfml at the end of urls correctly', function() {
         var tokens = grammar.tokenizeLines('var reposUrl = "https://github.com/#username#";');
 
         expect(tokens[0][0]).toEqual({ value: 'var ', scopes: ['source.cfscript', 'storage.modifier.var'] });
@@ -291,6 +291,30 @@ describe('cfml grammar', function() {
         expect(tokens[0][6]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
         expect(tokens[0][7]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
         expect(tokens[0][8]).toEqual({ value: ';', scopes: ['source.cfscript'] });
+      });
+
+      it('should tokenize cfml where the host name goes in urls correctly', function() {
+        var tokens = grammar.tokenizeLines('setBaseURL("http://#cgi.HTTP_HOST#/#getSetting(\'AppMapping\')#/");');
+
+        expect(tokens[0][0]).toEqual({ value: 'setBaseURL(', scopes: ['source.cfscript'] });
+        expect(tokens[0][1]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'http://', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'markup.underline.link.http.hyperlink'] });
+        expect(tokens[0][3]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][4]).toEqual({ value: 'cgi', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'entity.other.scope-name'] });
+        expect(tokens[0][5]).toEqual({ value: '.', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+        expect(tokens[0][6]).toEqual({ value: 'HTTP_HOST', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+        expect(tokens[0][7]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][8]).toEqual({ value: '/', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+        expect(tokens[0][9]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][10]).toEqual({ value: 'getSetting(', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'support.function'] });
+        expect(tokens[0][11]).toEqual({ value: '\'', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'support.function', 'support.function.parameters', 'string.quoted.single.cfml', 'punctuation.definition.string.begin.cfml'] });
+        expect(tokens[0][12]).toEqual({ value: 'AppMapping', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'support.function', 'support.function.parameters', 'string.quoted.single.cfml'] });
+        expect(tokens[0][13]).toEqual({ value: '\'', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'support.function', 'support.function.parameters', 'string.quoted.single.cfml', 'punctuation.definition.string.end.cfml'] });
+        expect(tokens[0][14]).toEqual({ value: ')', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'support.function'] });
+        expect(tokens[0][15]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][16]).toEqual({ value: '/', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+        expect(tokens[0][17]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+        expect(tokens[0][18]).toEqual({ value: ');', scopes: ['source.cfscript'] });
       });
     });
   });
