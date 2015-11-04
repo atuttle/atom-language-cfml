@@ -261,7 +261,7 @@
     'end': '\''
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.cml'
+        'name': 'punctuation.definition.string.end.cfml'
     'name': 'string.quoted.single.cfml'
     'patterns': [
       {
