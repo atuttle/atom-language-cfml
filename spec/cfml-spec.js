@@ -79,7 +79,6 @@ describe('cfml grammar', function() {
             expect(tokens[0][12]).toEqual({ value: 'void', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml'] });
             expect(tokens[0][13]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
-            // Shouldn't the equals (=) sign have the same behavior here as in the other attribtues, even if the name is classed differently?
             expect(tokens[0][15]).toEqual({ value: 'name', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
             expect(tokens[0][16]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
             expect(tokens[0][17]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
@@ -122,7 +121,6 @@ describe('cfml grammar', function() {
             expect(tokens[0][12]).toEqual({ value: 'void', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml'] });
             expect(tokens[0][13]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
-            // Shouldn't the equals (=) sign have the same behavior here as in the other attribtues, even if the name is classed differently?
             expect(tokens[0][15]).toEqual({ value: 'name', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
             expect(tokens[0][16]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
             expect(tokens[0][17]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.begin.cfml'] });
