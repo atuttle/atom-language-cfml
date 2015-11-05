@@ -199,7 +199,7 @@ describe('cfml grammar', function() {
         it('should tokenize cfml in urls correctly', function() {
             var tokens = grammar.tokenizeLines('<cfproperty name="url" default="https://github.com/#username#" />');
 
-            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['source.cfml', 'meta.tag.x any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
             expect(tokens[0][1]).toEqual({ value: 'cfproperty', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
             expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
             expect(tokens[0][3]).toEqual({ value: 'name', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.other.attribute-name.cfml'] });
