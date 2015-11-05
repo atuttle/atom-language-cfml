@@ -188,7 +188,7 @@ describe('cfml grammar', function() {
         });
     });
 
-    fdescribe('URLs in strings', function() {
+    describe('URLs in strings', function() {
         beforeEach(function() {
             waitsForPromise(function() {
                 // Include this package here since it is on by default in Atom and can change the behavior of the grammar
