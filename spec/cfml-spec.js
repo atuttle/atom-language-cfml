@@ -188,7 +188,7 @@ describe('cfml grammar', function() {
         });
     });
 
-    describe('URLs in strings', function() {
+    fdescribe('URLs in strings', function() {
         beforeEach(function() {
             waitsForPromise(function() {
                 // Include this package here since it is on by default in Atom and can change the behavior of the grammar
@@ -211,10 +211,10 @@ describe('cfml grammar', function() {
             expect(tokens[0][9]).toEqual({ value: 'default', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.other.attribute-name.cfml'] });
             expect(tokens[0][10]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
             expect(tokens[0][11]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
-            expect(tokens[0][12]).toEqual({ value: 'https://github.com/', scopes: ['source.cfml', 'string.quoted.double.cfml', 'markup.underline.link.https.hyperlink'] });
-            expect(tokens[0][13]).toEqual({ value: '#', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
-            expect(tokens[0][14]).toEqual({ value: 'username', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf'] });
-            expect(tokens[0][15]).toEqual({ value: '#', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][12]).toEqual({ value: 'https://github.com/', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml'] });
+            expect(tokens[0][13]).toEqual({ value: '#', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][14]).toEqual({ value: 'username', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+            expect(tokens[0][15]).toEqual({ value: '#', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
             expect(tokens[0][16]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][17]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
             expect(tokens[0][18]).toEqual({ value: '/>', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
