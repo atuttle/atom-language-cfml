@@ -79,12 +79,53 @@ describe('cfml grammar', function() {
             expect(tokens[0][12]).toEqual({ value: 'void', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml'] });
             expect(tokens[0][13]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
-            // Shouldn't the equals (=) sign have the same behavior here as in the other attribtues, even if the name is classed differently?
             expect(tokens[0][15]).toEqual({ value: 'name', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
             expect(tokens[0][16]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
             expect(tokens[0][17]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
             expect(tokens[0][18]).toEqual({ value: 'init', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'entity.name.function.cfml'] });
             expect(tokens[0][19]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+            expect(tokens[0][20]).toEqual({ value: '>', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+
+            expect(tokens[1][0]).toEqual({ value: '    ', scopes: ['source.cfml'] });
+            expect(tokens[1][1]).toEqual({ value: '<', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[1][2]).toEqual({ value: 'cfreturn', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
+            expect(tokens[1][3]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
+            expect(tokens[1][4]).toEqual({ value: '/>', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+
+            expect(tokens[2][0]).toEqual({ value: '</', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[2][1]).toEqual({ value: 'cffunction', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
+            expect(tokens[2][2]).toEqual({ value: '>', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+        });
+
+        it('tokenizes simple cffunctions with single quotes correctly', function() {
+            var tokens = grammar.tokenizeLines([
+                '<cffunction access=\'public\' returntype=\'void\' name=\'init\'>',
+                '    <cfreturn />',
+                '</cffunction>'
+            ].join('\n'));
+
+            console.log(tokens[0]);
+
+            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][1]).toEqual({ value: 'cffunction', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.name.tag.other.cfml'] });
+            expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][3]).toEqual({ value: 'access', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
+            expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][5]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.begin.cfml'] });
+            expect(tokens[0][6]).toEqual({ value: 'public', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml'] });
+            expect(tokens[0][7]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.end.cfml'] });
+            expect(tokens[0][8]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][9]).toEqual({ value: 'returntype', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
+            expect(tokens[0][10]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][11]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.begin.cfml'] });
+            expect(tokens[0][12]).toEqual({ value: 'void', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml'] });
+            expect(tokens[0][13]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.end.cfml'] });
+            expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][15]).toEqual({ value: 'name', scopes: ['source.cfml', 'meta.tag.other.cfml', 'entity.other.attribute-name.cfml'] });
+            expect(tokens[0][16]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
+            expect(tokens[0][17]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.begin.cfml'] });
+            expect(tokens[0][18]).toEqual({ value: 'init', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'entity.name.function.cfml'] });
+            expect(tokens[0][19]).toEqual({ value: '\'', scopes: ['source.cfml', 'meta.tag.other.cfml', 'string.quoted.single.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][20]).toEqual({ value: '>', scopes: ['source.cfml', 'meta.tag.other.cfml'] });
 
             expect(tokens[1][0]).toEqual({ value: '    ', scopes: ['source.cfml'] });
@@ -211,10 +252,10 @@ describe('cfml grammar', function() {
             expect(tokens[0][9]).toEqual({ value: 'default', scopes: ['source.cfml', 'meta.tag.any.cfml', 'entity.other.attribute-name.cfml'] });
             expect(tokens[0][10]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
             expect(tokens[0][11]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
-            expect(tokens[0][12]).toEqual({ value: 'https://github.com/', scopes: ['source.cfml', 'string.quoted.double.cfml', 'markup.underline.link.https.hyperlink'] });
-            expect(tokens[0][13]).toEqual({ value: '#', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
-            expect(tokens[0][14]).toEqual({ value: 'username', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf'] });
-            expect(tokens[0][15]).toEqual({ value: '#', scopes: ['source.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][12]).toEqual({ value: 'https://github.com/', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml'] });
+            expect(tokens[0][13]).toEqual({ value: '#', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][14]).toEqual({ value: 'username', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf'] });
+            expect(tokens[0][15]).toEqual({ value: '#', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
             expect(tokens[0][16]).toEqual({ value: '"', scopes: ['source.cfml', 'meta.tag.any.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
             expect(tokens[0][17]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.any.cfml'] });
             expect(tokens[0][18]).toEqual({ value: '/>', scopes: ['source.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });

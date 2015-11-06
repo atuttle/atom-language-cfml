@@ -1,4 +1,4 @@
-fdescribe('cfml grammar', function() {
+describe('cfml grammar', function() {
   var grammar;
 
   beforeEach(function() {
@@ -285,7 +285,7 @@ fdescribe('cfml grammar', function() {
         expect(tokens[0][0]).toEqual({ value: 'var ', scopes: ['source.cfscript', 'storage.modifier.var'] });
         expect(tokens[0][1]).toEqual({ value: 'reposUrl = ', scopes: ['source.cfscript'] });
         expect(tokens[0][2]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
-        expect(tokens[0][3]).toEqual({ value: 'https://github.com/', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'markup.underline.link.https.hyperlink'] });
+        expect(tokens[0][3]).toEqual({ value: 'https://github.com/', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
         expect(tokens[0][4]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
         expect(tokens[0][5]).toEqual({ value: 'username', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
         expect(tokens[0][6]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
@@ -298,7 +298,7 @@ fdescribe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'setBaseURL(', scopes: ['source.cfscript'] });
         expect(tokens[0][1]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'http://', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'markup.underline.link.http.hyperlink'] });
+        expect(tokens[0][2]).toEqual({ value: 'http://', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
         expect(tokens[0][3]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
         expect(tokens[0][4]).toEqual({ value: 'cgi', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf', 'entity.other.scope-name'] });
         expect(tokens[0][5]).toEqual({ value: '.', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'source.embedded.cf'] });
