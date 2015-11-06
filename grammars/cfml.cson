@@ -182,15 +182,46 @@
     'patterns': [
       {
         'captures':
-          '0':
+          '1':
             'name': 'entity.other.attribute-name.cfml'
           '3':
-            'name': 'punctuation.definition.string.begin'
-          '4':
-            'name': 'entity.name.function.cfml'
-          '5':
-            'name': 'punctuation.definition.string.end'
-        'match': '\\b([nN][aA][mM][Ee])\\b\\s*(=)\\s*(["\'])([A-Za-z$_0-9]+)(["\'])'
+            'patterns': [
+                {
+                    'begin': '"'
+                    'beginCaptures':
+                      '0':
+                        'name': 'punctuation.definition.string.begin.cfml'
+                    'end': '"'
+                    'endCaptures':
+                      '0':
+                        'name': 'punctuation.definition.string.end.cfml'
+                    'name': 'string.quoted.double.cfml'
+                    'patterns': [
+                        {
+                            'match': '[^"]+'
+                            'name': 'entity.name.function.cfml'
+                        }
+                    ]
+                }
+                {
+                    'begin': '\''
+                    'beginCaptures':
+                      '0':
+                        'name': 'punctuation.definition.string.begin.cfml'
+                    'end': '\''
+                    'endCaptures':
+                      '0':
+                        'name': 'punctuation.definition.string.end.cfml'
+                    'name': 'string.quoted.single.cfml'
+                    'patterns': [
+                        {
+                            'match': '[^\']+'
+                            'name': 'entity.name.function.cfml'
+                        }
+                    ]
+                }
+            ]
+        'match': '\\b([nN][aA][mM][Ee])\\b\\s*(=)\\s*(["\'][A-Za-z$_0-9]+["\'])'
       }
       {
         'include': '#tag-stuff'
