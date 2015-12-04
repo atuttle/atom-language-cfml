@@ -5,7 +5,7 @@
   'cfml'
   'cfc'
 ]
-'injectionSelector': 'string.quoted.double.html, string.quoted.single.html'
+'injectionSelector': 'meta.tag.* -comment.line.cfml'
 'patterns': [
   {
     'include': 'source.cfml'
