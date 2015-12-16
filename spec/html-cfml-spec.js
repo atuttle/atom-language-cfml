@@ -1,4 +1,4 @@
-fdescribe('html-cfml grammar', function() {
+describe('html-cfml grammar', function() {
     var grammar;
 
     beforeEach(function() {
