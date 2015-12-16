@@ -107,4 +107,122 @@ describe('html-cfml grammar', function() {
         });
     });
 
+    describe('tokenizing cfcomments', function() {
+        it('should tokenize cfcomments correctly', function() {
+            var tokens = grammar.tokenizeLines('<!--- cfcomment goes here --->');
+
+            expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'comment.line.cfml'] });
+            expect(tokens[0][1]).toEqual({ value: ' cfcomment goes here ', scopes: ['text.html.cfml', 'comment.line.cfml'] });
+            expect(tokens[0][2]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'comment.line.cfml'] });
+        });
+
+        it('should tokenize cfcomments embedded in html tags correctly', function() {
+            var tokens = grammar.tokenizeLines('<input type="text" name="credit_card_number" <!--- embedded cfcomment ---> />');
+
+            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.begin.html'] });
+            expect(tokens[0][1]).toEqual({ value: 'input', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.name.tag.inline.any.html'] });
+            expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][3]).toEqual({ value: 'type', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.other.attribute-name.html'] });
+            expect(tokens[0][4]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][5]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html'] });
+            expect(tokens[0][6]).toEqual({ value: 'text', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][7]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html'] });
+            expect(tokens[0][8]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][9]).toEqual({ value: 'name', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.other.attribute-name.html'] });
+            expect(tokens[0][10]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][11]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html'] });
+            expect(tokens[0][12]).toEqual({ value: 'credit_card_number', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][13]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html'] });
+            expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][15]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][16]).toEqual({ value: ' embedded cfcomment ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][17]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][18]).toEqual({ value: ' />', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.end.html'] });
+        });
+
+        it('should not highlight hash signs in cfcomments', function() {
+            var tokens = grammar.tokenizeLines('<input type="text" name="credit_card_number" <!--- #rc.name# should not be tokenized ---> />');
+
+            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.begin.html'] });
+            expect(tokens[0][1]).toEqual({ value: 'input', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.name.tag.inline.any.html'] });
+            expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][3]).toEqual({ value: 'type', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.other.attribute-name.html'] });
+            expect(tokens[0][4]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][5]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html'] });
+            expect(tokens[0][6]).toEqual({ value: 'text', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][7]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html'] });
+            expect(tokens[0][8]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][9]).toEqual({ value: 'name', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.other.attribute-name.html'] });
+            expect(tokens[0][10]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][11]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html'] });
+            expect(tokens[0][12]).toEqual({ value: 'credit_card_number', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][13]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html'] });
+            expect(tokens[0][14]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][15]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][16]).toEqual({ value: ' #rc.name# should not be tokenized ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][17]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'comment.line.cfml'] });
+            expect(tokens[0][18]).toEqual({ value: ' />', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.end.html'] });
+        });
+    });
+
+    describe('tokenization in strings', function() {
+
+        it('should tokenize embedded cf in strings', function() {
+            var tokens = grammar.tokenizeLines('<cfoutput><a href="index.cfm?action=shopping.product-details.main&amp;details=#_.detail#">#variables.white_papers[_.detail][2]#</a></cfoutput>');
+
+            expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[0][1]).toEqual({ value: 'cfoutput', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
+            expect(tokens[0][2]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[0][3]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.begin.html'] });
+            expect(tokens[0][4]).toEqual({ value: 'a', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.name.tag.inline.any.html'] });
+            expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][6]).toEqual({ value: 'href', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.other.attribute-name.html'] });
+            expect(tokens[0][7]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html'] });
+            expect(tokens[0][8]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.begin.html'] });
+            expect(tokens[0][9]).toEqual({ value: 'index.cfm?action=shopping.product-details.main', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][10]).toEqual({ value: '&', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'constant.character.entity.html', 'punctuation.definition.entity.html'] });
+            expect(tokens[0][11]).toEqual({ value: 'amp', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'constant.character.entity.html'] });
+            expect(tokens[0][12]).toEqual({ value: ';', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'constant.character.entity.html', 'punctuation.definition.entity.html'] });
+            expect(tokens[0][13]).toEqual({ value: 'details=', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html'] });
+            expect(tokens[0][14]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][15]).toEqual({ value: '_.detail', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'source.embedded.cf'] });
+            expect(tokens[0][16]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][17]).toEqual({ value: '"', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'string.quoted.double.html', 'punctuation.definition.string.end.html'] });
+            expect(tokens[0][18]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.end.html'] });
+            expect(tokens[0][19]).toEqual({ value: '#', scopes: ['text.html.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][20]).toEqual({ value: 'variables', scopes: ['text.html.cfml', 'source.embedded.cf', 'entity.other.scope-name'] });
+            expect(tokens[0][21]).toEqual({ value: '.', scopes: ['text.html.cfml', 'source.embedded.cf'] });
+            expect(tokens[0][22]).toEqual({ value: 'white_papers[_.detail][2]', scopes: ['text.html.cfml', 'source.embedded.cf'] });
+            expect(tokens[0][23]).toEqual({ value: '#', scopes: ['text.html.cfml', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+            expect(tokens[0][24]).toEqual({ value: '</', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.begin.html'] });
+            expect(tokens[0][25]).toEqual({ value: 'a', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'entity.name.tag.inline.any.html'] });
+            expect(tokens[0][26]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.inline.any.html', 'punctuation.definition.tag.end.html'] });
+            expect(tokens[0][27]).toEqual({ value: '</', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+            expect(tokens[0][28]).toEqual({ value: 'cfoutput', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
+            expect(tokens[0][29]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
+        });
+    });
+
+    it('should not tokenize embedded cf that is not surrounded by a <cfoutput> tag', function() {
+        // TODO
+    });
+
+    it('should tokenize cfml in unquoted attributes', function() {
+        var tokens = grammar.tokenizeLines('<span class=#className#></span>');
+
+        expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][1]).toEqual({ value: 'span', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.name.tag.html'] });
+        expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.any.html'] });
+        expect(tokens[0][3]).toEqual({ value: 'class', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.other.attribute-name.html'] });
+        expect(tokens[0][4]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.any.html'] });
+        expect(tokens[0][5]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][6]).toEqual({ value: 'className', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf'] });
+        expect(tokens[0][7]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][8]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][9]).toEqual({ value: '</', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][10]).toEqual({ value: 'span', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.name.tag.html'] });
+        expect(tokens[0][11]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+
+    });
+
 });

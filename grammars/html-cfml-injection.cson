@@ -1,0 +1,13 @@
+'name': 'HTML (CFML)'
+'scopeName': 'text.html.cfml'
+'fileTypes': [
+  'cfm'
+  'cfml'
+  'cfc'
+]
+'injectionSelector': 'meta.tag.* -comment.line.cfml'
+'patterns': [
+  {
+    'include': 'source.cfml'
+  }
+]
