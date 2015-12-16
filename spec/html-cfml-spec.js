@@ -201,10 +201,28 @@ fdescribe('html-cfml grammar', function() {
             expect(tokens[0][28]).toEqual({ value: 'cfoutput', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'entity.name.tag.cfml'] });
             expect(tokens[0][29]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.cfml', 'punctuation.definition.tag.cfml'] });
         });
+    });
 
-        it('should not tokenize embedded cf that is not surrounded by a <cfoutput> tag', function() {
-            // TODO
-        });
+    it('should not tokenize embedded cf that is not surrounded by a <cfoutput> tag', function() {
+        // TODO
+    });
+
+    it('should tokenize cfml in unquoted attributes', function() {
+        var tokens = grammar.tokenizeLines('<span class=#className#></span>');
+
+        expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][1]).toEqual({ value: 'span', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.name.tag.html'] });
+        expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['text.html.cfml', 'meta.tag.any.html'] });
+        expect(tokens[0][3]).toEqual({ value: 'class', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.other.attribute-name.html'] });
+        expect(tokens[0][4]).toEqual({ value: '=', scopes: ['text.html.cfml', 'meta.tag.any.html'] });
+        expect(tokens[0][5]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][6]).toEqual({ value: 'className', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf'] });
+        expect(tokens[0][7]).toEqual({ value: '#', scopes: ['text.html.cfml', 'meta.tag.any.html', 'string.unquoted.html', 'source.embedded.cf', 'source.embedded.punctuation.section'] });
+        expect(tokens[0][8]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][9]).toEqual({ value: '</', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+        expect(tokens[0][10]).toEqual({ value: 'span', scopes: ['text.html.cfml', 'meta.tag.any.html', 'entity.name.tag.html'] });
+        expect(tokens[0][11]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.any.html', 'punctuation.definition.tag.html'] });
+
     });
 
 });
