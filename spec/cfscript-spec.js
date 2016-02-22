@@ -429,7 +429,7 @@ describe('cfml grammar', function() {
         });
       });
 
-      it('should tokenize cfml at the end of urls correctly', function() {
+      xit('should tokenize cfml at the end of urls correctly', function() {
         var tokens = grammar.tokenizeLines('var reposUrl = "https://github.com/#username#";');
 
         expect(tokens[0][0]).toEqual({ value: 'var', scopes: ['source.cfscript', 'storage.modifier.cfml'] });
@@ -445,7 +445,7 @@ describe('cfml grammar', function() {
         expect(tokens[0][10]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
       });
 
-      it('should tokenize cfml where the host name goes in urls correctly', function() {
+      xit('should tokenize cfml where the host name goes in urls correctly', function() {
         var tokens = grammar.tokenizeLines('setBaseURL("http://#cgi.HTTP_HOST#/#getSetting(\'AppMapping\')#/");');
 
         expect(tokens[0][0]).toEqual({ value: 'setBaseURL', scopes: ['source.cfscript', 'meta.function-call.cfml', 'variable.function.cfml'] });
