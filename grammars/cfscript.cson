@@ -1,174 +1,1037 @@
 'scopeName': 'source.cfscript'
 'name': 'cfscript'
 'fileTypes': [
-  'cfm'
-  'cfml'
   'cfc'
 ]
 'patterns': [
   {
-    'include': '#cfscript-files'
+    'include': '#labels'
+  }
+  {
+    'include': '#keywords'
+  }
+  {
+    'include': '#for'
+  }
+  {
+    'include': '#switch'
+  }
+  {
+    'include': '#expression'
+  }
+  {
+    'include': '#punctuation'
   }
 ]
 'repository':
-  'cfscript-files':
-    'name': 'source.cfscript'
+  'brackets':
     'patterns': [
       {
-        'begin':'^\\s*(import)\\s'
-        'end':';'
-        'beginCaptures':
-          '1':
-            'name':'entity.tag.name.script'
-        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+        'include': '#round-brackets'
       }
       {
-        'match': '^\\s*(?i:\\b(component|interface|import|savecontent|property|param|transaction|query|document|setting|loop|(cf[a-zA-Z]+)(?=\\s*\\())\\b)'
-        'name': 'entity.tag.name.script'
+        'include': '#square-brackets'
       }
       {
-        'match': '^\\s*(?i:((write)?dump|writeoutput|throw))\\('
+        'include': '#curly-brackets'
+      }
+    ]
+  'comments':
+    'patterns': [
+      {
+        'begin': '/\\*\\*(?!/)'
         'captures':
-            '1':
-                'name': 'keyword.control.js entity.other.cfml.bif'
+          '0':
+            'name': 'punctuation.definition.comment.cfml'
+        'end': '\\*/'
+        'name': 'comment.block.documentation.cfml'
       }
       {
-        'match': '.?var\\s'
-        'name': 'storage.modifier.var'
+        'begin': '/\\*'
+        'captures':
+          '0':
+            'name': 'punctuation.definition.comment.cfml'
+        'end': '\\*/'
+        'name': 'comment.block.cfml'
       }
       {
-        'match': '\\b((?i:variables|request|cgi|form|url|session|application|this|cookie))\\.'
         'captures':
           '1':
-            'name': 'entity.other.scope-name'
+            'name': 'punctuation.definition.comment.cfml'
+        'match': '(//).*$\\n?'
+        'name': 'comment.line.double-slash.cfml'
       }
       {
-        'begin':'\\s(extends)\\s*="?'
-        'end':'\\s'
+        'include': 'source.cfml#comments'
+      }
+    ]
+  'component':
+    'patterns': [
+      {
+        'begin': '(?i)^\\s*(component)(?=(\\s+|{))'
         'beginCaptures':
           '1':
-            'name':'storage.modifier'
-        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-name'}]
+            'name': 'storage.type.class.cfml'
+        'end': '(?={)'
+        'name': 'meta.class.cfml'
+        'patterns': [
+          {
+            'include': '#component-attributes'
+          }
+        ]
       }
       {
-        'begin':'\\s(new)\\s'
-        'end':'\\('
+        'begin': '(?i)^\\s*(interface)(?=(\\s+|{))'
         'beginCaptures':
           '1':
-            'name':'keyword.operator.new'
-        'patterns': [{'include': '#script-component-path'},{'include': '#script-component-ctor'}]
-      }
-      {
-          'include': '#script-comparison-operators'
-      }
-      {
-          'include': '#string-double-quoted'
-      }
-      {
-          'include': '#string-single-quoted'
-      }
-      {
-        'include': 'source.js'
+            'name': 'storage.type.interface.cfml'
+        'end': '(?={)'
+        'name': 'meta.interface.cfml'
+        'patterns': [
+          {
+            'include': '#component-attributes'
+          }
+        ]
       }
     ]
-  'script-comparison-operators':
-    'patterns': [
-        {
-            'match': '\\b((?i:IS|NOT|EQ|GT|LT|GTE|LTE|CONTAINS))\\b'
-            'name': 'keyword.operator.cfml'
-        }
-    ]
-  'script-component-path':
+  'component-attributes':
     'patterns': [
       {
-        'match': '(\\w+\\.)+'
-        'name': 'entity.name.package'
+        'begin': '\\b(?i:(extends))\\b\\s*(=)\\s*'
+        'beginCaptures':
+          '1':
+            'name': 'storage.modifier.extends.cfml'
+        'end': '(["\'])([a-zA-Z0-9:.]+)(["\'])|([a-zA-Z0-9:.]+)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.cfml'
+          '2':
+            'name': 'entity.other.inherited-class.cfml'
+          '3':
+            'name': 'punctuation.definition.string.end.cfml'
+          '4':
+            'name': 'entity.other.inherited-class.cfml'
+        'contentName': 'meta.class.inheritance.cfml'
+      }
+      {
+        'include': 'source.cfml#tag-generic-attribute'
       }
     ]
-  'script-component-ctor':
+  'constructor':
     'patterns': [
       {
-        'match': '\\w+'
-        'name': 'entity.name.type.component.constructor'
+        'begin': '(new)\\s+(?=[_$a-zA-Z][$\\w.]*)'
+        'beginCaptures':
+          '1':
+            'name': 'keyword.operator.new.cfml'
+        'end': '(?![_$a-zA-Z][$\\w.]*)'
+        'name': 'meta.instance.constructor'
+        'patterns': [
+          {
+            'include': '#support'
+          }
+          {
+            'match': '([_$a-zA-Z][$\\w.]*\\.)?([_$a-zA-Z][$\\w]*)'
+            'captures':
+              '2':
+                'name': 'entity.name.class.cfml'
+          }
+        ]
       }
     ]
-  'script-component-name':
+  'curly-brackets':
     'patterns': [
       {
-        'match': '\\w+'
-        'name': 'entity.name.type.component'
+        'begin': '\\{'
+        'beginCaptures':
+          '0':
+            'name': 'meta.brace.curly.cfml'
+        'end': '\\}'
+        'endCaptures':
+          '0':
+            'name': 'meta.brace.curly.cfml'
+        'name': 'meta.group.braces.curly'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
       }
     ]
-  'embedded-cf':
-    'begin': '(\\#)'
-    'end': '(\\#)'
-    'captures':
-      '1':
-        'name': 'source.embedded.punctuation.section'
-    'name': 'source.embedded.cf'
+  'expression':
     'patterns': [
       {
-        'include': '#inline-function-stuff'
+        'include': '#support'
       }
       {
-        'include': '#embedded-code'
+        'include': '#function'
+      }
+      {
+        'include': '#number'
+      }
+      {
+        'include': '#string'
+      }
+      {
+        'include': '#language-constant'
+      }
+      {
+        'include': '#language-variable'
+      }
+      {
+        'include': '#constructor'
+      }
+      {
+        'include': '#component'
+      }
+      {
+        'include': '#method-call'
+      }
+      {
+        'include': '#function-call'
+      }
+      {
+        'include': '#comments'
+      }
+      {
+        'include': '#brackets'
+      }
+      {
+        'include': '#operators'
+      }
+      {
+        'include': '#tag-in-script'
+      }
+      {
+        'include': '#variable'
       }
     ]
-  'embedded-code':
+  'for':
     'patterns': [
       {
-        'include': 'source.cfscript' #until cfscript is better.
+        'begin': '(?<!\\.)\\b(for)\\b'
+        'beginCaptures':
+          '1':
+            'name': 'keyword.control.loop.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'meta.brace.round.cfml'
+        'name': 'meta.for.cfml'
+        'patterns': [
+          {
+            'begin': '\\('
+            'beginCaptures':
+              '0':
+                'name': 'meta.brace.round.cfml'
+            'end': '(?=\\))'
+            'patterns': [
+              {
+                'include': '#keyword-storage'
+              }
+              {
+                'include': '#expression'
+              }
+              {
+                'include': '#punctuation'
+              }
+            ]
+          }
+        ]
       }
     ]
-  'inline-function-stuff':
-    'begin': '[a-zA-Z0-9_\\.]+\\('
-    'contentName': 'support.function.parameters'
-    'end': '\\)'
-    'name': 'support.function'
+  'function':
     'patterns': [
       {
-        'include': '#inline-function-stuff'
+        'begin': '(?:(?:(?i:\\b(private|package|public|remote)\\s+)?(?i:\\b(void)\\s+|(any|array|binary|boolean|component|date|guid|numeric|query|string|struct|xml|uuid)\\s+|([A-Za-z0-9_\\.$]+)\\s+)?))(?i:(function))\\s+(?:(init)|([_$a-zA-Z][$\\w]*))\\b'
+        'beginCaptures':
+          '1':
+            'name': 'storage.modifier.cfml'
+          '2':
+            'name': 'storage.type.return-type.void.cfml'
+          '3':
+            'name': 'storage.type.return-type.primitive.cfml'
+          '4':
+            'name': 'storage.type.return-type.object.cfml'
+          '5':
+            'name': 'storage.type.function.cfml'
+          '6':
+            'name': 'entity.name.function.constructor.cfml'
+          '7':
+            'name': 'entity.name.function.cfml'
+        'end': '(?={)'
+        'name': 'meta.function.cfml'
+        'patterns': [
+          {
+            'include': '#function-declaration-parameters'
+          }
+          {
+            'include': '#function-properties'
+          }
+        ]
       }
       {
-        'include': '#string-double-quoted'
-      }
-      {
-        'include': '#string-single-quoted'
+        'begin': '(\\b[_$a-zA-Z][$\\w]*)\\s*=\\s*(function)(?:(?=\\s|[(]))\\s*([_$a-zA-Z][$\\w]*)?\\s*'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.function.cfml'
+          '2':
+            'name': 'storage.type.cfml'
+          '3':
+            'name': 'storage.type.function.cfml'
+        'end': '(?={)'
+        'name': 'meta.function.cfml'
+        'patterns': [
+          {
+            'include': '#function-declaration-parameters'
+          }
+          {
+            'include': '#function-properties'
+          }
+        ]
       }
     ]
-  'string-double-quoted':
-    'begin': '"'
+  'function-call':
+    'begin': '([_$a-zA-Z][$\\w]*)\\s*(?=\\()'
     'beginCaptures':
-      '0':
-        'name': 'punctuation.definition.string.begin.cfml'
-    'end': '"'
-    'endCaptures':
-      '0':
-        'name': 'punctuation.definition.string.end.cfml'
-    'name': 'string.quoted.double.cfml'
+      '1':
+        'name': 'variable.function.cfml'
+    'end': '(?<=\\))'
+    'name': 'meta.function-call.cfml'
     'patterns': [
       {
-        'include': '#embedded-cf'
-      }
-      {
-        'include': '#entities'
+        'begin': '\\('
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.arguments.begin.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.arguments.end.cfml'
+        'name': 'meta.function-call.arguments.cfml'
+        'patterns': [
+          {
+            'match': ','
+            'name': 'punctuation.definition.separator.arguments.cfml'
+          }
+          {
+            'match': '(?i:(\\w+)\\s*(?=\\=[^\\=]))'
+            'name': 'entity.other.function-parameter.cfml'
+          }
+          {
+            'include': '#expression'
+          }
+        ]
       }
     ]
-  'string-single-quoted':
+  'function-declaration-parameters':
+    'patterns': [
+      {
+        'begin': '\\('
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.parameters.begin.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.parameters.end.cfml'
+        'patterns': [
+          {
+            'match': '(?i:required)'
+            'name': 'keyword.other.required.argument.cfml'
+          }
+          {
+            'include': '#storage-types'
+          }
+          {
+            'match': '[_$a-zA-Z][$\\w]*'
+            'name': 'variable.parameter.function.cfml'
+          }
+          {
+            'match': ','
+            'name': 'punctuation.separator.parameter.function.cfml'
+          }
+          {
+            'begin': '='
+            'beginCaptures':
+              '0':
+                'name': 'keyword.operator.assignment.cfml'
+            'end': '(?=[,)])'
+            'name': 'meta.parameter.optional.cfml'
+            'patterns': [
+              {
+                'include': '#expression'
+              }
+            ]
+          }
+          {
+            'include': '#comments'
+          }
+        ]
+      }
+    ]
+  'function-properties':
+    'patterns': [
+      {
+        'include': 'source.cfml#tag-generic-attribute'
+      }
+    ]
+  'keyword-storage':
+    'patterns': [
+      {
+        'match': '(?<!\\.)\\b(var)\\b'
+        'name': 'storage.modifier.cfml'
+      }
+    ]
+  'keywords':
+    'patterns': [
+      {
+        'include': '#keyword-storage'
+      }
+      {
+        'match': '(?<!\\.)\\b(return)\\b'
+        'name': 'keyword.control.flow.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(if|else)\\b'
+        'name': 'keyword.control.conditional.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(catch|finally|rethrow|throw|try)\\b'
+        'name': 'keyword.control.trycatch.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(break|continue|do|while)\\b'
+        'name': 'keyword.control.loop.cfml'
+      }
+    ]
+  'labels':
+    'patterns': [
+      {
+        'begin': '''
+          (?x)
+            (?<!\\?)(?<!\\?\\s)(?=(
+              ((')((?:[^']|\\\\')*)('))|
+              ((")((?:[^"]|\\\\")*)("))
+            )\\s*:)
+        '''
+        'end': ':'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.separator.key-value.cfml'
+        'patterns': [
+          {
+            'include': '#string'
+          }
+        ]
+      }
+      {
+        'match': '(?<!\\.|\\?|\\?\\s)([_$a-zA-Z][$\\w]*)\\s*(:)'
+        'name': 'constant.other.object.key.cfml'
+        'captures':
+          '1':
+            'name': 'string.unquoted.label.cfml'
+          '2':
+            'name': 'punctuation.separator.key-value.cfml'
+      }
+    ]
+  'language-constant':
+    'patterns': [
+      {
+        'match': '(?<!\\.)\\b(?i:true)\\b'
+        'name': 'constant.language.boolean.true.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(?i:false)\\b'
+        'name': 'constant.language.boolean.false.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(?i:null)\\b'
+        'name': 'constant.language.null.cfml'
+      }
+    ]
+  'language-variable':
+    'patterns': [
+      {
+        'match': '(?<!\\.)\\b(?i:super)\\b'
+        'name': 'variable.language.super.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(?i:this)\\b'
+        'name': 'variable.language.this.cfml'
+      }
+      {
+        'match': '(?<!\\.)\\b(?i:(application|arguments|attributes|caller|cgi|client|cookie|flash|form|local|request|server|session|thistag|thread|thread local|url|variables|self|argumentcollection))\\b'
+        'name': 'variable.language.scope.cfml'
+      }
+    ]
+  'method-call':
+    'begin': '(?<=\\.)([_$a-zA-Z][$\\w]*)\\s*(?=\\()'
+    'end': '(?<=\\))'
+    'name': 'meta.function-call.method.cfml'
+    'patterns': [
+      {
+        'begin': '\\('
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.arguments.begin.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.arguments.end.cfml'
+        'name': 'meta.function-call.method.arguments.cfml'
+        'patterns': [
+          {
+            'match': ','
+            'name': 'punctuation.definition.separator.arguments.cfml'
+          }
+          {
+            'match': '(?i:(\\w+)\\s*(?=\\=[^\\=]))'
+            'name': 'entity.other.method-parameter.cfml'
+          }
+          {
+            'include': '#expression'
+          }
+        ]
+      }
+    ]
+  'number':
+    'match': '((\\b[0-9]+)|(\\.[0-9]+[0-9\\.]*)|(0(x|X)[0-9a-fA-F]+)|(\\.[0-9]+)((e|E)(\\+|-)?[0-9]+)?([LlFfUuDd]|UL|ul)?)\\b'
+    'name': 'constant.numeric.cfml'
+  'operators':
+    'patterns': [
+      {
+        'match': '(?<!\\.)\\b(in|new|void)\\b'
+        'name': 'keyword.operator.cfml'
+      }
+      {
+        'match': '!(?!=)|&&|\\|\\|'
+        'name': 'keyword.operator.logical.cfml'
+      }
+      {
+        'match': '\\b(?i:(not|and|or|xor|eqv|imp))\\b'
+        'name': 'keyword.operator.logical.cfml'
+      }
+      {
+        'match': '\\b(?i:(greater|less|than|equal\\s+to|does|contains|equal|eq|neq|lt|lte|le|gt|gte|ge|and|is))\\b'
+        'name': 'keyword.operator.decision.cfml'
+      }
+      {
+        'match': '=(?!=)'
+        'name': 'keyword.operator.assignment.cfml'
+      }
+      {
+        'match': '%=|&=|\\*=|\\+=|-=|/='
+        'name': 'keyword.operator.assignment.augmented.cfml'
+      }
+      {
+        'match': '&'
+        'name': 'keyword.operator.concat.cfml'
+      }
+      {
+        'match': '<=|>=|<|>'
+        'name': 'keyword.operator.relational.cfml'
+      }
+      {
+        'match': '==|!='
+        'name': 'keyword.operator.comparison.cfml'
+      }
+      {
+        'match': '--|\\+\\+|/|%|\\*|\\+|-'
+        'name': 'keyword.operator.arithmetic.cfml'
+      }
+      {
+        'match': '\\?|:'
+        'name': 'keyword.operator.ternary.cfml'
+      }
+      {
+        'match': '\\.'
+        'name': 'keyword.operator.accessor.cfml'
+      }
+    ]
+  'punctuation':
+    'patterns': [
+      {
+        'match': ';'
+        'name': 'punctuation.terminator.statement.cfml'
+      }
+      {
+        'match': ','
+        'name': 'meta.delimiter.comma.cfml'
+      }
+    ]
+  'round-brackets':
+    'patterns': [
+      {
+        'begin': '\\('
+        'beginCaptures':
+          '0':
+            'name': 'meta.brace.round.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'meta.brace.round.cfml'
+        'name': 'meta.group.braces.round'
+        'patterns': [
+          {
+            'include': '#expression'
+          }
+        ]
+      }
+      {
+        'match': '\\)'
+        'name': 'invalid.illegal.stray.brace.round.cfml'
+      }
+    ]
+  'square-brackets':
+    'patterns': [
+      {
+        'begin': '\\['
+        'beginCaptures':
+          '0':
+            'name': 'meta.brace.square.cfml'
+        'end': '\\]'
+        'endCaptures':
+          '0':
+            'name': 'meta.brace.square.cfml'
+        'name': 'meta.group.braces.square'
+        'patterns': [
+          {
+            include: '#expression'
+          }
+        ]
+      }
+    ]
+  'storage-types':
+    'match': '\\b(?i:(function|string|date|struct|array|void|binary|numeric|boolean|query|xml|uuid|any))\\b'
+    'name': 'storage.type.primitive.cfml'
+  'string':
+    'patterns': [
+      {
+        'include': '#string-quoted-single'
+      }
+      {
+        'include': '#string-quoted-double'
+      }
+    ]
+  'string-quoted-single':
     'begin': '\''
     'beginCaptures':
-      '0':
+      '1':
         'name': 'punctuation.definition.string.begin.cfml'
-    'end': '\''
+    'end': '\'(?!\')'
     'endCaptures':
-      '0':
+      '1':
         'name': 'punctuation.definition.string.end.cfml'
     'name': 'string.quoted.single.cfml'
     'patterns': [
       {
-        'include': '#embedded-cf'
+        'match': '\'\''
+        'name': 'constant.character.escape.quote.cfml'
       }
       {
-        'include': '#entities'
+        'include': 'source.cfml#hash-delimiters'
       }
+    ]
+  'string-quoted-double':
+    'begin': '"'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.string.begin.cfml'
+    'end': '"(?!")'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.string.end.cfml'
+    'name': 'string.quoted.double.cfml'
+    'patterns': [
+      {
+        'match': '""'
+        'name': 'constant.character.escape.quote.cfml'
+      }
+      {
+        'include': 'source.cfml#hash-delimiters'
+      }
+    ]
+  'support':
+    'patterns': [
+      {
+        'begin': '''
+          (?x)
+          (?<!\\.)\\b
+          (?i:
+              (abs|acos|addsoaprequestheader|addsoapresponseheader|ajaxlink|ajaxonload|applicationstarttime
+              |applicationstop|array|arrayappend|arrayavg|arrayclear|arraycontains|arraycontainsnocase
+              |arraydelete|arraydeleteat|arrayeach|arrayevery|arrayfilter|arrayfind|arrayfindall|arrayfindallnocase
+              |arrayfindnocase|arrayfirst|arrayindexexists|arrayinsertat|arrayisdefined|arrayisempty
+              |arraylast|arraylen|arraymap|arraymax|arraymedian|arraymerge|arraymid|arraymin|arraynew|arrayprepend
+              |arrayreduce|arrayresize|arrayreverse|arrayset|arrayslice|arraysome|arraysort|arraysum|arrayswap
+              |arraytolist|arraytostruct|asc|asin|atn|beat|binarydecode|binaryencode|bitand|bitmaskclear|bitmaskread
+              |bitmaskset|bitnot|bitor|bitshln|bitshrn|bitxor|cacheclear|cachecount|cachedelete|cacheget|cachegetall
+              |cachegetallids|cachegetdefaultcachename|cachegetmetadata|cachegetproperties|cacheidexists|cachekeyexists
+              |cacheput|cacheremove|cacheremoveall|cachesetproperties|callstackdump|callstackget|canonicalize|ceiling
+              |cfusion_decrypt|cfusion_encrypt|charsetdecode|charsetencode|chr|cjustify|collectioneach|collectionevery
+              |collectionfilter|collectionmap|collectionreduce|collectionsome|compare|comparenocase|componentcacheclear
+              |componentcachelist|componentinfo|compress|contractpath|cos|createdate|createdatetime|createdynamicproxy
+              |createguid|createobject|createodbcdate|createodbcdatetime|createodbctime|createtime|createtimespan
+              |createuniqueid|createuuid|csrfgeneratetoken|csrfverifytoken|ctcacheclear|ctcachelist
+              |datasourceflushmetacache|dateadd|datecompare|dateconvert|datediff|dateformat|datepart|datetimeformat|day
+              |dayofweek|dayofweekasstring|dayofweekshortasstring|dayofyear|daysinmonth|daysinyear|de|decimalformat
+              |decodefromurl|decrementvalue|decrypt|decryptbinary|deleteclientvariable|deserializejson|directorycopy
+              |directorycreate|directorydelete|directoryexists|directorylist|directoryrename|dollarformat|dump|duplicate
+              |each|echo|empty|encodeforcss|encodefordn|encodeforhtml|encodeforhtmlattribute|encodeforjavascript
+              |encodeforldap|encodeforurl|encodeforxml|encodeforxmlattribute|encodeforxpath|encrypt|encryptbinary|entitydelete
+              |entityload|entityloadbyexample|entityloadbypk|entitymerge|entitynamearray|entitynamelist|entitynew|entityreload
+              |entitysave|entitytoquery|esapidecode|esapiencode|evaluate|exp|expandpath|extract|fileappend|fileclose|filecopy
+              |filedelete|fileexists|filegetmimetype|fileiseof|filemove|fileopen|fileread|filereadbinary|filereadline|fileseek
+              |filesetaccessmode|filesetattribute|filesetlastmodified|fileskipbytes|fileupload|fileuploadall|filewrite
+              |filewriteline|find|findnocase|findoneof|firstdayofmonth|fix|formatbasen|generatesecretkey|getapplicationmetadata
+              |getapplicationsettings|getauthuser|getbasetagdata|getbasetaglist|getbasetemplatepath|getbuiltinfunction
+              |getcanonicalpath|getclasspath|getclientvariableslist|getcomponentmetadata|getcontextroot|getcpuusage
+              |getcurrentcontext|getcurrenttemplatepath|getdirectoryfrompath|getencoding|getfilefrompath|getfileinfo|getfreespace
+              |getfunctioncalledname|getfunctiondata|getfunctionkeywords|getfunctionlist|gethttprequestdata|gethttptimestring
+              |getk2serverdoccount|getk2serverdoccountlimit|getlocale|getlocaledisplayname|getlocalhostip|getluceeid
+              |getmemoryusage|getmetadata|getmetricdata|getnumericdate|getpagecontext|getprinterlist|getprofilesections
+              |getprofilestring|getreadableimageformats|getsoaprequest|getsoaprequestheader|getsoapresponse|getsoapresponseheader
+              |getsystemfreememory|getsystemtotalmemory|gettagdata|gettaglist|gettempdirectory|gettempfile|gettemplatepath
+              |gettickcount|gettimezone|gettimezoneinfo|gettoken|gettotalspace|getuserroles|getvariable|getvfsmetadata
+              |getwriteableimageformats|hash|hash40|hmac|hour|htmlcodeformat|htmleditformat|htmlparse|iif|imageaddborder
+              |imageblur|imageclearrect|imagecopy|imagecrop|imagedrawarc|imagedrawbeveledrect|imagedrawcubiccurve|imagedrawimage
+              |imagedrawline|imagedrawlines|imagedrawoval|imagedrawpoint|imagedrawquadraticcurve|imagedrawrect|imagedrawroundrect
+              |imagedrawtext|imagefilter|imagefiltercolormap|imagefiltercurves|imagefilterkernel|imagefilterwarpgrid|imageflip
+              |imagefonts|imageformats|imagegetblob|imagegetbufferedimage|imagegetexifmetadata|imagegetexiftag|imagegetheight
+              |imagegetiptctag|imagegetwidth|imagegrayscale|imageinfo|imagenegative|imagenew|imageoverlay|imagepaste|imageread
+              |imagereadbase64|imageresize|imagerotate|imagerotatedrawingaxis|imagescaletofit|imagesetantialiasing
+              |imagesetbackgroundcolor|imagesetdrawingalpha|imagesetdrawingcolor|imagesetdrawingstroke|imagesetdrawingtransparency
+              |imagesharpen|imageshear|imagesheardrawingaxis|imagetranslate|imagetranslatedrawingaxis|imagewrite|imagewritebase64
+              |imagexordrawingmode|incrementvalue|inputbasen|insert|int|invoke|isarray|isbinary|isboolean|isclosure
+              |iscustomfunction|isdate|isdebugmode|isdefined|isempty|isimage|isimagefile|isinstanceof|isipinrange|isipv6
+              |isjson|isleapyear|islocalhost|isnotmap|isnull|isnumeric|isnumericdate|isobject|ispdfobject|isquery|issimplevalue
+              |issoaprequest|isstruct|isuserinanyrole|isuserinrole|isuserloggedin|isvalid|isvideofile|iswddx|isxml|isxmlattribute
+              |isxmldoc|isxmlelem|isxmlnode|isxmlroot|iszipfile|javacast|jsstringformat|lcase|left|len|listappend|listavg
+              |listchangedelims|listcompact|listcontains|listcontainsnocase|listdeleteat|listeach|listevery|listfilter|listfind
+              |listfindnocase|listfirst|listgetat|listindexexists|listinsertat|listitemtrim|listlast|listlen|listmap|listprepend
+              |listqualify|listreduce|listremoveduplicates|listrest|listsetat|listsome|listsort|listtoarray|listtrim
+              |listvaluecount|listvaluecountnocase|ljustify|location|log|log10|lscurrencyformat|lsdateformat|lsdatetimeformat
+              |lsdayofweek|lseurocurrencyformat|lsiscurrency|lsisdate|lsisnumeric|lsnumberformat|lsparsecurrency|lsparsedatetime
+              |lsparseeurocurrency|lsparsenumber|lstimeformat|lsweek|ltrim|max|metaphone|mid|millisecond|min|minute|month
+              |monthasstring|monthshortasstring|newline|now|nowserver|nullvalue|numberformat|objectequals|objectload|objectsave
+              |ormclearsession|ormcloseallsessions|ormclosesession|ormevictcollection|ormevictentity|ormevictqueries
+              |ormexecutequery|ormflush|ormgetsession|ormgetsessionfactory|ormreload|pagepoolclear|pagepoollist|paragraphformat
+              |parameterexists|parsedatetime|parsenumber|pi|precisionevaluate|preservesinglequotes|quarter|query|queryaddcolumn
+              |queryaddrow|querycolumnarray|querycolumncount|querycolumndata|querycolumnexists|querycolumnlist|queryconvertforgrid
+              |querycurrentrow|querydeletecolumn|querydeleterow|queryeach|queryevery|queryexecute|queryfilter|querygetcell
+              |querygetrow|querymap|querynew|queryrecordcount|queryreduce|queryrowdata|querysetcell|queryslice|querysome
+              |querysort|quotedvaluelist|rand|randomize|randrange|refind|refindnocase|releasecomobject|rematch|rematchnocase
+              |removechars|repeatstring|replace|replacelist|replacenocase|rereplace|rereplacenocase|restdeleteapplication
+              |restinitapplication|restsetresponse|reverse|right|rjustify|round|rtrim|second|sendgatewaymessage|serialize
+              |serializejson|sessioninvalidate|sessionrotate|sessionstarttime|setencoding|setlocale|setprofilestring|settimezone
+              |setvariable|sgn|sin|sizeof|sleep|soundex|spanexcluding|spanincluding|spreadsheetnew|spreadsheetsetcellvalue
+              |spreadsheetwrite|sqr|sslcertificateinstall|sslcertificatelist|storeaddacl|storegetacl|storesetacl|stringlen|stripcr
+              |structappend|structclear|structcopy|structcount|structdelete|structeach|structevery|structfilter|structfind
+              |structfindkey|structfindvalue|structget|structinsert|structisempty|structkeyarray|structkeyexists|structkeylist
+              |structkeytranslate|structmap|structnew|structreduce|structsome|structsort|structupdate|systemcacheclear|systemoutput
+              |tan|threadjoin|threadterminate|throw|timeformat|tobase64|tobinary|tonumeric|toscript|tostring|trace|transactioncommit
+              |transactionrollback|transactionsetsavepoint|trim|truefalseformat|ucase|ucfirst|unserializejava|urldecode|urlencode
+              |urlencodedformat|urlsessionformat|val|valuearray|valuelist|verifyclient|week|wrap|writedump|writelog|writeoutput
+              |xmlchildpos|xmlelemnew|xmlformat|xmlgetnodetype|xmlnew|xmlparse|xmlsearch|xmltransform|xmlvalidate|year|yesnoformat)
+            )(\\()
+        '''
+        'beginCaptures':
+          '1':
+            'name': 'support.function.cfml'
+          '2':
+            'name': 'meta.support.function-call.arguments.cfml punctuation.definition.arguments.begin.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '1':
+            'name': 'meta.support.function-call.arguments.cfml punctuation.definition.arguments.end.cfml'
+        'name': 'meta.support.function-call.cfml'
+        'contentName': 'meta.support.function-call.arguments.cfml'
+        'patterns': [
+          {
+            'include': '#expression'
+          }
+        ]
+      }
+      {
+        'begin': '''
+          (?x)
+            (\\.)
+            (?i:
+              (add|addcolumn|addrow|append|avg|blur|cjustify|clear|clearrect|columnarray|columncount|columndata|columnexists
+              |columnlist|compare|comparenocase|contains|containsnocase|copy|count|crop|currentrow|dateformat|day|dayofweek
+              |dayofyear|daysinmonth|daysinyear|delete|deleteat|deletecolumn|deleterow|diff|drawarc|drawcubiccurve|drawline
+              |drawlines|drawoval|drawpoint|drawquadraticcurve|drawrect|drawroundrect|each|every|filter|find|findall
+              |findallnocase|findkey|findnocase|findoneof|findvalue|first|firstdayofmonth|flip|get|getbufferedimage|getcell
+              |getheight|getrow|gettoken|getwidth|grayscale|hour|indexexists|info|insert|insertat|isdefined|isempty|keyarray
+              |keyexists|keylist|keytranslate|last|lcase|left|len|listappend|listavg|listchangedelims|listcompact|listcontains
+              |listcontainsnocase|listdeleteat|listeach|listevery|listfilter|listfind|listfindnocase|listfirst|listgetat
+              |listindexexists|listinsertat|listitemtrim|listlast|listlen|listmap|listprepend|listqualify|listreduce
+              |listremoveduplicates|listrest|listsetat|listsome|listsort|listtoarray|listvaluecount|listvaluecountnocase
+              |ljustify|lsdateformat|lsdayofweek|ltrim|map|max|median|merge|mid|min|minute|month|overlay|part|paste|prepend
+              |quarter|recordcount|reduce|refind|refindnocase|rematch|rematchnocase|removechars|repeatstring|replace|replacenocase
+              |rereplace|rereplacenocase|resize|reverse|right|rowdata|rtrim|scaletofit|second|set|setantialiasing|setcell
+              |setdrawingstroke|sharpen|slice|some|sort|spanexcluding|spanincluding|stripcr|sum|swap|tolist|tostruct|translate
+              |trim|ucase|update|week|wrap|writebase64|year)
+            )(\\()
+        '''
+        'beginCaptures':
+          '1':
+            'name': 'keyword.operator.accessor.cfml'
+          '2':
+            'name': 'support.function.member.cfml'
+          '3':
+            'name': 'meta.support.function-call.member.arguments.cfml punctuation.definition.arguments.begin.cfml'
+        'end': '\\)'
+        'endCaptures':
+          '1':
+            'name': 'meta.support.function-call.member.arguments.cfml punctuation.definition.arguments.end.cfml'
+        'name': 'meta.support.function-call.member.cfml'
+        'contentName': 'meta.support.function-call.member.arguments.cfml'
+        'patterns': [
+          {
+            'include': '#expression'
+          }
+        ]
+      }
+    ]
+  'switch':
+    'patterns': [
+      {
+        'begin': '(?<!\\.)\\b(switch)\\b'
+        'beginCaptures':
+          '1':
+            'name': 'keyword.control.switch.cfml'
+        'end': '\\}'
+        'endCaptures':
+          '0':
+            'name': 'meta.brace.curly.cfml'
+        'name': 'meta.switch.cfml'
+        'patterns': [
+          {
+            'include': '#round-brackets'
+          }
+          {
+            'begin': '\\{'
+            'beginCaptures':
+              '0':
+                'name': 'meta.brace.curly.cfml'
+            'end': '(?=})'
+            'patterns': [
+              {
+                'begin': '(?<!\\.)\\b(case|default)\\b'
+                'beginCaptures':
+                  '1':
+                    'name': 'keyword.control.switch.cfml'
+                'end': '(?=:)'
+                'patterns': [
+                  {
+                    'include': '#expression'
+                  }
+                ]
+              }
+              {
+                'include': '$self'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  'tag-generic-attribute-script':
+    'patterns': [
+      {
+        'match': '\\b([a-zA-Z0-9:-]+)\\b'
+        'captures':
+          '1':
+            'name': 'entity.other.attribute-name.cfml'
+      }
+      {
+        'begin': '='
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.key-value.cfml'
+        'end': '(?<=[^\\s=])|(?=[;{])'
+        'patterns': [
+          {
+            'include': '#expression'
+          }
+        ]
+      }
+    ]
+  'tag-in-script':
+    'patterns': [
+      {
+        'begin': '(?i)(?<!\\.)\\b(property)(?!\\s+in\\b)(\\s+(any|array|binary|boolean|component|date|guid|numeric|query|string|struct|xml|uuid|[_$a-zA-Z][$\\w]*))?\\s+([_$a-zA-Z][$\\w]*\\b)(?!\\s*=)'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'storage.type.cfml'
+          '4':
+            'name': 'string.unquoted.cfml'
+        'end': '(?=(;|{))'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': 'source.cfml#tag-generic-attribute'
+          }
+        ]
+      }
+      {
+        'begin': '(?i)(?<!\\.)\\b(property)(?!\\s+in\\b)(?=(\\s+[a-zA-Z]|\\s*$|\\s*[{;]))'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+        'end': '(?=(;|{))'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': 'source.cfml#tag-generic-attribute'
+          }
+        ]
+      }
+      {
+        'begin': '(?i)(?<!\\.)\\b(param)(?!\\s+in\\b)(?=\\s+(name|default|max|maxLength|min|pattern|type)\\s*=)'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+      {
+        'begin': '(?i)(?<!\\.)\\b(param)(?!\\s+in\\b)\\s+([_$a-zA-Z][$\\w\\.]*)(?=\\s+(name|default|max|maxLength|min|pattern|type))'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+          '2':
+            'name': 'string.unquoted.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+      {
+        'begin': '(?i)(?<!\\.)\\b(param)(?!\\s+in\\b)(?=(\\s+[a-zA-Z]|\\s*[{;]|\\s*$))'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+          '3':
+            'name': 'storage.type.cfml'
+          '4':
+            'name': 'string.unquoted.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+      {
+        'begin': '(?i)(?<!\\.)\\b(param)(?!\\s+in\\b)(?=(\\s+[a-zA-Z]|\\s*[{;]|\\s*$))'
+        'beginCaptures':
+          '1':
+            'name': 'entity.name.tag.script.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+      {
+        'begin': '(?<!\.)(\b)(?i:(abort))(?!\s+in\b)(?=(\s+[a-zA-Z]|\s*;|\s*$))'
+        'beginCaptures':
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+      {
+        'begin': '''
+          (?x)
+              (?<!\.)(\b)
+              (?i:
+                (ajaximport|ajaxproxy|applet|application|argument|associate|authenticate|break|cache|chart|chartdata
+                |chartseries|col|collection|content|cookie|dbinfo|directory|div|document|documentitem
+                |documentsection|dump|error|execute|exit|feed|file|flush|form|forward|ftp|graph|graphdata
+                |header|htmlbody|htmlhead|http|httpparam|image|imap|import|include|index|input|insert|invoke|invokeargument
+                |layout|layoutarea|ldap|location|lock|log|login|loginuser|logout|loop|mail|mailparam|mailpart|map|mapitem|mediaplayer
+                |module|object|objectcache|output|pageencoding|pdf|pdfparam|pop|processingdirective|procparam|procresult
+                |query|queryparam|registry|rethrow|retry|savecontent|schedule|search|select|servlet|servletparam
+                |setting|silent|sleep|slider|stopwatch|storedproc|table|textinput|thread|throw|timer|trace|transaction
+                |update|video|videoplayer|videoplayerparam|wddx|window|xml|zip|zipparam)
+              )(?!\s+in\b)(?=(\s+[a-zA-Z]|\s*[{]|\s*$))
+        '''
+        'beginCaptures':
+          '2':
+            'name': 'entity.name.tag.script.cfml'
+        'end': '(?=[;{])'
+        'name': 'meta.tag.script.cfml'
+        'patterns': [
+          {
+            'include': '#tag-generic-attribute-script'
+          }
+        ]
+      }
+    ]
+  'variable':
+    'patterns': [
+      {
+        'match': '\\b[A-Z][_$\\dA-Z]*\\b'
+        'name': 'variable.other.constant.cfml'
+      }
+      {
+        'match': '\\b(\\$)[$\\w]+'
+        'name': 'variable.other.dollar.cfml'
+        'captures':
+          '1':
+            'name': 'punctuation.dollar.cfml'
+      }
+      {
+        'match': '\\b([A-Z][$\\w]*)\\s*(\\.)([_$a-zA-Z][$\\w]*)'
+        'name': 'meta.property.class.cfml'
+        'captures':
+          '1':
+            'name': 'variable.other.class.cfml'
+          '2':
+            'name': 'keyword.operator.accessor.cfml'
+          '3':
+            'name': 'variable.other.property.static.cfml'
+      }
+      {
+        'match': '(?<!\\.)[_$a-zA-Z][$\\w]*\\s*(?=[\\[\\.])'
+        'name': 'variable.other.object.cfml'
+        'captures':
+          '1':
+            'name': 'variable.other.object.cfml'
+      }
+      {
+        'match': '(?<=\\.)\\s*[_$a-zA-Z][$\\w]*'
+        'name': 'meta.property.object.cfml'
+        'captures':
+          '2':
+            'name': 'variable.other.property.cfml'
+      }
+      # commented out because it results in a lot of red in One Dark
+      # however this means that script embedded in strings can still receive string coloring
+      # {
+      #   'match': '[_$a-zA-Z][$\\w]*'
+      #   'name': 'variable.other.cfml'
+      # }
     ]
