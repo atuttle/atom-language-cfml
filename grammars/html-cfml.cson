@@ -1,6 +1,22 @@
 'scopeName': 'text.html.cfml'
 'name': 'HTML (CFML)'
-
+'fileTypes': [
+  'cfm'
+  'cfml'
+]
+'injections':
+  'meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml':
+    'patterns': [
+      {
+        'include': 'source.cfml#hash-delimiters'
+      }
+    ]
+  'meta.tag - meta.tag.cfml':
+    'patterns': [
+      {
+        'include': 'source.cfml#cfml'
+      }
+    ]
 'patterns': [
   # Start the CFML Grammar.
   {
