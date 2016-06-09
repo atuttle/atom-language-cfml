@@ -259,7 +259,7 @@
             'name': 'entity.name.function.constructor.cfml'
           '7':
             'name': 'entity.name.function.cfml'
-        'end': '(?={)'
+        'end': '(?={|;)'
         'name': 'meta.function.cfml'
         'patterns': [
           {
@@ -279,7 +279,7 @@
             'name': 'storage.type.cfml'
           '3':
             'name': 'storage.type.function.cfml'
-        'end': '(?={)'
+        'end': '(?={|;)'
         'name': 'meta.function.cfml'
         'patterns': [
           {
