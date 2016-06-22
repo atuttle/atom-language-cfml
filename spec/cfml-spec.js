@@ -104,8 +104,6 @@ describe('cfml grammar', function() {
                 '</cffunction>'
             ].join('\n'));
 
-            console.log(tokens[0]);
-
             expect(tokens[0][0]).toEqual({ value: '<', scopes: ['source.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml'] });
             expect(tokens[0][1]).toEqual({ value: 'cffunction', scopes: ['source.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml'] });
             expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.cfml'] });

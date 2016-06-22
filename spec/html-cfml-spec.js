@@ -238,4 +238,17 @@ describe('html-cfml grammar', function() {
 
     });
 
+	it('should tokenize custom tags', function() {
+        var tokens = grammar.tokenizeLines('<cf_PageRow> </cf_PageRow>');
+
+        expect(tokens[0][0]).toEqual({ value: '<', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml'] });
+        expect(tokens[0][1]).toEqual({ value: 'cf_PageRow', scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml'] });
+        expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['text.html.cfml'] });
+        expect(tokens[0][4]).toEqual({ value: '</', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml'] });
+        expect(tokens[0][5]).toEqual({ value: 'cf_PageRow', scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml'] });
+        expect(tokens[0][6]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml'] });
+
+    });
+
 });
