@@ -632,6 +632,9 @@
   'quarter':
     'prefix': 'quarter'
     'body': 'Quarter(${1:date})$0'
+  'queryExecute':
+    'prefix':'queryExecute'
+    'body':'queryExecute(${1:query},${2:parameters}${3: [, options]})'
   'queryaddcolumn':
     'prefix': 'queryaddcolumn'
     'body': 'QueryAddColumn(${1:query}, ${2:column-name}${3: [, datatype]}${4: [, array-name]})$0'
