@@ -548,7 +548,7 @@
     'patterns': [
       {
       'name': 'meta.tag.cfml'
-      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)_?[a-zA-Z0-9:-]+)?(>)'
+      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)_?[a-zA-Z0-9:-]+)(>)'
       'captures':
         '1':
           'name': 'punctuation.definition.tag.begin.cfml'
