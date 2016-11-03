@@ -528,7 +528,7 @@
       }
     ]
   'tag-start':
-    'begin': '(?i)(<)(cf_?[a-z]+)'
+    'begin': '(?i)(<)(cf_?[a-z_][a-z0-9_]*)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.cfml'
@@ -548,7 +548,7 @@
     'patterns': [
       {
       'name': 'meta.tag.cfml'
-      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)_?[a-zA-Z0-9:-]+)(>)'
+      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)_?[_a-zA-Z0-9:-]+)(>)'
       'captures':
         '1':
           'name': 'punctuation.definition.tag.begin.cfml'
