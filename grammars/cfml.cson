@@ -180,10 +180,12 @@
         ]
       }
       {
-        'begin': '>'
+        'begin': '(>)'
         'beginCaptures':
           '0':
-            'name': 'meta.tag.cfml punctuation.definition.tag.end.cfml'
+            'name': 'meta.tag.cfml'
+          '1':
+            'name': 'punctuation.definition.tag.end.cfml'
         'end': '(?i)(?=</cfoutput>)'
         'contentName': 'meta.scope.cfoutput.cfml'
         'patterns': [
@@ -222,10 +224,12 @@
         ]
       }
       {
-        'begin': '>'
+        'begin': '(>)'
         'beginCaptures':
           '0':
-            'name': 'meta.tag.cfml punctuation.definition.tag.end.cfml'
+            'name': 'meta.tag.cfml'
+          '1':
+            'name': 'punctuation.definition.tag.end.cfml'
         'end': '(?i)(?=</cfoutput>)'
         'contentName': 'meta.scope.cfoutput.js.cfml'
         'patterns': [
@@ -270,10 +274,12 @@
         ]
       }
       {
-        'begin': '>'
+        'begin': '(>)'
         'beginCaptures':
           '0':
-            'name': 'meta.tag.cfml punctuation.definition.tag.end.cfml'
+            'name': 'meta.tag.cfml'
+          '1':
+            'name': 'punctuation.definition.tag.end.cfml'
         'end': '(?i)(?=</cfquery>)'
         'contentName': 'meta.scope.cfquery.cfml'
         'patterns': [
