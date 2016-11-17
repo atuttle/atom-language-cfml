@@ -101,7 +101,7 @@
         'beginCaptures':
           '1':
             'name': 'storage.modifier.extends.cfml'
-        'end': '(["\'])([a-zA-Z0-9:.]+)(["\'])|([a-zA-Z0-9:.]+)'
+        'end': '(["\'])([_a-zA-Z0-9:.]+)(["\'])|([_a-zA-Z0-9:.]+)'
         'endCaptures':
           '1':
             'name': 'punctuation.definition.string.begin.cfml'
