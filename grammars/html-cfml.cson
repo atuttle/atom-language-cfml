@@ -5,7 +5,7 @@
   'cfml'
 ]
 'injections':
-  'meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml':
+  '(meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml) - comment.block.cfml':
     'patterns': [
       {
         'include': 'source.cfml#hash-delimiters'
