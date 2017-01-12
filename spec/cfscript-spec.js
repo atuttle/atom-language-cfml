@@ -399,6 +399,30 @@ describe('cfml grammar', function() {
     });
   });
 
+  describe('script-component', function() {
+    it('should tokenize extends containing dashes correctly', function() {
+      var tokens = grammar.tokenizeLines('component extends="app-root.mode.myParentObject" {\nfunction init() {}\n}');
+      expect(tokens[0][0]).toEqual({ value: 'component', scopes: ['source.cfscript', 'meta.class.cfml', 'storage.type.class.cfml'] });
+      expect(tokens[0][1]).toEqual({ value: ' ', scopes: ['source.cfscript', 'meta.class.cfml'] });
+      expect(tokens[0][2]).toEqual({ value: 'extends', scopes: ['source.cfscript', 'meta.class.cfml', 'storage.modifier.extends.cfml'] });
+      expect(tokens[0][3]).toEqual({ value: '=', scopes: ['source.cfscript', 'meta.class.cfml'] });
+      expect(tokens[0][4]).toEqual({ value: '"', scopes: ['source.cfscript', 'meta.class.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
+      expect(tokens[0][5]).toEqual({ value: 'app-root.mode.myParentObject', scopes: ['source.cfscript', 'meta.class.cfml', 'string.quoted.double.cfml'] });
+      expect(tokens[0][6]).toEqual({ value: '"', scopes: ['source.cfscript', 'meta.class.cfml', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+      expect(tokens[0][7]).toEqual({ value: ' ', scopes: ['source.cfscript', 'meta.class.cfml'] });
+      expect(tokens[0][8]).toEqual({ value: '{', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.brace.curly.cfml'] });
+      expect(tokens[1][0]).toEqual({ value: 'function', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml', 'storage.type.function.cfml'] });
+      expect(tokens[1][1]).toEqual({ value: ' ', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml'] });
+      expect(tokens[1][2]).toEqual({ value: 'init', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml', 'entity.name.function.constructor.cfml'] });
+      expect(tokens[1][3]).toEqual({ value: '(', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml', 'punctuation.definition.parameters.begin.cfml'] });
+      expect(tokens[1][4]).toEqual({ value: ')', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml', 'punctuation.definition.parameters.end.cfml'] });
+      expect(tokens[1][5]).toEqual({ value: ' ', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.function.cfml'] });
+      expect(tokens[1][6]).toEqual({ value: '{', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.group.braces.curly', 'meta.brace.curly.cfml'] });
+      expect(tokens[1][7]).toEqual({ value: '}', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.group.braces.curly', 'meta.brace.curly.cfml'] });
+      expect(tokens[2][0]).toEqual({ value: '}', scopes: ['source.cfscript', 'meta.group.braces.curly', 'meta.brace.curly.cfml'] });
+    });
+  });
+
   describe('embedded-cf', function() {
 
     it('should tokenize cfml in strings correctly', function() {
