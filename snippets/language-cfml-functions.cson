@@ -218,6 +218,12 @@
   'duplicate':
     'prefix': 'duplicate'
     'body': 'Duplicate(${1:variable_name})$0'
+  'dump':
+    'prefix': 'dump'
+    'body': 'dump(${1:any});$0'
+  'echo':
+    'prefix': 'echo'
+    'body': 'echo(${1:string});$0' 
   'encrypt':
     'prefix': 'encrypt'
     'body': 'Encrypt(${1:string}, ${2:key}${3: [, algorithm]}${4: [, encoding]}${5: [, IVorSalt]}${6: [, iterations]})$0'
@@ -847,9 +853,6 @@
     'body': 'WriteOutput(${1:string});$0'
   'writedump':
     'prefix': 'writedump'
-    'body': 'WriteDump(${1:any});$0'
-  'writedump (Short)':
-    'prefix': 'dump'
     'body': 'WriteDump(${1:any});$0'
   'xmlchildpos':
     'prefix': 'xmlchildpos'
