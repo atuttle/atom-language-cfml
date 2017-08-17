@@ -21,3 +21,13 @@ Pull requests welcome.
 
 [1]: http://atom.io/docs/latest/converting-a-text-mate-bundle
 [2]: https://github.com/textmate/coldfusion.tmbundle
+
+## Shepherding Only
+
+To my knowledge, this is the best choice of CFML grammar plugins for Atom. It also sees fairly regular [contributions](https://github.com/atuttle/atom-language-cfml/pulls?q=is%3Apr+is%3Aclosed) from the community to make it better. **But I do not personally actively develop it.**
+
+I created this project because (1) GitHub offered a TextMate bundle conversion tool (and there was a CFML TextMate bundle available), and (2) Nobody else had created it yet. I haven't taken the time (nor do I have it to take!) to learn how to code the grammar so that I can contribute, so my contribution is only to merge incoming pull requests and release new versions. I do my best to stay on top of that.
+
+I don't offer any warranty that this project will work perfectly or even decently now or into the future. But it probably does, because [the contributors are awesome people](https://github.com/atuttle/atom-language-cfml/graphs/contributors).
+
+Personally I bounce back and forth between Atom and Sublime Text 3 for my own needs. Both have their strengths and weaknesses.
