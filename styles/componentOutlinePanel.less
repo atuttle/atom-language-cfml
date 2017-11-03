@@ -1,0 +1,17 @@
+@import 'ui-variables';
+
+.componentOutlineView {
+	width: 100%;
+}
+
+.componentOutlineView__resize-handle {
+	cursor: col-resize;
+	transition-duration: .2s;
+	transition-property: background-color;
+	width: 4px;
+	background-color: transparent;
+
+	&.active {
+		background-color: @ui-site-color-1;
+	}
+}
