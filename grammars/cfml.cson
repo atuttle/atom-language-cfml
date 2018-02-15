@@ -4,6 +4,7 @@
   'cfc'
 ]
 'injections':
+  # Injecect hash delimited expressions into cfoutput block within cfml and js
   'meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml':
     'patterns': [
       {
@@ -298,8 +299,16 @@
   'comments':
     'patterns': [
       {
-        'match': '<!---.*?--->'
-        'name': 'comment.line.cfml'
+        'match': '(<!---)(.*?)(--->)'
+        #'name': 'comment.line.cfml'
+        'captures':
+          '1' :
+            'name': 'punctuation.definition.comment.cfml'
+          '2' :
+            'name': 'comment.line.cfml'
+          '3' :
+            'name': 'punctuation.definition.comment.cfml'
+
       }
       {
         'begin': '<!---'

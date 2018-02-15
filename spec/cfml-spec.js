@@ -207,13 +207,13 @@ describe('cfml grammar', function() {
             expect(tokens[3][3]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript'] });
             expect(tokens[3][4]).toEqual({ value: 'variables', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'variable.language.scope.cfml'] });
             expect(tokens[3][5]).toEqual({ value: '.', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'keyword.operator.accessor.cfml'] });
-            expect(tokens[3][6]).toEqual({ value: 'url', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'meta.property.object.cfml'] });
+            expect(tokens[3][6]).toEqual({ value: 'url', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'variable.other.cfml'] });
             expect(tokens[3][7]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript'] });
             expect(tokens[3][8]).toEqual({ value: '=', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'keyword.operator.assignment.cfml'] });
             expect(tokens[3][9]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript'] });
             expect(tokens[3][10]).toEqual({ value: 'arguments', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'variable.language.scope.cfml'] });
             expect(tokens[3][11]).toEqual({ value: '.', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'keyword.operator.accessor.cfml'] });
-            expect(tokens[3][12]).toEqual({ value: 'url', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'meta.property.object.cfml'] });
+            expect(tokens[3][12]).toEqual({ value: 'url', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript', 'variable.other.cfml'] });
             expect(tokens[3][13]).toEqual({ value: ' ', scopes: ['source.cfml', 'meta.tag.cfml', 'source.cfscript'] });
             expect(tokens[3][14]).toEqual({ value: '/>', scopes: ['source.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml'] });
 

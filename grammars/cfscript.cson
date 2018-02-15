@@ -379,7 +379,7 @@
   'keyword-storage':
     'patterns': [
       {
-        'match': '(?<!\\.)\\b(var)\\b'
+        'match': '\\b(var)\\b'
         'name': 'storage.modifier.cfml'
       }
     ]
@@ -389,19 +389,19 @@
         'include': '#keyword-storage'
       }
       {
-        'match': '(?<!\\.)\\b(return)\\b'
+        'match': '\\b(return)\\b'
         'name': 'keyword.control.flow.cfml'
       }
       {
-        'match': '(?<!\\.)\\b(if|else)\\b'
+        'match': '\\b(if|else)\\b'
         'name': 'keyword.control.conditional.cfml'
       }
       {
-        'match': '(?<!\\.)\\b(catch|finally|rethrow|throw|try)\\b'
+        'match': '\\b(catch|finally|rethrow|throw|try)\\b'
         'name': 'keyword.control.trycatch.cfml'
       }
       {
-        'match': '(?<!\\.)\\b(break|continue|do|while)\\b'
+        'match': '\\b(break|continue|do|while)\\b'
         'name': 'keyword.control.loop.cfml'
       }
     ]
@@ -634,11 +634,11 @@
       }
     ]
   'string-quoted-double':
-    'begin': '"'
+    'begin': '(")'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.string.begin.cfml'
-    'end': '"(?!")'
+    'end': '(")(?!")'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.string.end.cfml'
@@ -993,45 +993,52 @@
   'variable':
     'patterns': [
       {
-        'match': '\\b[A-Z][_$\\dA-Z]*\\b'
+        # Style Convention, uppercase vars are marked as constants:
+        # MY_CONST
+        'match': '\\b[A-Z][_\\$\\dA-Z]*\\b'
         'name': 'variable.other.constant.cfml'
       }
       {
-        'match': '\\b(\\$)[$\\w]+'
-        'name': 'variable.other.dollar.cfml'
+        # Style Convention, Dollar characters are special vars:
+        # $
+        'match': '(?:[^A-Za-z0-9_])(\\$)'
+        #'name': 'variable.other.dollar.cfml'
         'captures':
           '1':
-            'name': 'punctuation.dollar.cfml'
+            'name': 'variable.other.dollar.cfml'
       }
       {
-        'match': '\\b([A-Z][$\\w]*)\\s*(\\.)([_$a-zA-Z][$\\w]*)'
-        'name': 'meta.property.class.cfml'
-        'captures':
+        # Style Convention, Uppercase variables are treated as Class name references
+        'begin': '\\b([A-Z][\\$\\w]*)(?=(\\.))'
+        'end': '(?=[^\\w\\$\\.])'
+        # 'name': 'meta.property.class.cfml'
+        'beginCaptures':
           '1':
-            'name': 'variable.other.class.cfml'
-          '2':
-            'name': 'keyword.operator.accessor.cfml'
-          '3':
-            'name': 'variable.other.property.static.cfml'
+            'name': 'variable.object.class.cfml'
+        'patterns': [
+          {
+            'match': '(\\.)([\\$\\w]+(?=[^\\$\\w])(?![\\(]))'
+            #'name': 'variable.other.object.cfml'
+            'captures':
+              '1':
+                'name': 'keyword.operator.accessor.cfml'
+              '2':
+                'name': 'variable.object.property.cfml'
+          }
+          {
+            'match': '(\\.)([\\$\\w]+(?=\\())'
+            #'name': 'variable.other.object.cfml'
+            'captures':
+              '1':
+                'name': 'keyword.operator.accessor.cfml'
+              '2':
+                'name': 'entity.function.method.cfml'
+          }
+        ]
       }
       {
-        'match': '(?<!\\.)[_$a-zA-Z][$\\w]*\\s*(?=[\\[\\.])'
-        'name': 'variable.other.object.cfml'
-        'captures':
-          '1':
-            'name': 'variable.other.object.cfml'
+        # Simple free floating variables are matched last
+        'match': '([\\$\\w]+(?=[^\\$\\w])(?![\\(]))'
+        'name': 'variable.other.cfml'
       }
-      {
-        'match': '(?<=\\.)\\s*[_$a-zA-Z][$\\w]*'
-        'name': 'meta.property.object.cfml'
-        'captures':
-          '2':
-            'name': 'variable.other.property.cfml'
-      }
-      # commented out because it results in a lot of red in One Dark
-      # however this means that script embedded in strings can still receive string coloring
-      # {
-      #   'match': '[_$a-zA-Z][$\\w]*'
-      #   'name': 'variable.other.cfml'
-      # }
     ]

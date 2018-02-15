@@ -1,4 +1,4 @@
-describe('cfml grammar', function() {
+describe('cfScript grammar', function() {
   var grammar;
 
   beforeEach(function() {
@@ -17,33 +17,26 @@ describe('cfml grammar', function() {
   });
 
   describe('scopes', function() {
+
     describe('tokenizing `var` correctly', function() {
-      it('should tokenize correctly', function() {
+
+      it('should tokenize var statements correctly', function() {
         var tokens = grammar.tokenizeLines('var test = 1;');
 
         expect(tokens[0][0]).toEqual({ value: 'var', scopes: ['source.cfscript', 'storage.modifier.cfml'] });
-        expect(tokens[0][1]).toEqual({ value: ' test ', scopes: ['source.cfscript'] });
-        expect(tokens[0][2]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
-        expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
-        expect(tokens[0][4]).toEqual({ value: '1', scopes: ['source.cfscript', 'constant.numeric.cfml'] });
-        expect(tokens[0][5]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
+        expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
+        expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
+        expect(tokens[0][6]).toEqual({ value: '1', scopes: ['source.cfscript', 'constant.numeric.cfml'] });
+        expect(tokens[0][7]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
       });
 
-      it('does NOT tokenize ignoring case', function() {
+      it('does not tokenize upper or mixed case', function() {
         var tokens = grammar.tokenizeLines('Var test = 1;');
-        expect(tokens[0][0]).toEqual({ value: 'Var test ', scopes: ['source.cfscript'] });
-        expect(tokens[0][1]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
-        expect(tokens[0][3]).toEqual({ value: '1', scopes: ['source.cfscript', 'constant.numeric.cfml'] });
-        expect(tokens[0][4]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
+        expect(tokens[0][0]).not.toEqual({ value: 'Var', scopes: ['source.cfscript', 'storage.modifier.cfml'] });
 
         tokens = grammar.tokenizeLines('VAR test = 1;');
-        expect(tokens[0][0]).toEqual({ value: 'VAR', scopes: ['source.cfscript', 'variable.other.constant.cfml'] });
-        expect(tokens[0][1]).toEqual({ value: ' test ', scopes: ['source.cfscript'] });
-        expect(tokens[0][2]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
-        expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
-        expect(tokens[0][4]).toEqual({ value: '1', scopes: ['source.cfscript', 'constant.numeric.cfml'] });
-        expect(tokens[0][5]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
+        expect(tokens[0][0]).not.toEqual({ value: 'VAR', scopes: ['source.cfscript', 'storage.modifier.cfml'] });
       });
     });
 
@@ -53,7 +46,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'variables', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -66,7 +59,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Variables', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -77,7 +70,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'VARIABLES', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -92,7 +85,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'request', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -105,7 +98,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Request', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -116,7 +109,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'REQUEST', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -131,7 +124,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'cgi', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -144,7 +137,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Cgi', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -155,7 +148,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'CGI', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -170,7 +163,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'form', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -183,7 +176,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Form', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -194,7 +187,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'FORM', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -209,7 +202,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'url', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -222,7 +215,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Url', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -233,7 +226,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'URL', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -248,7 +241,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'session', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -261,7 +254,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Session', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -272,7 +265,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'SESSION', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -287,7 +280,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'application', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -300,7 +293,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Application', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -311,7 +304,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'APPLICATION', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -326,7 +319,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'this', scopes: ['source.cfscript', 'variable.language.this.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -339,7 +332,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'This', scopes: ['source.cfscript', 'variable.language.this.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -350,7 +343,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'THIS', scopes: ['source.cfscript', 'variable.language.this.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -365,7 +358,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'cookie', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -378,7 +371,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'Cookie', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -389,7 +382,7 @@ describe('cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({ value: 'COOKIE', scopes: ['source.cfscript', 'variable.language.scope.cfml'] });
         expect(tokens[0][1]).toEqual({ value: '.', scopes: ['source.cfscript', 'keyword.operator.accessor.cfml'] });
-        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'meta.property.object.cfml'] });
+        expect(tokens[0][2]).toEqual({ value: 'test', scopes: ['source.cfscript', 'variable.other.cfml'] });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
         expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
         expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
@@ -429,19 +422,21 @@ describe('cfml grammar', function() {
       var tokens = grammar.tokenizeLines('var fullName = "#firstName# #lastName#";');
 
       expect(tokens[0][0]).toEqual({ value: 'var', scopes: ['source.cfscript', 'storage.modifier.cfml'] });
-      expect(tokens[0][1]).toEqual({ value: ' fullName ', scopes: ['source.cfscript'] });
-      expect(tokens[0][2]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
+      expect(tokens[0][1]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
+      expect(tokens[0][2]).toEqual({ value: 'fullName', scopes: ['source.cfscript','variable.other.cfml'] });
       expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
-      expect(tokens[0][4]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
-      expect(tokens[0][5]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'constant.character.hash.cfml'] });
-      expect(tokens[0][6]).toEqual({ value: 'firstName', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+      expect(tokens[0][4]).toEqual({ value: '=', scopes: ['source.cfscript', 'keyword.operator.assignment.cfml'] });
+      expect(tokens[0][5]).toEqual({ value: ' ', scopes: ['source.cfscript'] });
+      expect(tokens[0][6]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml'] });
       expect(tokens[0][7]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'constant.character.hash.cfml'] });
-      expect(tokens[0][8]).toEqual({ value: ' ', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+      expect(tokens[0][8]).toEqual({ value: 'firstName', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'variable.other.cfml'] });
       expect(tokens[0][9]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'constant.character.hash.cfml'] });
-      expect(tokens[0][10]).toEqual({ value: 'lastName', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
+      expect(tokens[0][10]).toEqual({ value: ' ', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
       expect(tokens[0][11]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'constant.character.hash.cfml'] });
-      expect(tokens[0][12]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml'] });
-      expect(tokens[0][13]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
+      expect(tokens[0][12]).toEqual({ value: 'lastName', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'variable.other.cfml'] });
+      expect(tokens[0][13]).toEqual({ value: '#', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'constant.character.hash.cfml'] });
+      expect(tokens[0][14]).toEqual({ value: '"', scopes: ['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml'] });
+      expect(tokens[0][15]).toEqual({ value: ';', scopes: ['source.cfscript', 'punctuation.terminator.statement.cfml'] });
     });
 
     describe('tokenizing cfml in urls', function() {
@@ -498,4 +493,134 @@ describe('cfml grammar', function() {
     });
   });
 
+  describe('cf statement tokenization', function () {
+    // Expression tokenization tests for CFML statements that can be written in any cfml execution context.
+    it('should tokenize simple variable assignments with or without `var`', function () {
+      var statement = grammar.tokenizeLines(
+        'var test = "simple value";\n' +
+        'test&="simple value";'
+      );
+
+      let tokens = statement[0];
+      expect(tokens[0].value).toEqual('var');
+      expect(tokens[0].scopes).toEqual(['source.cfscript', 'storage.modifier.cfml']);
+
+      expect(tokens[2].value).toEqual('test');
+      expect(tokens[2].scopes).toEqual(['source.cfscript', 'variable.other.cfml']);
+
+      expect(tokens[4].value).toEqual('=');
+      expect(tokens[4].scopes).toEqual(['source.cfscript', 'keyword.operator.assignment.cfml']);
+
+      expect(tokens[6].value).toEqual('"');
+      expect(tokens[6].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml']);
+
+      expect(tokens[7].value).toEqual('simple value');
+      expect(tokens[7].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml']);
+
+      expect(tokens[8].value).toEqual('"');
+      expect(tokens[8].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml']);
+
+      expect(tokens[9].value).toEqual(';');
+      expect(tokens[9].scopes).toEqual(['source.cfscript', 'punctuation.terminator.statement.cfml']);
+
+      tokens = statement[1];
+      expect(tokens[0].value).toEqual('test');
+      expect(tokens[0].scopes).toEqual(['source.cfscript', 'variable.other.cfml']);
+
+      expect(tokens[1].value).toEqual('&=');
+      expect(tokens[1].scopes).toEqual(['source.cfscript', 'keyword.operator.assignment.augmented.cfml']);
+
+      expect(tokens[2].value).toEqual('"');
+      expect(tokens[2].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.begin.cfml']);
+
+      expect(tokens[3].value).toEqual('simple value');
+      expect(tokens[3].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml']);
+
+      expect(tokens[4].value).toEqual('"');
+      expect(tokens[4].scopes).toEqual(['source.cfscript', 'string.quoted.double.cfml', 'punctuation.definition.string.end.cfml']);
+
+      expect(tokens[5].value).toEqual(';');
+      expect(tokens[5].scopes).toEqual(['source.cfscript', 'punctuation.terminator.statement.cfml']);
+    });
+
+    it('should tokenize arithmetic expression', function () {
+      var statement = grammar.tokenizeLines(
+        'value = (x^2 + 3)*(x + 1);\n' +
+        'value = value mod 7;'
+      );
+
+      let tokens = statement[0];
+      console.log(tokens);
+    });
+  });
+
+  describe('variable tokenization', function() {
+    //	Variable tokenization tests, for the cfscript #variables
+
+    it('should tokenize free characters as variables when in cfscript', function() {
+      var tokens = grammar.tokenizeLines(
+      'var somevariable = 0;\n'+
+      'var some$ = 0;\n' +
+      'var object_Ref = 0;'
+      );
+
+      expect(tokens[0][2].value).toEqual('somevariable');
+      expect(tokens[0][2].scopes).toEqual(['source.cfscript', 'variable.other.cfml']);
+
+      expect(tokens[1][2].value).toEqual('some$');
+      expect(tokens[1][2].scopes).toEqual(['source.cfscript', 'variable.other.cfml']);
+
+      expect(tokens[2][2].value).toEqual('object_Ref');
+      expect(tokens[2][2].scopes).toEqual(['source.cfscript', 'variable.other.cfml']);
+    });
+
+    it('should tokenize uppercase words as constants', function() {
+      var tokens = grammar.tokenizeLines('var MY_CONST = 0;')[0];
+
+      expect(tokens[2].value).toEqual('MY_CONST');
+      expect(tokens[2].scopes).toEqual(['source.cfscript','variable.other.constant.cfml']);
+    });
+
+    it('should not tokenize mixed case words as constants', function() {
+      var tokens = grammar.tokenizeLines('var MY_const = 0;')[0];
+
+      expect(tokens[2].value).toEqual('MY_const');
+      expect(tokens[2].scopes).not.toEqual(['source.cfscript','variable.other.constant.cfml']);
+
+    });
+
+    it('should tokenize dollars as special variable', function() {
+      var tokens = grammar.tokenizeLines('var $ = "some definition";')[0];
+
+      expect(tokens[2].value).toEqual('$');
+      expect(tokens[2].scopes).toEqual(['source.cfscript','variable.other.dollar.cfml']);
+      expect(tokens[2].scopes).not.toEqual(['source.cfscript','variable.other.cfml']);
+    });
+
+    it('should tokenize class names by convention, beginning with an uppercase character and using dot notation', function () {
+      var tokens = grammar.tokenizeLines(
+        'ClassName.memberOne;\n'+
+        'ClassName.method();'
+      );
+
+      expect(tokens[0][0].value).toEqual('ClassName');
+      expect(tokens[0][0].scopes).toEqual(['source.cfscript','variable.object.class.cfml']);
+
+      expect(tokens[0][1].value).toEqual('.');
+      expect(tokens[0][1].scopes).toEqual(['source.cfscript','keyword.operator.accessor.cfml']);
+
+      expect(tokens[0][2].value).toEqual('memberOne');
+      expect(tokens[0][2].scopes).toEqual(['source.cfscript','variable.object.property.cfml']);
+
+      expect(tokens[1][0].value).toEqual('ClassName');
+      expect(tokens[1][0].scopes).toEqual(['source.cfscript','variable.object.class.cfml']);
+
+      expect(tokens[1][1].value).toEqual('.');
+      expect(tokens[1][1].scopes).toEqual(['source.cfscript','keyword.operator.accessor.cfml']);
+
+      expect(tokens[1][2].value).toEqual('method');
+      expect(tokens[1][2].scopes).toEqual(['source.cfscript','entity.function.method.cfml']);
+    });
+
+  });
 });

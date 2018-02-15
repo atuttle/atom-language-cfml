@@ -5,6 +5,7 @@
   'cfml'
 ]
 'injections':
+  # Injects the hash-delimiters and cfml expression tokenizing into cfoutput blocks in html and js
   '(meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml) - comment.block.cfml':
     'patterns': [
       {

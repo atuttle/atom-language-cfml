@@ -607,10 +607,9 @@ describe('html-cfml grammar', function() {
         it('should tokenize cfcomments correctly', function() {
             var tokens = grammar.tokenizeLines('<!--- cfcomment goes here --->');
 
-            expect(tokens[0][0]).toEqual({
-                value: '<!--- cfcomment goes here --->',
-                scopes: ['text.html.cfml', 'comment.line.cfml']
-            });
+            expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'punctuation.definition.comment.cfml'] });
+            expect(tokens[0][1]).toEqual({ value: ' cfcomment goes here ', scopes: ['text.html.cfml', 'comment.line.cfml'] });
+            expect(tokens[0][2]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'punctuation.definition.comment.cfml'] });
         });
 
         it('should tokenize cfcomments embedded in html tags correctly', function() {
