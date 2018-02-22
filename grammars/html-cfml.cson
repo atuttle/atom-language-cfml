@@ -5,25 +5,34 @@
   'cfml'
 ]
 'injections':
-  # Injects the hash-delimiters and cfml expression tokenizing into cfoutput blocks in html and js
-  '(meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml) - comment.block.cfml':
+  'L:meta.tag - meta.tag.cfml':
+    'patterns': [
+      {
+        'include': '#embedded-cfml'
+      }
+    ]
+  '(meta.scope.cfoutput.cfml) - ( comment.line.cfml | comment.block.cfml )':
     'patterns': [
       {
         'include': 'source.cfml#hash-delimiters'
       }
-    ]
-  'meta.tag - meta.tag.cfml':
-    'patterns': [
       {
-        'include': 'source.cfml#cfml'
+        'include': '#embedded-cfml'
       }
     ]
 'patterns': [
   # Start the CFML Grammar.
   {
-    'include': 'source.cfml'
-  }
-  {
-    'include': 'text.html.basic'
+    'include': '#embedded-cfml'
   }
 ]
+'repository':
+  'embedded-cfml':
+    'patterns': [
+      {
+        'include': 'source.cfml'
+      }
+      {
+        'include': 'text.html.basic'
+      }
+    ]

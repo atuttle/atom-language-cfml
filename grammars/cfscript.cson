@@ -96,25 +96,25 @@
     ]
   'component-attributes':
     'patterns': [
+      # {
+      #   'begin': '\\b(?i:(extends))\\b\\s*(=)\\s*'
+      #   'beginCaptures':
+      #     '1':
+      #       'name': 'storage.modifier.extends.cfml'
+      #   'end': '((")([a-zA-Z0-9:.]+)?("))|((\')([a-zA-Z0-9:.]+)?(\'))|([a-zA-Z0-9:.]+)|(?=[^a-zA-Z0-9:.])'
+      #   'endCaptures':
+      #     '1':
+      #       'name': 'punctuation.definition.string.begin.cfml'
+      #     '2':
+      #       'name': 'entity.other.inherited-class.cfml'
+      #     '3':
+      #       'name': 'punctuation.definition.string.end.cfml'
+      #     '4':
+      #       'name': 'entity.other.inherited-class.cfml'
+      #   'contentName': 'meta.class.inheritance.cfml'
+      # }
       {
-        'begin': '\\b(?i:(extends))\\b\\s*(=)\\s*'
-        'beginCaptures':
-          '1':
-            'name': 'storage.modifier.extends.cfml'
-        'end': '((")([a-zA-Z0-9:.]+)?("))|((\')([a-zA-Z0-9:.]+)?(\'))|([a-zA-Z0-9:.]+)|(?=[^a-zA-Z0-9:.])'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.cfml'
-          '2':
-            'name': 'entity.other.inherited-class.cfml'
-          '3':
-            'name': 'punctuation.definition.string.end.cfml'
-          '4':
-            'name': 'entity.other.inherited-class.cfml'
-        'contentName': 'meta.class.inheritance.cfml'
-      }
-      {
-        'include': 'source.cfml#tag-generic-attribute'
+        'include': '#tag-generic-attribute-script'
       }
     ]
   'constructor':
