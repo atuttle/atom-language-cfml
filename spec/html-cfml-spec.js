@@ -1,28 +1,51 @@
 describe('html-cfml grammar', function() {
     var grammar;
+    var TextEditor = null
+    var buildTextEditor = function (params) {
+      if(atom.workspace.buildTextEditor) {
+        atom.workspace.buildTextEditor(params) ;
+      } else {
+        TextEditor = TextEditor || require('atom').TextEditor;
+        new TextEditor(params);
+      }
+    };
 
     beforeEach(function() {
         waitsForPromise(function() {
-            return atom.packages.activatePackage('language-html');
+          return atom.packages.activatePackage('language-html');
         });
 
         waitsForPromise(function() {
-            return atom.packages.activatePackage('language-cfml');
+          return atom.packages.activatePackage('language-cfml');
         });
 
         runs(function() {
-            grammar = atom.grammars.grammarForScopeName('text.html.cfml');
+          grammarEmbeddedCfml = atom.grammars.grammarForScopeName('text.html.cfml');
+          grammarCfml = atom.grammars.grammarForScopeName('source.cfml');
         });
     });
 
+    afterEach(function() {
+      waitsForPromise(function() {
+        return atom.packages.deactivatePackage('language-html');
+      });
+
+      waitsForPromise(function() {
+        return atom.packages.deactivatePackage('language-cfml');
+      });
+    });
+
     it('parses the grammar', function() {
-        expect(grammar).toBeTruthy();
-        expect(grammar.scopeName).toBe('text.html.cfml');
+        expect(grammarEmbeddedCfml).toBeTruthy();
+        expect(grammarEmbeddedCfml.scopeName).toBe('text.html.cfml');
+
+        expect(grammarCfml).toBeTruthy();
+        expect(grammarCfml.scopeName).toBe('source.cfml');
     });
 
     describe('populating a select list', function() {
-        it('should tokenize correctly', function() {
-            var tokens = grammar.tokenizeLines(
+        xit('should tokenize correctly', function() {
+            var tokens = grammarEmbeddedCfml.tokenizeLines(
                 [
                     '<cfoutput>',
                     '<select id="countries" name="countries">',
@@ -235,8 +258,8 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
-                    'entity.other.attribute-name.cfml'
+                    'meta.attribute-with-value.array.cfml',
+                    'entity.other.attribute-name.array.cfml'
                 ]
             });
             expect(tokens[2][5]).toEqual({
@@ -245,7 +268,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'punctuation.separator.key-value.cfml'
                 ]
             });
@@ -255,7 +278,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.begin.cfml'
                 ]
@@ -266,7 +289,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'constant.character.hash.cfml'
                 ]
@@ -277,7 +300,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'variable.language.scope.cfml'
                 ]
@@ -288,7 +311,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'keyword.operator.accessor.cfml'
                 ]
@@ -299,7 +322,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'variable.other.cfml'
                 ]
@@ -310,7 +333,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'constant.character.hash.cfml'
                 ]
@@ -321,7 +344,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.end.cfml'
                 ]
@@ -336,8 +359,8 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
-                    'entity.other.attribute-name.cfml'
+                    'meta.attribute-with-value.index.cfml',
+                    'entity.other.attribute-name.index.cfml'
                 ]
             });
             expect(tokens[2][15]).toEqual({
@@ -346,7 +369,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'punctuation.separator.key-value.cfml'
                 ]
             });
@@ -356,7 +379,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.begin.cfml'
                 ]
@@ -367,7 +390,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml'
                 ]
             });
@@ -377,7 +400,7 @@ describe('html-cfml grammar', function() {
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
                     'meta.tag.cfloop.cfml',
-                    'meta.attribute-with-value.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.end.cfml'
                 ]
@@ -658,7 +681,7 @@ describe('html-cfml grammar', function() {
 
     describe('tokenizing cfcomments', function() {
         it('should tokenize single line cfcomments correctly', function() {
-            var tokens = grammar.tokenizeLines('<!--- cfcomment goes here --->');
+            var tokens = grammarEmbeddedCfml.tokenizeLines('<!--- cfcomment goes here --->');
 
             expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'comment.line.cfml', 'punctuation.definition.comment.start.cfml'] });
             expect(tokens[0][1]).toEqual({ value: ' cfcomment goes here ', scopes: ['text.html.cfml', 'comment.line.cfml'] });
@@ -666,7 +689,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should tokenize multi line cfcomments correctly', function() {
-            var tokens = grammar.tokenizeLines(
+            var tokens = grammarEmbeddedCfml.tokenizeLines(
             '<!---' + '\n' +
               'cfcomment goes here' + '\n' +
               'and goes here' + '\n' +
@@ -679,7 +702,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should tokenize cfcomments embedded in html tags correctly', function() {
-            var tokens = grammar.tokenizeLines(
+            var tokens = grammarEmbeddedCfml.tokenizeLines(
                 '<input type="text" name="credit_card_number" <!--- embedded cfcomment ---> />'
             );
 
@@ -832,7 +855,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should not highlight hash signs in cfcomments', function() {
-            var tokens = grammar.tokenizeLines(
+            var tokens = grammarEmbeddedCfml.tokenizeLines(
                 '<input type="text" name="credit_card_number" <!--- #rc.name# should not be tokenized ---> />'
             );
 
@@ -990,7 +1013,7 @@ describe('html-cfml grammar', function() {
     describe('tokenization in strings', function() {
 
         xit('should tokenize embedded cf in strings', function() {
-            var tokens = grammar.tokenizeLines([
+            var tokens = grammarEmbeddedCfml.tokenizeLines([
               '<cfoutput>',
                 'This is just a test',
               '</cfoutput>'
@@ -998,330 +1021,18 @@ describe('html-cfml grammar', function() {
 
             expect(tokens[0][0]).toEqual({
                 value: '<',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
             });
 
             expect(tokens[0][1]).toEqual({
                 value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
             });
 
             expect(tokens[0][2]).toEqual({
               value: '>',
-              scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+              scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
             });
-
-            // expect(tokens[0][3]).toEqual({
-            //     value: '<',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'punctuation.definition.tag.begin.html'
-            //     ]
-            // });
-            // expect(tokens[0][4]).toEqual({
-            //     value: 'a',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'entity.name.tag.inline.a.html'
-            //     ]
-            // });
-            // expect(tokens[0][5]).toEqual({
-            //     value: ' ',
-            //     scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.a.html']
-            // });
-            // expect(tokens[0][6]).toEqual({
-            //     value: 'href',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'entity.other.attribute-name.html'
-            //     ]
-            // });
-            // expect(tokens[0][7]).toEqual({
-            //     value: '=',
-            //     scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.a.html']
-            // });
-            // expect(tokens[0][8]).toEqual({
-            //     value: '"',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'punctuation.definition.string.begin.html'
-            //     ]
-            // });
-            // expect(tokens[0][9]).toEqual({
-            //     value: 'index.cfm?action=shopping.product-details.main',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html'
-            //     ]
-            // });
-            // expect(tokens[0][10]).toEqual({
-            //     value: '&',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'constant.character.entity.html',
-            //         'punctuation.definition.entity.html'
-            //     ]
-            // });
-            // expect(tokens[0][11]).toEqual({
-            //     value: 'amp',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'constant.character.entity.html'
-            //     ]
-            // });
-            // expect(tokens[0][12]).toEqual({
-            //     value: ';',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'constant.character.entity.html',
-            //         'punctuation.definition.entity.html'
-            //     ]
-            // });
-            // expect(tokens[0][13]).toEqual({
-            //     value: 'details=',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html'
-            //     ]
-            // });
-            // expect(tokens[0][14]).toEqual({
-            //     value: '#',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'constant.character.hash.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][15]).toEqual({
-            //     value: '_',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'variable.other.object.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][16]).toEqual({
-            //     value: '.',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'keyword.operator.accessor.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][17]).toEqual({
-            //     value: 'detail',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'meta.property.object.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][18]).toEqual({
-            //     value: '#',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'constant.character.hash.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][19]).toEqual({
-            //     value: '"',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'string.quoted.double.html',
-            //         'punctuation.definition.string.end.html'
-            //     ]
-            // });
-            // expect(tokens[0][20]).toEqual({
-            //     value: '>',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'punctuation.definition.tag.end.html'
-            //     ]
-            // });
-            // expect(tokens[0][21]).toEqual({
-            //     value: '#',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'constant.character.hash.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][22]).toEqual({
-            //     value: 'variables',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'variable.language.scope.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][23]).toEqual({
-            //     value: '.',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'keyword.operator.accessor.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][24]).toEqual({
-            //     value: 'white_papers',
-            //     scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.property.object.cfml']
-            // });
-            // expect(tokens[0][25]).toEqual({
-            //     value: '[',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'meta.brace.square.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][26]).toEqual({
-            //     value: '_',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'variable.other.object.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][27]).toEqual({
-            //     value: '.',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'keyword.operator.accessor.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][28]).toEqual({
-            //     value: 'detail',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'meta.property.object.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][29]).toEqual({
-            //     value: ']',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'meta.brace.square.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][30]).toEqual({
-            //     value: '[',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'meta.brace.square.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][31]).toEqual({
-            //     value: '2',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'constant.numeric.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][32]).toEqual({
-            //     value: ']',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.group.braces.square',
-            //         'meta.brace.square.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][33]).toEqual({
-            //     value: '#',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'constant.character.hash.cfml'
-            //     ]
-            // });
-            // expect(tokens[0][34]).toEqual({
-            //     value: '</',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'punctuation.definition.tag.begin.html'
-            //     ]
-            // });
-            // expect(tokens[0][35]).toEqual({
-            //     value: 'a',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'entity.name.tag.inline.a.html'
-            //     ]
-            // });
-            // expect(tokens[0][36]).toEqual({
-            //     value: '>',
-            //     scopes: [
-            //         'text.html.cfml',
-            //         'meta.scope.cfoutput.cfml',
-            //         'meta.tag.inline.a.html',
-            //         'punctuation.definition.tag.end.html'
-            //     ]
-            // });
-            // expect(tokens[0][37]).toEqual({
-            //     value: '</',
-            //     scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
-            // });
-            // expect(tokens[0][38]).toEqual({
-            //     value: 'cfoutput',
-            //     scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
-            // });
-            // expect(tokens[0][39]).toEqual({
-            //     value: '>',
-            //     scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
-            // });
 
         });
     });
@@ -1331,7 +1042,7 @@ describe('html-cfml grammar', function() {
     });
 
     xit('should tokenize cfml in unquoted attributes', function() {
-        var tokens = grammar.tokenizeLines('<cfoutput><span class=#className#></span></cfoutput>');
+        var tokens = grammarEmbeddedCfml.tokenizeLines('<cfoutput><span class=#className#></span></cfoutput>');
 
         expect(tokens[0][0]).toEqual({
             value: '<',
@@ -1447,7 +1158,7 @@ describe('html-cfml grammar', function() {
     });
 
     xit('should tokenize custom tags', function() {
-        var tokens = grammar.tokenizeLines('<cf_PageRow> </cf_PageRow>');
+        var tokens = grammarEmbeddedCfml.tokenizeLines('<cf_PageRow> </cf_PageRow>');
 
         expect(tokens[0][0]).toEqual({
             value: '<',
