@@ -106,7 +106,7 @@
       }
       {
         'name': 'meta.scope.cfoutput.cfml'
-        'begin': '\\G|^'
+        'begin': '(?!\\G)'
         'end': '(?i)(?=</cfoutput>|$)'
         'patterns': [
           {
@@ -302,14 +302,14 @@
   'tag-generic-attribute':
     'patterns': [
       {
+        'name': 'meta.attribute-with-value.$1.cfml'
         'begin': '([^\\s/=>"\'<]+)(=)'
         'beginCaptures':
           '1':
-            'name': 'entity.other.attribute-name.cfml'
+            'name': 'entity.other.attribute-name.$1.cfml'
           '2':
             'name': 'punctuation.separator.key-value.cfml'
         'end': '(?!\\G)|(?=\\s|/?>)'
-        'name': 'meta.attribute-with-value.cfml'
         'patterns': [
           {
             'include': '#string'
@@ -321,16 +321,16 @@
         ]
       }
       {
-        'match': '[^\\s/=>"\'<]+'
+        'match': '([^\\s/=>"\'<]+)'
         'captures':
           '0':
-            'name': 'entity.other.attribute-name.cfml'
-        'name': 'meta.attribute-without-value.cfml'
+            'name': 'entity.other.attribute-name.$1.cfml'
+        'name': 'meta.attribute-without-value.$1.cfml'
       }
     ]
   'tags-with-script':
     'name': 'meta.tag.$2.cfml'
-    'begin': '(?i)(<)(cfset|cfreturn|cfif|cfelseif)'
+    'begin': '(?i)(<)(cfset|cfreturn|cfif|cfelseif)\\b'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.cfml'

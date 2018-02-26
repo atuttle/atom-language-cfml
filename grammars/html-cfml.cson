@@ -16,9 +16,9 @@
       {
         'include': 'source.cfml#hash-delimiters'
       }
-      {
-        'include': '#embedded-cfml'
-      }
+      # {
+      #   'include': '#embedded-cfml'
+      # }
     ]
 'patterns': [
   # Start the CFML Grammar.
