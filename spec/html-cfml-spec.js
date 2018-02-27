@@ -20,8 +20,7 @@ describe('html-cfml grammar', function() {
         });
 
         runs(function() {
-          grammarEmbeddedCfml = atom.grammars.grammarForScopeName('text.html.cfml');
-          grammarCfml = atom.grammars.grammarForScopeName('source.cfml');
+          grammar = atom.grammars.grammarForScopeName('text.html.cfml');
         });
     });
 
@@ -36,16 +35,13 @@ describe('html-cfml grammar', function() {
     });
 
     it('parses the grammar', function() {
-        expect(grammarEmbeddedCfml).toBeTruthy();
-        expect(grammarEmbeddedCfml.scopeName).toBe('text.html.cfml');
-
-        expect(grammarCfml).toBeTruthy();
-        expect(grammarCfml.scopeName).toBe('source.cfml');
+        expect(grammar).toBeTruthy();
+        expect(grammar.scopeName).toBe('text.html.cfml');
     });
 
-    describe('populating a select list', function() {
-        xit('should tokenize correctly', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines(
+    xdescribe('populating a select list', function() {
+        it('should tokenize correctly', function() {
+            var tokens = grammar.tokenizeLines(
                 [
                     '<cfoutput>',
                     '<select id="countries" name="countries">',
@@ -56,6 +52,8 @@ describe('html-cfml grammar', function() {
                     '</cfoutput>'
                 ].join('\n')
             );
+
+
 
             expect(tokens[0][0]).toEqual({
                 value: '<',
@@ -472,6 +470,9 @@ describe('html-cfml grammar', function() {
                     'punctuation.definition.string.begin.html'
                 ]
             });
+
+
+
             expect(tokens[3][7]).toEqual({
                 value: '#',
                 scopes: [
@@ -666,22 +667,22 @@ describe('html-cfml grammar', function() {
 
             expect(tokens[6][0]).toEqual({
                 value: '</',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
             });
             expect(tokens[6][1]).toEqual({
                 value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
             });
             expect(tokens[6][2]).toEqual({
                 value: '>',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
             });
         });
     });
 
     describe('tokenizing cfcomments', function() {
         it('should tokenize single line cfcomments correctly', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines('<!--- cfcomment goes here --->');
+            var tokens = grammar.tokenizeLines('<!--- cfcomment goes here --->');
 
             expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'comment.line.cfml', 'punctuation.definition.comment.start.cfml'] });
             expect(tokens[0][1]).toEqual({ value: ' cfcomment goes here ', scopes: ['text.html.cfml', 'comment.line.cfml'] });
@@ -689,7 +690,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should tokenize multi line cfcomments correctly', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines(
+            var tokens = grammar.tokenizeLines(
             '<!---' + '\n' +
               'cfcomment goes here' + '\n' +
               'and goes here' + '\n' +
@@ -702,7 +703,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should tokenize cfcomments embedded in html tags correctly', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines(
+            var tokens = grammar.tokenizeLines(
                 '<input type="text" name="credit_card_number" <!--- embedded cfcomment ---> />'
             );
 
@@ -855,7 +856,7 @@ describe('html-cfml grammar', function() {
         });
 
         it('should not highlight hash signs in cfcomments', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines(
+            var tokens = grammar.tokenizeLines(
                 '<input type="text" name="credit_card_number" <!--- #rc.name# should not be tokenized ---> />'
             );
 
@@ -1013,7 +1014,7 @@ describe('html-cfml grammar', function() {
     describe('tokenization in strings', function() {
 
         xit('should tokenize embedded cf in strings', function() {
-            var tokens = grammarEmbeddedCfml.tokenizeLines([
+            var tokens = grammar.tokenizeLines([
               '<cfoutput>',
                 'This is just a test',
               '</cfoutput>'
@@ -1042,7 +1043,7 @@ describe('html-cfml grammar', function() {
     });
 
     xit('should tokenize cfml in unquoted attributes', function() {
-        var tokens = grammarEmbeddedCfml.tokenizeLines('<cfoutput><span class=#className#></span></cfoutput>');
+        var tokens = grammar.tokenizeLines('<cfoutput><span class=#className#></span></cfoutput>');
 
         expect(tokens[0][0]).toEqual({
             value: '<',
@@ -1145,45 +1146,45 @@ describe('html-cfml grammar', function() {
         });
         expect(tokens[0][14]).toEqual({
             value: '</',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][15]).toEqual({
             value: 'cfoutput',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
         });
         expect(tokens[0][16]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
         });
     });
 
-    xit('should tokenize custom tags', function() {
-        var tokens = grammarEmbeddedCfml.tokenizeLines('<cf_PageRow> </cf_PageRow>');
+    it('should tokenize custom tags', function() {
+        var tokens = grammar.tokenizeLines('<cf_PageRow> </cf_PageRow>');
 
         expect(tokens[0][0]).toEqual({
             value: '<',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][1]).toEqual({
             value: 'cf_PageRow',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'entity.name.tag.cf_PageRow.cfml']
         });
         expect(tokens[0][2]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.end.cfml']
         });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['text.html.cfml'] });
         expect(tokens[0][4]).toEqual({
             value: '</',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][5]).toEqual({
             value: 'cf_PageRow',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'entity.name.tag.cf_PageRow.cfml']
         });
         expect(tokens[0][6]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.end.cfml']
         });
     });
 });

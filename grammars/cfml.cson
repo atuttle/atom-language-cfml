@@ -10,9 +10,6 @@
       {
         'include': '#hash-delimiters'
       }
-      {
-        'include': '#cfml'
-      }
     ]
 'patterns': [
   {
@@ -72,8 +69,6 @@
       }
     ]
   'cfoutput':
-    #'name': 'meta.tag.cfoutput.cfml'
-    #'contentName': 'meta.scope.cfoutput.cfml'
     'begin': '(?i)(?=<cfoutput)'
     'end': '(?i)(</)(cfoutput)(>)'
     'endCaptures':
@@ -106,11 +101,11 @@
       }
       {
         'name': 'meta.scope.cfoutput.cfml'
-        'begin': '(?!\\G)'
+        'begin': '(?!\\G|^)'
         'end': '(?i)(?=</cfoutput>|$)'
         'patterns': [
           {
-            'include': 'text.html.cfml'
+            'include': '$self'
           }
         ]
       }
@@ -154,7 +149,7 @@
         'contentName': 'meta.scope.cfquery.cfml'
         'patterns': [
           {
-            'include': '#cfml'
+            'include': '$self'
           }
           {
             'include': '#hash-delimiters'
