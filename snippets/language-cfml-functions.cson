@@ -223,7 +223,7 @@
     'body': 'dump(${1:any});$0'
   'echo':
     'prefix': 'echo'
-    'body': 'echo(${1:string});$0' 
+    'body': 'echo(${1:string});$0'
   'encrypt':
     'prefix': 'encrypt'
     'body': 'Encrypt(${1:string}, ${2:key}${3: [, algorithm]}${4: [, encoding]}${5: [, IVorSalt]}${6: [, iterations]})$0'
@@ -514,7 +514,7 @@
     'body': 'ListFindNoCase(${1:list}, ${2:value}${3: [, delimiters ]})$0'
   'listfirst':
     'prefix': 'listfirst'
-    'body': 'ListFirst(${1:list}${2: [, delimiters]})$0'
+    'body': 'ListFirst(${1:list} ${2:[, delimiters]})$0'
   'listgetat':
     'prefix': 'listgetat'
     'body': 'ListGetAt(${1:list}, ${2:position}${3: [, delimiters]})$0'

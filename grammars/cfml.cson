@@ -4,96 +4,19 @@
   'cfc'
 ]
 'injections':
-  'meta.scope.cfoutput.cfml, meta.scope.cfoutput.js.cfml':
+  # Inject hash delimited expressions into cfoutput block; then restart the CFML pattern
+  '(meta.scope.cfoutput.cfml) - ( comment.line.cfml | comment.block.cfml )':
     'patterns': [
       {
         'include': '#hash-delimiters'
-      }
-    ]
-  'meta.tag - meta.tag.cfml':
-    'patterns': [
-      {
-        'include': '#cfml'
       }
     ]
 'patterns': [
   {
     'include': '#cfml'
   }
-  {
-    'include': '#script'
-  }
 ]
 'repository':
-  'cffunction':
-    'begin': '(?i)(<)(cffunction)'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.begin.cfml'
-      '2':
-        'name': 'entity.name.tag.cfml'
-    'end': '(/?>)'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.end.cfml'
-    'name': 'meta.tag.cfml'
-    'patterns': [
-      {
-        'match': '(?i)\\b(name)\\s*(=)\\s*((")([_$a-zA-Z][$\\w]*)("))'
-        'captures':
-          '1':
-            'name': 'entity.other.attribute-name.cfml'
-          '2':
-            'name': 'punctuation.separator.key-value.cfml'
-          '3':
-            'name': 'string.quoted.double.cfml'
-          '4':
-            'name': 'punctuation.definition.string.begin.cfml'
-          '5':
-            'name': 'entity.name.function.cfml'
-          '6':
-            'name': 'punctuation.definition.string.end.cfml'
-      }
-      {
-        'match': '(?i)\\b(name)\\s*(=)\\s*((\')([_$a-zA-Z][$\\w]*)(\'))'
-        'captures':
-          '1':
-            'name': 'entity.other.attribute-name.cfml'
-          '2':
-            'name': 'punctuation.separator.key-value.cfml'
-          '3':
-            'name': 'string.quoted.single.cfml'
-          '4':
-            'name': 'punctuation.definition.string.begin.cfml'
-          '5':
-            'name': 'entity.name.function.cfml'
-          '6':
-            'name': 'punctuation.definition.string.end.cfml'
-      }
-      {
-        'include': '#tag-generic-attribute'
-      }
-    ]
-
-  'cfif':
-    'begin': '(?i)(<)(cfif|cfelseif)\\b'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.begin.cfml'
-      '2':
-        'name': 'entity.name.tag.cfml'
-
-    'end': '>'
-    'endCaptures':
-      '0':
-        'name': 'punctuation.definition.tag.end.cfml'
-    'name': 'meta.tag.cfml'
-    'contentName': 'source.cfscript'
-    'patterns': [
-      {
-        'include': 'source.cfscript'
-      }
-    ]
   'cfml':
     'patterns': [
       {
@@ -103,19 +26,13 @@
         'include': '#cfscript'
       }
       {
-        'include': '#cfoutput'
-      }
-      {
         'include': '#cfquery'
       }
       {
-        'include': '#cfif'
+        'include': '#cfoutput'
       }
       {
         'include': '#tags-with-script'
-      }
-      {
-        'include': '#cffunction'
       }
       {
         'include': '#tag-start'
@@ -156,23 +73,26 @@
     'end': '(?i)(</)(cfoutput)(>)'
     'endCaptures':
       '0':
-        'name': 'meta.tag.cfml'
+        'name': 'meta.tag.cfoutput.cfml'
       '1':
         'name': 'punctuation.definition.tag.begin.cfml'
       '2':
-        'name': 'entity.name.tag.cfml'
+        'name': 'entity.name.tag.cfoutput.cfml'
       '3':
         'name': 'punctuation.definition.tag.end.cfml'
     'patterns': [
       {
+        'name': 'meta.tag.cfoutput.cfml'
         'begin': '(?i)(<)(cfoutput)'
         'beginCaptures':
           '1':
             'name': 'punctuation.definition.tag.begin.cfml'
           '2':
-            'name': 'entity.name.tag.cfml'
-        'end': '(?=>)'
-        'name': 'meta.tag.cfml'
+            'name': 'entity.name.tag.cfoutput.cfml'
+        'end': '(>)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.tag.end.cfml'
         'patterns': [
           {
             'include': '#tag-generic-attribute'
@@ -180,67 +100,12 @@
         ]
       }
       {
-        'begin': '(>)'
-        'beginCaptures':
-          '0':
-            'name': 'meta.tag.cfml'
-          '1':
-            'name': 'punctuation.definition.tag.end.cfml'
-        'end': '(?i)(?=</cfoutput>)'
-        'contentName': 'meta.scope.cfoutput.cfml'
+        'name': 'meta.scope.cfoutput.cfml'
+        'begin': '(?!\\G|^)'
+        'end': '(?i)(?=</cfoutput>|$)'
         'patterns': [
           {
-            'include': 'text.html.cfml'
-          }
-        ]
-      }
-    ]
-  'cfoutput-script':
-    'begin': '(?i)(?=<cfoutput)'
-    'end': '(?i)(</)(cfoutput)(>)'
-    'endCaptures':
-      '0':
-        'name': 'meta.tag.cfml'
-      '1':
-        'name': 'punctuation.definition.tag.begin.cfml'
-      '2':
-        'name': 'entity.name.tag.cfml'
-      '3':
-        'name': 'punctuation.definition.tag.end.cfml'
-    'patterns': [
-      {
-        'begin': '(?i)(<)(cfoutput)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.tag.begin.cfml'
-          '2':
-            'name': 'entity.name.tag.cfml'
-        'end': '(?=>)'
-        'name': 'meta.tag.cfml'
-        'patterns': [
-          {
-            'include': '#tag-generic-attribute'
-          }
-        ]
-      }
-      {
-        'begin': '(>)'
-        'beginCaptures':
-          '0':
-            'name': 'meta.tag.cfml'
-          '1':
-            'name': 'punctuation.definition.tag.end.cfml'
-        'end': '(?i)(?=</cfoutput>)'
-        'contentName': 'meta.scope.cfoutput.js.cfml'
-        'patterns': [
-          {
-            'include': '#hash-delimiters'
-          }
-          {
-            'include': 'source.cfml'
-          }
-          {
-            'include': 'source.js'
+            'include': '$self'
           }
         ]
       }
@@ -284,7 +149,7 @@
         'contentName': 'meta.scope.cfquery.cfml'
         'patterns': [
           {
-            'include': '#cfml'
+            'include': '$self'
           }
           {
             'include': '#hash-delimiters'
@@ -298,18 +163,26 @@
   'comments':
     'patterns': [
       {
-        'match': '<!---.*?--->'
+        'match': '(<!---)(.*?)(--->)'
         'name': 'comment.line.cfml'
+        'captures':
+          '1' :
+            'name': 'punctuation.definition.comment.start.cfml'
+          #'2' :
+          #  'name': 'comment.line.cfml'
+          '3' :
+            'name': 'punctuation.definition.comment.end.cfml'
+
       }
       {
         'begin': '<!---'
         'beginCaptures':
           '0':
-            'name': 'punctuation.definition.comment.cfml'
+            'name': 'punctuation.definition.comment.start.cfml'
         'end': '--->'
         'endCaptures':
           '0':
-            'name': 'punctuation.definition.comment.cfml'
+            'name': 'punctuation.definition.comment.end.cfml'
         'name': 'comment.block.cfml'
         'patterns': [
           {
@@ -339,149 +212,6 @@
           }
           {
             'include': 'source.cfscript#expression'
-          }
-        ]
-      }
-    ]
-  'script':
-    'comment': 'intercept source.js so that we can correctly match cfml tags in it'
-    'patterns': [
-      {
-        'begin': '(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*\\btype\\s*=\\s*[\'"]?text/(x-handlebars|(x-handlebars-)?template|html)[\'"]?)(?![^>]*/>)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
-        'endCaptures':
-          '2':
-            'name': 'punctuation.definition.tag.html'
-        'contentName': 'text.embedded.html'
-        'patterns': [
-          {
-            'include': '#cfml'
-          }
-          {
-            'include': 'text.html.basic#tag-stuff'
-          }
-          {
-            'begin': '(?<!</(?:script|SCRIPT))(>)'
-            'captures':
-              '1':
-                'name': 'punctuation.definition.tag.html'
-              '2':
-                'name': 'entity.name.tag.script.html'
-            'end': '(</)((?i:script))'
-            'patterns': [
-              {
-                'include': '#cfml'
-              }
-              {
-                'include': 'text.html.basic'
-              }
-            ]
-          }
-        ]
-      }
-      {
-        'begin': '(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*\\btype\\s*=\\s*[\'"]?text/coffeescript[\'"]?)(?![^>]*/>)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
-        'endCaptures':
-          '2':
-            'name': 'punctuation.definition.tag.html'
-        'contentName': 'source.coffee.embedded.html'
-        'patterns': [
-          {
-            'include': '#cfml'
-          }
-          {
-            'include': 'text.html.basic#tag-stuff'
-          }
-          {
-            'begin': '(?<!</(?:script|SCRIPT))(>)'
-            'captures':
-              '1':
-                'name': 'punctuation.definition.tag.html'
-              '2':
-                'name': 'entity.name.tag.script.html'
-            'end': '(</)((?i:script))'
-            'patterns': [
-              {
-                'include': '#cfml'
-              }
-              {
-                'captures':
-                  '1':
-                    'name': 'punctuation.definition.comment.coffee'
-                'match': '(#).*?((?=</script)|$\\n?)'
-                'name': 'comment.line.number-sign.coffee'
-              }
-              {
-                'include': 'source.coffee'
-              }
-            ]
-          }
-        ]
-      }
-      {
-        'begin': '(?:^\\s+)?(<)((?i:script))\\b(?![^>]*/>)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.tag.html'
-          '2':
-            'name': 'entity.name.tag.script.html'
-        'end': '(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?'
-        'endCaptures':
-          '2':
-            'name': 'punctuation.definition.tag.html'
-        'contentName': 'source.js.embedded.html'
-        'patterns': [
-          {
-            'include': '#cfml'
-          }
-          {
-            'include': 'text.html.basic#tag-stuff'
-          }
-          {
-            'begin': '(?<!</(?:script|SCRIPT))(>)'
-            'captures':
-              '1':
-                'name': 'punctuation.definition.tag.html'
-              '2':
-                'name': 'entity.name.tag.script.html'
-            'end': '(</)((?i:script))'
-            'patterns': [
-              {
-                'include': '#cfoutput-script'
-              }
-              {
-                'include': '#cfml'
-              }
-              {
-                'captures':
-                  '1':
-                    'name': 'punctuation.definition.comment.js'
-                'match': '(//).*?((?=</script)|$\\n?)'
-                'name': 'comment.line.double-slash.js'
-              }
-              {
-                'begin': '/\\*'
-                'captures':
-                  '0':
-                    'name': 'punctuation.definition.comment.js'
-                'end': '\\*/|(?=</script)'
-                'name': 'comment.block.js'
-              }
-              {
-                'include': 'source.js'
-              }
-            ]
           }
         ]
       }
@@ -534,17 +264,17 @@
       }
     ]
   'tag-start':
+    'name': 'meta.tag.$2.cfml'
     'begin': '(?i)(<)(cf_?[a-z_][a-z0-9_]*)'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.cfml'
       '2':
-        'name': 'entity.name.tag.cfml'
+        'name': 'entity.name.tag.$2.cfml'
     'end': '(/?>)'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.end.cfml'
-    'name': 'meta.tag.cfml'
     'patterns': [
       {
         'include': '#tag-generic-attribute'
@@ -553,13 +283,13 @@
   'tag-end':
     'patterns': [
       {
-      'name': 'meta.tag.cfml'
-      'match': '((?:<(?=/[a-zA-Z0-9:-]+))?/)((?i:cf)_?[_a-zA-Z0-9:-]+)(>)'
+      'name': 'meta.tag.$2.cfml'
+      'match': '(?i)(<(?=/cf_?[a-z_][a-z0-9_]*>)/)?(cf_?[a-z_][a-z0-9_]*)(>)'
       'captures':
         '1':
           'name': 'punctuation.definition.tag.begin.cfml'
         '2':
-          'name': 'entity.name.tag.cfml'
+          'name': 'entity.name.tag.$2.cfml'
         '3':
           'name': 'punctuation.definition.tag.end.cfml'
       }
@@ -567,39 +297,44 @@
   'tag-generic-attribute':
     'patterns': [
       {
-        'match': '\\b([a-zA-Z0-9:-]+)\\b'
-        'captures':
+        'name': 'meta.attribute-with-value.$1.cfml'
+        'begin': '([^\\s/=>"\'<]+)(=)'
+        'beginCaptures':
           '1':
-            'name': 'entity.other.attribute-name.cfml'
-      }
-      {
-        'match': '(=)\\s*((?:[^\\s<>/\'"{;]|/(?!/>))+)'
-        'captures':
-          '1':
-            'name': 'punctuation.separator.key-value.cfml'
+            'name': 'entity.other.attribute-name.$1.cfml'
           '2':
+            'name': 'punctuation.separator.key-value.cfml'
+        'end': '(?!\\G)|(?=\\s|/?>)'
+        'patterns': [
+          {
+            'include': '#string'
+          }
+          {
+            'match': '([^\\s&>"\'<=`]|&(?=>))+'
             'name': 'string.unquoted.cfml'
+          }
+        ]
       }
       {
-        'match': '='
-        'name': 'punctuation.separator.key-value.cfml'
-      }
-      {
-        'include': '#string'
+        'match': '([^\\s/=>"\'<]+)'
+        'captures':
+          '0':
+            'name': 'entity.other.attribute-name.$1.cfml'
+        'name': 'meta.attribute-without-value.$1.cfml'
       }
     ]
   'tags-with-script':
-    'begin': '(?i)(<)(cfset|cfreturn)(?=\\s|/?>)'
+    'name': 'meta.tag.$2.cfml'
+    'begin': '(?i)(<)(cfset|cfreturn|cfif|cfelseif)\\b'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin.cfml'
       '2':
-        'name': 'entity.name.tag.cfml'
+        'name': 'entity.name.tag.$2.cfml'
     'end': '(/?>)'
     'endCaptures':
       '1':
         'name': 'punctuation.definition.tag.end.cfml'
-    'name': 'meta.tag.cfml'
     'contentName': 'source.cfscript'
     'patterns': [
       {

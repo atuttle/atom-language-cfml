@@ -1,18 +1,37 @@
 describe('html-cfml grammar', function() {
     var grammar;
+    var TextEditor = null
+    var buildTextEditor = function (params) {
+      if(atom.workspace.buildTextEditor) {
+        atom.workspace.buildTextEditor(params) ;
+      } else {
+        TextEditor = TextEditor || require('atom').TextEditor;
+        new TextEditor(params);
+      }
+    };
 
     beforeEach(function() {
         waitsForPromise(function() {
-            return atom.packages.activatePackage('language-html');
+          return atom.packages.activatePackage('language-html');
         });
 
         waitsForPromise(function() {
-            return atom.packages.activatePackage('language-cfml');
+          return atom.packages.activatePackage('language-cfml');
         });
 
         runs(function() {
-            grammar = atom.grammars.grammarForScopeName('text.html.cfml');
+          grammar = atom.grammars.grammarForScopeName('text.html.cfml');
         });
+    });
+
+    afterEach(function() {
+      waitsForPromise(function() {
+        return atom.packages.deactivatePackage('language-html');
+      });
+
+      waitsForPromise(function() {
+        return atom.packages.deactivatePackage('language-cfml');
+      });
     });
 
     it('parses the grammar', function() {
@@ -20,8 +39,8 @@ describe('html-cfml grammar', function() {
         expect(grammar.scopeName).toBe('text.html.cfml');
     });
 
-    describe('populating a select list', function() {
-        xit('should tokenize correctly', function() {
+    xdescribe('populating a select list', function() {
+        it('should tokenize correctly', function() {
             var tokens = grammar.tokenizeLines(
                 [
                     '<cfoutput>',
@@ -34,22 +53,42 @@ describe('html-cfml grammar', function() {
                 ].join('\n')
             );
 
+
+
             expect(tokens[0][0]).toEqual({
                 value: '<',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+                scopes: [
+                  'text.html.cfml',
+                  //'meta.scope.cfoutput.cfml',
+                  'meta.tag.cfoutput.cfml',
+                  'punctuation.definition.tag.begin.cfml'
+                ]
             });
             expect(tokens[0][1]).toEqual({
                 value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+                scopes: [
+                  'text.html.cfml',
+                  //'meta.scope.cfoutput.cfml',
+                  'meta.tag.cfoutput.cfml',
+                  'entity.name.tag.cfoutput.cfml'
+                ]
             });
-            // expect(tokens[0][2]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml'] });
+            expect(tokens[0][2]).toEqual({
+              value: '>',
+              scopes: [
+                'text.html.cfml',
+                //'meta.scope.cfoutput.cfml',
+                'meta.tag.cfoutput.cfml',
+                'punctuation.definition.tag.end.cfml'
+              ]
+            });
 
             expect(tokens[1][0]).toEqual({
                 value: '<',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'punctuation.definition.tag.begin.html'
                 ]
             });
@@ -58,20 +97,20 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
-                    'entity.name.tag.inline.any.html'
+                    'meta.tag.inline.select.html',
+                    'entity.name.tag.inline.select.html'
                 ]
             });
             expect(tokens[1][2]).toEqual({
                 value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.any.html']
+                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.select.html']
             });
             expect(tokens[1][3]).toEqual({
                 value: 'id',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'meta.attribute-with-value.id.html',
                     'entity.other.attribute-name.id.html'
                 ]
@@ -81,7 +120,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'meta.attribute-with-value.id.html',
                     'punctuation.separator.key-value.html'
                 ]
@@ -91,7 +130,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'meta.attribute-with-value.id.html',
                     'string.quoted.double.html',
                     'punctuation.definition.string.begin.html'
@@ -102,7 +141,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'meta.attribute-with-value.id.html',
                     'string.quoted.double.html',
                     'meta.toc-list.id.html'
@@ -113,7 +152,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'meta.attribute-with-value.id.html',
                     'string.quoted.double.html',
                     'punctuation.definition.string.end.html'
@@ -121,27 +160,35 @@ describe('html-cfml grammar', function() {
             });
             expect(tokens[1][8]).toEqual({
                 value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.any.html']
+                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.select.html']
             });
             expect(tokens[1][9]).toEqual({
                 value: 'name',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
+                    'meta.attribute-with-value.html',
                     'entity.other.attribute-name.html'
                 ]
             });
             expect(tokens[1][10]).toEqual({
                 value: '=',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.any.html']
+                scopes: [
+                  'text.html.cfml',
+                  'meta.scope.cfoutput.cfml',
+                  'meta.tag.inline.select.html',
+                  'meta.attribute-with-value.html',
+                  'punctuation.separator.key-value.html'
+                ]
             });
             expect(tokens[1][11]).toEqual({
                 value: '"',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'punctuation.definition.string.begin.html'
                 ]
@@ -151,7 +198,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html'
                 ]
             });
@@ -160,7 +208,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'punctuation.definition.string.end.html'
                 ]
@@ -170,7 +219,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.select.html',
                     'punctuation.definition.tag.end.html'
                 ]
             });
@@ -184,7 +233,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
                     'punctuation.definition.tag.begin.cfml'
                 ]
             });
@@ -193,21 +242,22 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
-                    'entity.name.tag.cfml'
+                    'meta.tag.cfloop.cfml',
+                    'entity.name.tag.cfloop.cfml'
                 ]
             });
             expect(tokens[2][3]).toEqual({
                 value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.cfloop.cfml']
             });
             expect(tokens[2][4]).toEqual({
                 value: 'array',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
-                    'entity.other.attribute-name.cfml'
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
+                    'entity.other.attribute-name.array.cfml'
                 ]
             });
             expect(tokens[2][5]).toEqual({
@@ -215,7 +265,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'punctuation.separator.key-value.cfml'
                 ]
             });
@@ -224,7 +275,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.begin.cfml'
                 ]
@@ -234,7 +286,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'constant.character.hash.cfml'
                 ]
@@ -244,7 +297,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'variable.language.scope.cfml'
                 ]
@@ -254,7 +308,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'keyword.operator.accessor.cfml'
                 ]
@@ -264,9 +319,10 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
-                    'meta.property.object.cfml'
+                    'variable.other.cfml'
                 ]
             });
             expect(tokens[2][11]).toEqual({
@@ -274,7 +330,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'constant.character.hash.cfml'
                 ]
@@ -284,22 +341,24 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.array.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.end.cfml'
                 ]
             });
             expect(tokens[2][13]).toEqual({
                 value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.cfloop.cfml']
             });
             expect(tokens[2][14]).toEqual({
                 value: 'index',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
-                    'entity.other.attribute-name.cfml'
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.index.cfml',
+                    'entity.other.attribute-name.index.cfml'
                 ]
             });
             expect(tokens[2][15]).toEqual({
@@ -307,7 +366,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'punctuation.separator.key-value.cfml'
                 ]
             });
@@ -316,7 +376,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.begin.cfml'
                 ]
@@ -326,7 +387,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml'
                 ]
             });
@@ -335,7 +397,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
+                    'meta.attribute-with-value.index.cfml',
                     'string.quoted.double.cfml',
                     'punctuation.definition.string.end.cfml'
                 ]
@@ -345,7 +408,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.cfml',
+                    'meta.tag.cfloop.cfml',
                     'punctuation.definition.tag.end.cfml'
                 ]
             });
@@ -359,7 +422,7 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
                     'punctuation.definition.tag.begin.html'
                 ]
             });
@@ -368,43 +431,55 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
-                    'entity.name.tag.inline.any.html'
+                    'meta.tag.inline.option.html',
+                    'entity.name.tag.inline.option.html'
                 ]
             });
             expect(tokens[3][3]).toEqual({
                 value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.any.html']
+                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.option.html']
             });
             expect(tokens[3][4]).toEqual({
                 value: 'value',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
+                    'meta.attribute-with-value.html',
                     'entity.other.attribute-name.html'
                 ]
             });
             expect(tokens[3][5]).toEqual({
                 value: '=',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.any.html']
+                scopes: [
+                  'text.html.cfml',
+                  'meta.scope.cfoutput.cfml',
+                  'meta.tag.inline.option.html',
+                  'meta.attribute-with-value.html',
+                  'punctuation.separator.key-value.html'
+                ]
             });
             expect(tokens[3][6]).toEqual({
                 value: '"',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'punctuation.definition.string.begin.html'
                 ]
             });
+
+
+
             expect(tokens[3][7]).toEqual({
                 value: '#',
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'constant.character.hash.cfml'
                 ]
@@ -414,7 +489,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'variable.other.object.cfml'
                 ]
@@ -424,7 +500,8 @@ describe('html-cfml grammar', function() {
                 scopes: [
                     'text.html.cfml',
                     'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.any.html',
+                    'meta.tag.inline.option.html',
+                    'meta.attribute-with-value.html',
                     'string.quoted.double.html',
                     'keyword.operator.accessor.cfml'
                 ]
@@ -590,27 +667,39 @@ describe('html-cfml grammar', function() {
 
             expect(tokens[6][0]).toEqual({
                 value: '</',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
             });
             expect(tokens[6][1]).toEqual({
                 value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
             });
             expect(tokens[6][2]).toEqual({
                 value: '>',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
             });
         });
     });
 
     describe('tokenizing cfcomments', function() {
-        it('should tokenize cfcomments correctly', function() {
+        it('should tokenize single line cfcomments correctly', function() {
             var tokens = grammar.tokenizeLines('<!--- cfcomment goes here --->');
 
-            expect(tokens[0][0]).toEqual({
-                value: '<!--- cfcomment goes here --->',
-                scopes: ['text.html.cfml', 'comment.line.cfml']
-            });
+            expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'comment.line.cfml', 'punctuation.definition.comment.start.cfml'] });
+            expect(tokens[0][1]).toEqual({ value: ' cfcomment goes here ', scopes: ['text.html.cfml', 'comment.line.cfml'] });
+            expect(tokens[0][2]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'comment.line.cfml', 'punctuation.definition.comment.end.cfml'] });
+        });
+
+        it('should tokenize multi line cfcomments correctly', function() {
+            var tokens = grammar.tokenizeLines(
+            '<!---' + '\n' +
+              'cfcomment goes here' + '\n' +
+              'and goes here' + '\n' +
+            '--->');
+
+            expect(tokens[0][0]).toEqual({ value: '<!---', scopes: ['text.html.cfml', 'comment.block.cfml', 'punctuation.definition.comment.start.cfml'] });
+            expect(tokens[1][0].scopes).toEqual( ['text.html.cfml', 'comment.block.cfml'] );
+            expect(tokens[2][0].scopes).toEqual( ['text.html.cfml', 'comment.block.cfml'] );
+            expect(tokens[3][0]).toEqual({ value: '--->', scopes: ['text.html.cfml', 'comment.block.cfml', 'punctuation.definition.comment.end.cfml'] });
         });
 
         it('should tokenize cfcomments embedded in html tags correctly', function() {
@@ -740,11 +829,23 @@ describe('html-cfml grammar', function() {
                 value: ' ',
                 scopes: ['text.html.cfml', 'meta.tag.inline.input.html']
             });
+
             expect(tokens[0][15]).toEqual({
-                value: '<!--- embedded cfcomment --->',
+                value: '<!---',
+                scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml', 'punctuation.definition.comment.start.cfml']
+            });
+
+            expect(tokens[0][16]).toEqual({
+                value: ' embedded cfcomment ',
                 scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml']
             });
-            expect(tokens[0][16]).toEqual({
+
+            expect(tokens[0][17]).toEqual({
+                value: '--->',
+                scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml', 'punctuation.definition.comment.end.cfml']
+            });
+
+            expect(tokens[0][18]).toEqual({
                 value: ' />',
                 scopes: [
                     'text.html.cfml',
@@ -867,6 +968,7 @@ describe('html-cfml grammar', function() {
                     'string.quoted.double.html'
                 ]
             });
+
             expect(tokens[0][13]).toEqual({
                 value: '"',
                 scopes: [
@@ -877,15 +979,28 @@ describe('html-cfml grammar', function() {
                     'punctuation.definition.string.end.html'
                 ]
             });
+
             expect(tokens[0][14]).toEqual({
                 value: ' ',
                 scopes: ['text.html.cfml', 'meta.tag.inline.input.html']
             });
+
             expect(tokens[0][15]).toEqual({
-                value: '<!--- #rc.name# should not be tokenized --->',
+                value: '<!---',
+                scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml', 'punctuation.definition.comment.start.cfml']
+            });
+
+            expect(tokens[0][16]).toEqual({
+                value: ' #rc.name# should not be tokenized ',
                 scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml']
             });
-            expect(tokens[0][16]).toEqual({
+
+            expect(tokens[0][17]).toEqual({
+                value: '--->',
+                scopes: ['text.html.cfml', 'meta.tag.inline.input.html', 'comment.line.cfml', 'punctuation.definition.comment.end.cfml']
+            });
+
+            expect(tokens[0][18]).toEqual({
                 value: ' />',
                 scopes: [
                     'text.html.cfml',
@@ -897,335 +1012,33 @@ describe('html-cfml grammar', function() {
     });
 
     describe('tokenization in strings', function() {
+
         xit('should tokenize embedded cf in strings', function() {
-            var tokens = grammar.tokenizeLines(
-                '<cfoutput><a href="index.cfm?action=shopping.product-details.main&amp;details=#_.detail#">#variables.white_papers[_.detail][2]#</a></cfoutput>'
-            );
+            var tokens = grammar.tokenizeLines([
+              '<cfoutput>',
+                'This is just a test',
+              '</cfoutput>'
+            ].join('\n'));
 
             expect(tokens[0][0]).toEqual({
                 value: '<',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
             });
+
             expect(tokens[0][1]).toEqual({
                 value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+                scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
             });
-            // expect(tokens[0][2]).toEqual({ value: '>', scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml'] });
-            expect(tokens[0][3]).toEqual({
-                value: '<',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'punctuation.definition.tag.begin.html'
-                ]
+
+            expect(tokens[0][2]).toEqual({
+              value: '>',
+              scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
             });
-            expect(tokens[0][4]).toEqual({
-                value: 'a',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'entity.name.tag.inline.a.html'
-                ]
-            });
-            expect(tokens[0][5]).toEqual({
-                value: ' ',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.a.html']
-            });
-            expect(tokens[0][6]).toEqual({
-                value: 'href',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'entity.other.attribute-name.html'
-                ]
-            });
-            expect(tokens[0][7]).toEqual({
-                value: '=',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.tag.inline.a.html']
-            });
-            expect(tokens[0][8]).toEqual({
-                value: '"',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'punctuation.definition.string.begin.html'
-                ]
-            });
-            expect(tokens[0][9]).toEqual({
-                value: 'index.cfm?action=shopping.product-details.main',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html'
-                ]
-            });
-            expect(tokens[0][10]).toEqual({
-                value: '&',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'constant.character.entity.html',
-                    'punctuation.definition.entity.html'
-                ]
-            });
-            expect(tokens[0][11]).toEqual({
-                value: 'amp',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'constant.character.entity.html'
-                ]
-            });
-            expect(tokens[0][12]).toEqual({
-                value: ';',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'constant.character.entity.html',
-                    'punctuation.definition.entity.html'
-                ]
-            });
-            expect(tokens[0][13]).toEqual({
-                value: 'details=',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html'
-                ]
-            });
-            expect(tokens[0][14]).toEqual({
-                value: '#',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'constant.character.hash.cfml'
-                ]
-            });
-            expect(tokens[0][15]).toEqual({
-                value: '_',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'variable.other.object.cfml'
-                ]
-            });
-            expect(tokens[0][16]).toEqual({
-                value: '.',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'keyword.operator.accessor.cfml'
-                ]
-            });
-            expect(tokens[0][17]).toEqual({
-                value: 'detail',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'meta.property.object.cfml'
-                ]
-            });
-            expect(tokens[0][18]).toEqual({
-                value: '#',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'constant.character.hash.cfml'
-                ]
-            });
-            expect(tokens[0][19]).toEqual({
-                value: '"',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'string.quoted.double.html',
-                    'punctuation.definition.string.end.html'
-                ]
-            });
-            expect(tokens[0][20]).toEqual({
-                value: '>',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'punctuation.definition.tag.end.html'
-                ]
-            });
-            expect(tokens[0][21]).toEqual({
-                value: '#',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'constant.character.hash.cfml'
-                ]
-            });
-            expect(tokens[0][22]).toEqual({
-                value: 'variables',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'variable.language.scope.cfml'
-                ]
-            });
-            expect(tokens[0][23]).toEqual({
-                value: '.',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'keyword.operator.accessor.cfml'
-                ]
-            });
-            expect(tokens[0][24]).toEqual({
-                value: 'white_papers',
-                scopes: ['text.html.cfml', 'meta.scope.cfoutput.cfml', 'meta.property.object.cfml']
-            });
-            expect(tokens[0][25]).toEqual({
-                value: '[',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'meta.brace.square.cfml'
-                ]
-            });
-            expect(tokens[0][26]).toEqual({
-                value: '_',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'variable.other.object.cfml'
-                ]
-            });
-            expect(tokens[0][27]).toEqual({
-                value: '.',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'keyword.operator.accessor.cfml'
-                ]
-            });
-            expect(tokens[0][28]).toEqual({
-                value: 'detail',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'meta.property.object.cfml'
-                ]
-            });
-            expect(tokens[0][29]).toEqual({
-                value: ']',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'meta.brace.square.cfml'
-                ]
-            });
-            expect(tokens[0][30]).toEqual({
-                value: '[',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'meta.brace.square.cfml'
-                ]
-            });
-            expect(tokens[0][31]).toEqual({
-                value: '2',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'constant.numeric.cfml'
-                ]
-            });
-            expect(tokens[0][32]).toEqual({
-                value: ']',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.group.braces.square',
-                    'meta.brace.square.cfml'
-                ]
-            });
-            expect(tokens[0][33]).toEqual({
-                value: '#',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'constant.character.hash.cfml'
-                ]
-            });
-            expect(tokens[0][34]).toEqual({
-                value: '</',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'punctuation.definition.tag.begin.html'
-                ]
-            });
-            expect(tokens[0][35]).toEqual({
-                value: 'a',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'entity.name.tag.inline.a.html'
-                ]
-            });
-            expect(tokens[0][36]).toEqual({
-                value: '>',
-                scopes: [
-                    'text.html.cfml',
-                    'meta.scope.cfoutput.cfml',
-                    'meta.tag.inline.a.html',
-                    'punctuation.definition.tag.end.html'
-                ]
-            });
-            expect(tokens[0][37]).toEqual({
-                value: '</',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
-            });
-            expect(tokens[0][38]).toEqual({
-                value: 'cfoutput',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
-            });
-            expect(tokens[0][39]).toEqual({
-                value: '>',
-                scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
-            });
+
         });
     });
 
-    it('should not tokenize embedded cf that is not surrounded by a <cfoutput> tag', function() {
+    xit('should not tokenize embedded cf that is not surrounded by a <cfoutput> tag', function() {
         // TODO
     });
 
@@ -1333,15 +1146,15 @@ describe('html-cfml grammar', function() {
         });
         expect(tokens[0][14]).toEqual({
             value: '</',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][15]).toEqual({
             value: 'cfoutput',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'entity.name.tag.cfoutput.cfml']
         });
         expect(tokens[0][16]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cfoutput.cfml', 'punctuation.definition.tag.end.cfml']
         });
     });
 
@@ -1350,28 +1163,28 @@ describe('html-cfml grammar', function() {
 
         expect(tokens[0][0]).toEqual({
             value: '<',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][1]).toEqual({
             value: 'cf_PageRow',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'entity.name.tag.cf_PageRow.cfml']
         });
         expect(tokens[0][2]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.end.cfml']
         });
         expect(tokens[0][3]).toEqual({ value: ' ', scopes: ['text.html.cfml'] });
         expect(tokens[0][4]).toEqual({
             value: '</',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.begin.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.begin.cfml']
         });
         expect(tokens[0][5]).toEqual({
             value: 'cf_PageRow',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'entity.name.tag.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'entity.name.tag.cf_PageRow.cfml']
         });
         expect(tokens[0][6]).toEqual({
             value: '>',
-            scopes: ['text.html.cfml', 'meta.tag.cfml', 'punctuation.definition.tag.end.cfml']
+            scopes: ['text.html.cfml', 'meta.tag.cf_PageRow.cfml', 'punctuation.definition.tag.end.cfml']
         });
     });
 });
