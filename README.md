@@ -4,6 +4,13 @@ This project is based on an auto-generated [conversion][1] of [the official CFML
 
 Pull requests welcome.
 
+## Installation
+
+1. Clone this repo or download the zip.
+2. In Atom, open a command line in the repo folder you just cloned or extracted from the zip (atom-language-cfml).
+3. On the command line, enter: apm install language-cfml
+4. After the install completes, you will need to close and re-open Atom to see the new package applied to your cfml code.
+
 ## Tests
 [![Build Status](https://travis-ci.org/atuttle/atom-language-cfml.svg?branch=master)](https://travis-ci.org/atuttle/atom-language-cfml)
 
